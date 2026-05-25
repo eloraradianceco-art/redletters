@@ -391,7 +391,7 @@ export default function RedLetters({ session, profile }) {
     const todayTheme = THEMES.find(t => t.id === todaySaying.themeId)
 
     return (
-      <div style={{padding:'0 0 100px'}}>
+      <div style={{padding:'0 0 100px',maxWidth:'min(640px,100%)',margin:'0 auto'}}>
         {/* Header */}
         <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',
           padding:'20px 20px 0',marginBottom:24}}>
@@ -427,7 +427,7 @@ export default function RedLetters({ session, profile }) {
               letterSpacing:'0.1em',textTransform:'uppercase',marginBottom:14}}>
               {gospelInfo.label}
             </div>
-            <p style={{fontSize:18,color:C.words,fontStyle:'italic',lineHeight:1.9,
+            <p style={{fontSize:'clamp(17px,2.5vw,22px)',color:C.words,fontStyle:'italic',lineHeight:1.9,
               marginBottom:14,letterSpacing:'0.01em'}}>"{todaySaying.text}"</p>
             <div style={{fontSize:11,color:C.gold,fontFamily:"'Cinzel',Georgia,serif",
               letterSpacing:'0.1em',marginBottom:4}}>{todaySaying.ref}</div>
@@ -446,7 +446,7 @@ export default function RedLetters({ session, profile }) {
               return (
                 <button key={t.id} onClick={()=>{ setSelectedTheme(t); setView('theme'); window.scrollTo(0,0) }}
                   style={{background:C.bgCard,border:`1px solid ${C.border}`,borderRadius:14,
-                    padding:'16px 14px',cursor:'pointer',textAlign:'left',transition:'all .2s',
+                    padding:'18px 16px',cursor:'pointer',textAlign:'left',transition:'all .2s',
                     position:'relative',overflow:'hidden'}}>
                   <div style={{fontSize:22,marginBottom:8}}>{t.icon}</div>
                   <div style={{fontSize:12,color:C.cream,fontFamily:"'Cinzel',Georgia,serif",
@@ -615,7 +615,7 @@ export default function RedLetters({ session, profile }) {
         </div>
 
         {/* Tab content */}
-        <div style={{padding:'24px 20px 120px'}}>
+        <div style={{padding:'24px 20px 120px',maxWidth:'min(640px,100%)',margin:'0 auto'}}>
 
           {tab === 'words' && (
             <div>
@@ -924,7 +924,7 @@ export default function RedLetters({ session, profile }) {
 
   return (
     <div style={{minHeight:'100vh',background:`radial-gradient(ellipse at 50% 0%,rgba(139,26,26,0.06) 0%,transparent 55%),${C.bg}`,
-      fontFamily:"'EB Garamond',Georgia,serif",maxWidth:480,margin:'0 auto'}}>
+      fontFamily:"'EB Garamond',Georgia,serif",maxWidth:'min(680px,100vw)',margin:'0 auto'}}>
 
       {view === 'home'   && <HomeView/>}
       {view === 'theme'  && <ThemeView/>}
