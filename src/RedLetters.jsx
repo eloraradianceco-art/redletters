@@ -391,7 +391,7 @@ export default function RedLetters({ session, profile }) {
     const todayTheme = THEMES.find(t => t.id === todaySaying.themeId)
 
     return (
-      <div style={{padding:'0 0 100px',maxWidth:'min(640px,100%)',margin:'0 auto'}}>
+      <div style={{padding:'0 0 100px',maxWidth:720,margin:'0 auto',width:'100%'}}>
         {/* Header */}
         <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',
           padding:'20px 20px 0',marginBottom:24}}>
@@ -615,7 +615,7 @@ export default function RedLetters({ session, profile }) {
         </div>
 
         {/* Tab content */}
-        <div style={{padding:'24px 20px 120px',maxWidth:'min(640px,100%)',margin:'0 auto'}}>
+        <div style={{padding:'24px 20px 120px',maxWidth:700,margin:'0 auto'}}>
 
           {tab === 'words' && (
             <div>
@@ -924,7 +924,7 @@ export default function RedLetters({ session, profile }) {
 
   return (
     <div style={{minHeight:'100vh',background:`radial-gradient(ellipse at 50% 0%,rgba(139,26,26,0.06) 0%,transparent 55%),${C.bg}`,
-      fontFamily:"'EB Garamond',Georgia,serif",maxWidth:'min(680px,100vw)',margin:'0 auto'}}>
+      fontFamily:"'EB Garamond',Georgia,serif",width:'100%',minHeight:'100vh'}}>
 
       {view === 'home'   && <HomeView/>}
       {view === 'theme'  && <ThemeView/>}
