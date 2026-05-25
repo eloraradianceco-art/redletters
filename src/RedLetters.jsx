@@ -4,13 +4,13 @@ import { THEMES, ALL_SAYINGS, GOSPEL_LABELS } from './data.js'
 import { toPng } from 'html-to-image'
 
 const C = {
-  bg:'#080D14', bgCard:'rgba(255,255,255,0.03)', bgMid:'#101820',
-  red:'#9B2020', redL:'#C23B3B', redF:'rgba(155,32,32,0.12)', redB:'rgba(155,32,32,0.3)',
-  words:'#E8A0A0',   // color of the red letter text
-  gold:'#B08A4E', goldL:'#C9A46A', goldF:'rgba(176,138,78,0.1)', goldB:'rgba(176,138,78,0.28)',
-  cream:'#EDE6D6', text:'#C8BEAA', muted:'#7C90A2', dim:'#4E6070',
-  border:'rgba(255,255,255,0.06)', borderGold:'rgba(176,138,78,0.18)',
-  green:'#7C9284', greenF:'rgba(124,146,132,0.12)', greenB:'rgba(124,146,132,0.3)',
+  bg:'#F7F2EA', bgCard:'rgba(0,0,0,0.04)', bgMid:'#EDE6D6',
+  red:'#8B1A1A', redL:'#A52020', redF:'rgba(139,26,26,0.1)', redB:'rgba(139,26,26,0.25)',
+  words:'#8B1A1A',   // color of the red letter text
+  gold:'#8B6A2E', goldL:'#A07840', goldF:'rgba(139,106,46,0.1)', goldB:'rgba(139,106,46,0.28)',
+  cream:'#2A1A0E', text:'#3D2E1A', muted:'#7A6248', dim:'#9A8268',
+  border:'rgba(0,0,0,0.08)', borderGold:'rgba(139,106,46,0.2)',
+  green:'#2E6040', greenF:'rgba(46,96,64,0.1)', greenB:'rgba(46,96,64,0.3)',
 }
 
 const TABS = [
@@ -440,7 +440,7 @@ export default function RedLetters({ session, profile }) {
         <div style={{padding:'0 20px'}}>
           <div style={{fontSize:9,color:C.muted,fontFamily:"'Cinzel',Georgia,serif",
             letterSpacing:'0.2em',textTransform:'uppercase',marginBottom:12}}>Browse by Theme</div>
-          <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:10}}>
+          <div style={{display:'flex',flexDirection:'column',gap:10}}>
             {THEMES.map(t => {
               const done = t.sayings.filter(s => get(s.id,'read')==='true').length
               return (
@@ -923,7 +923,7 @@ export default function RedLetters({ session, profile }) {
   }
 
   return (
-    <div style={{minHeight:'100vh',background:`radial-gradient(ellipse at 50% 0%,rgba(155,32,32,0.1) 0%,transparent 60%),${C.bg}`,
+    <div style={{minHeight:'100vh',background:`radial-gradient(ellipse at 50% 0%,rgba(139,26,26,0.06) 0%,transparent 55%),${C.bg}`,
       fontFamily:"'EB Garamond',Georgia,serif",maxWidth:480,margin:'0 auto'}}>
 
       {view === 'home'   && <HomeView/>}
