@@ -633,6 +633,189 @@ export const THEMES = [
     ]
   },
 
+  {
+    id:26, icon:"\ud83c\udf77", title:"The Last Supper", color:"red", subtitle:"The words He spoke before He died.",
+    sayings:[
+      {
+        id:"26_1", text:"This is my body given for you; do this in remembrance of me.",
+        ref:"Luke 22:19", gospel:"luke",
+        context:"Jesus took bread at the Passover meal with His disciples the night before the crucifixion, gave thanks, broke it, and gave it to them. Then He spoke these words \u2014 redefining what the Passover meant, pointing everything toward what was about to happen.",
+        meaning:"The Passover had always been a memorial \u2014 remembering the night God delivered Israel from Egypt through the blood of a lamb. Jesus was announcing a new Passover: His body broken for a greater deliverance. 'Do this in remembrance of me' \u2014 not as a ritual obligation, but as an ongoing act of recall and re-receiving.",
+        obey:"When did you last receive communion with genuine hunger and attention \u2014 not as a ritual you observe but as an act of remembering what was broken for you? Come to the table today, even if only in your heart, with that intentionality.",
+        prayer:"Jesus, You said: do this in remembrance of me. I remember. I remember what You gave up. I remember that this bread is Your body, broken so mine could be whole. I don't want to take this lightly ever again. I receive what You gave. Thank You. Amen.",
+      },
+      {
+        id:"26_2", text:"This cup is the new covenant in my blood, which is poured out for you.",
+        ref:"Luke 22:20", gospel:"luke",
+        context:"After the bread, Jesus took the cup and spoke of a new covenant. He was referencing Jeremiah 31:31-34 \u2014 the ancient promise of a covenant written on hearts, not stone. Now He was announcing its fulfillment.",
+        meaning:"The old covenant required the blood of animals, repeated year after year, never fully dealing with sin. The new covenant is sealed with His blood \u2014 poured out once, permanently, fully. 'New covenant' means a new arrangement between God and humanity, achieved not by human performance but by His sacrifice.",
+        obey:"Do you live as someone under the old covenant \u2014 constantly trying to perform well enough to maintain your standing \u2014 or under the new covenant, where your standing is secured by His blood? There is a difference in how you wake up every morning.",
+        prayer:"Lord Jesus, Your blood poured out sealed a new covenant. My standing before God is not based on my performance but on Your sacrifice. I live under the new covenant today. Not trying to earn \u2014 receiving. Not striving \u2014 resting in what You poured out. Thank You. Amen.",
+      },
+      {
+        id:"26_3", text:"I will not drink from this fruit of the vine from now on until that day when I drink it new with you in my Father's kingdom.",
+        ref:"Matthew 26:29", gospel:"matthew",
+        context:"At the Last Supper, Jesus looked past the cross to a future celebration \u2014 a meal He would share with His disciples in the Father's kingdom. In the shadow of imminent death, He spoke of future reunion.",
+        meaning:"This is a striking act of forward-looking hope. Jesus is about to enter the darkest hours imaginable \u2014 yet He is already anticipating the feast that follows. The cross is not the end of the story. There is a table waiting on the other side.\n\nThe Lord's Supper is always both memorial (remembering His death) and anticipation (looking toward His return).",
+        obey:"Do you live with the anticipation of the feast Jesus described \u2014 the coming celebration in the Father's kingdom? Or has your faith become primarily backward-looking (what He did) without the forward-looking hope (what He is preparing)? Both are essential.",
+        prayer:"Jesus, You looked past the cross to the feast. Teach me that kind of forward-looking hope. The cup You drank was bitter. The cup You will pour in the kingdom will be new. I hold both in my hands today \u2014 the memory of what You gave, and the hope of what is coming. Come, Lord Jesus. Amen.",
+      },
+    ]
+  },
+  {
+    id:27, icon:"\ud83c\udf3e", title:"The Sermon on the Mount", color:"gold", subtitle:"The kingdom ethics of Jesus.",
+    sayings:[
+      {
+        id:"27_1", text:"You have heard that it was said, 'An eye for an eye and a tooth for a tooth.' But I tell you, do not resist an evil person. If anyone slaps you on the right cheek, turn to them the other cheek also.",
+        ref:"Matthew 5:38-39", gospel:"matthew",
+        context:"Jesus was in the section of the Sermon on the Mount where He contrasted the old understanding with the new: 'You have heard... but I tell you.' He was not contradicting Moses \u2014 He was completing what Moses pointed toward. The 'eye for an eye' law was originally meant to limit retaliation, not mandate it. Jesus took it further: don't retaliate at all.",
+        meaning:"Turning the other cheek is not passivity or weakness \u2014 in the culture of Jesus's day, it was actually an act of dignity that put the aggressor in an awkward position. It is the refusal to continue a cycle of escalating violence.\n\nThis is one of the most countercultural teachings Jesus ever gave. It requires a deep security in God's justice \u2014 a willingness to absorb an offense without repaying it, trusting that God is the one who settles accounts.",
+        obey:"Where are you currently retaliating \u2014 not with physical violence, but with words, withdrawal, gossip, or withholding? Jesus is asking for the other cheek. Not pretending the offense didn't happen. But refusing to continue the cycle. What would that look like in your most difficult relationship right now?",
+        prayer:"Jesus, I want to retaliate. I want the offense met with an equal response. But You turned the other cheek all the way to the cross. Give me the security in God's justice that makes it possible for me to absorb an offense without repaying it. Break the cycle in me. Amen.",
+      },
+      {
+        id:"27_2", text:"You have heard that it was said, 'Love your neighbor and hate your enemy.' But I tell you, love your enemies and pray for those who persecute you.",
+        ref:"Matthew 5:43-44", gospel:"matthew",
+        context:"This is the climax of the 'you have heard... but I tell you' section of the Sermon on the Mount. Every previous contrast has been building toward this \u2014 the most radical ethical demand in the teaching of Jesus.",
+        meaning:"The command to hate your enemy was never actually in the Torah \u2014 it was a cultural addition, an inference people had drawn. Jesus dismantles it entirely. The love He calls for is not sentimental affection. It is a committed choice of will \u2014 to want good for someone, to pray for them, to refuse to let hatred define your relationship with them.",
+        obey:"Name your enemy specifically \u2014 not a category, but a person. Now pray for them. Not about them \u2014 for them. Ask God to bless them, meet them, do good to them. You don't have to feel it. The command is to pray. See what happens to your heart in the process.",
+        prayer:"Father, I name my enemy now. I don't feel love for them. But You command me to pray for them, so I do: bless them. Meet them. Do them good. I release my grip on their punishment. Do what only You can do in both of us. Amen.",
+      },
+      {
+        id:"27_3", text:"Be careful not to practice your righteousness in front of others to be seen by them. If you do, you will have no reward from your Father in heaven.",
+        ref:"Matthew 6:1", gospel:"matthew",
+        context:"This verse opens the section of the Sermon on the Mount that deals with three religious practices: giving, prayer, and fasting. In each case, Jesus describes the hypocritical version (done to be seen by people) and the authentic version (done before God in secret).",
+        meaning:"The warning is not that public faith is wrong \u2014 it is that the motivation determines the reward. If the reward you seek is human admiration, that is exactly what you will get, and nothing more. If the reward you seek is God's approval, you must do the religious acts in a way that only He can see and reward.\n\nJesus assumes His followers will give, pray, and fast. The question is not whether \u2014 it is why.",
+        obey:"Which of your current spiritual practices are shaped more by how they appear to others than by your actual relationship with God? Not looking to condemn yourself \u2014 looking to identify where the performance has crept in. What would it look like to do one of those practices in a way no one else ever knows about?",
+        prayer:"Father, I confess that some of what I call spiritual discipline is actually spiritual performance. I have been seeking the approval that comes from being seen as devoted. Forgive me. Let my giving, my prayer, my fasting be things only You see and reward. Let my reward be You. Amen.",
+      },
+      {
+        id:"27_4", text:"When you fast, put oil on your head and wash your face, so that it will not be obvious to others that you are fasting, but only to your Father, who is unseen; and your Father, who sees what is done in secret, will reward you.",
+        ref:"Matthew 6:17-18", gospel:"matthew",
+        context:"Jesus assumed His disciples would fast. He didn't say 'if you fast' \u2014 He said 'when you fast.' He then gave instructions for how to fast authentically: not with a performance of suffering, but in a way that looks completely ordinary to everyone around you.",
+        meaning:"Oil and washing the face were the normal grooming practices of the day. Jesus is saying: look normal. Don't let your fasting become a way of signaling how spiritual you are.\n\nThis means fasting is entirely between you and God. No one needs to know. No credit, no recognition, no spiritual reputation gained. Just you and the Father in secret.",
+        obey:"When is the last time you fasted \u2014 not for a group event or a public commitment, but quietly, between you and God? Jesus assumes this practice will be part of a disciple's life. If it hasn't been, consider starting small: one meal, between you and God, no announcement.",
+        prayer:"Father, I want to fast in the way You reward \u2014 secretly, honestly, between us. Not to seem spiritual. Not to earn anything. But to give up something I depend on and find that You are enough. Teach me to fast the way Jesus described. Let the secret discipline bear fruit only You can see. Amen.",
+      },
+    ]
+  },
+  {
+    id:28, icon:"\ud83c\udf3a", title:"Women & the Marginalized", color:"red", subtitle:"He stopped for everyone the world walked past.",
+    sayings:[
+      {
+        id:"28_1", text:"Woman, you are set free from your infirmity.",
+        ref:"Luke 13:12", gospel:"luke",
+        context:"Jesus was teaching in a synagogue on the Sabbath. A woman was there who had been crippled by a spirit for eighteen years \u2014 bent over, unable to straighten up. Jesus called her forward, placed His hands on her, and spoke these words. The synagogue ruler was indignant: healing on the Sabbath was work.",
+        meaning:"Jesus called her 'daughter of Abraham' \u2014 a title of full belonging, dignity, and covenant identity. He was giving her back not just her posture but her personhood. The eighteen years of her suffering were not forgotten. They were over.\n\nJesus's anger at the synagogue ruler's objection is striking: this man would untie his donkey on the Sabbath to water it, but objected to a woman being untied from eighteen years of bondage.",
+        obey:"Who in your community has been bent over for years \u2014 by illness, by circumstance, by shame \u2014 and is waiting for someone to call them forward and speak freedom over them? And what religious rules have you made that prevent you from stopping for them?",
+        prayer:"Jesus, You called her forward on the day everyone said it was inconvenient. You said 'you are set free' before anyone agreed it was appropriate. Give me that same disregard for religious propriety when someone needs liberation. Let me stop. Let me call them forward. Let me speak what You would speak. Amen.",
+      },
+      {
+        id:"28_2", text:"Go, call your husband and come back.",
+        ref:"John 4:16", gospel:"john",
+        context:"Jesus was speaking to the Samaritan woman at the well. She had asked Him to give her the living water so she wouldn't have to come to the well anymore. His response seems like an interruption \u2014 but it isn't. He was moving the conversation from physical thirst to spiritual need.",
+        meaning:"The woman had five husbands and was currently with a man who was not her husband. Jesus named this not to shame her but to show her He already knew \u2014 and was speaking to her anyway. He then offered her the living water despite, or perhaps because of, knowing her whole story.\n\nThis was a scandalous conversation in the ancient world: a Jewish rabbi, alone, speaking theology with a Samaritan woman of questionable reputation.",
+        obey:"Have you tried to get the living water from Jesus while keeping the messy parts of your life hidden? He already knows. He is not waiting for the cleaned-up version of you to show up. He is at the well you pass every day, and He is speaking to the real you.",
+        prayer:"Jesus, You knew everything about the woman at the well and spoke to her anyway. You know everything about me and You are speaking to me anyway. I stop hiding the messy parts. I bring all of it to the well. Give me the living water \u2014 the kind that satisfies what only You can satisfy. Amen.",
+      },
+      {
+        id:"28_3", text:"Let the little children come to me, and do not hinder them, for the kingdom of heaven belongs to such as these.",
+        ref:"Matthew 19:14", gospel:"matthew",
+        context:"People were bringing little children to Jesus for Him to place His hands on them and pray for them, but the disciples rebuked them. The disciples had a theology about who was important enough to take up Jesus's time. Jesus reordered it.",
+        meaning:"This saying appears in all three Synoptic Gospels, which signals its importance. The disciples' gatekeeping was not malicious \u2014 they were protecting Jesus's time and energy. But Jesus's indignation showed that this kind of gatekeeping violated something central to His ministry.\n\nChildren were not socially important in the ancient world. They had no status, no vote, no influence. Jesus says the kingdom belongs to them.",
+        obey:"Who are you unconsciously treating as too unimportant, too young, too socially insignificant for Jesus's attention \u2014 and therefore for yours? The disciples thought they were protecting Jesus. They were actually revealing their own hierarchy. What does yours look like?",
+        prayer:"Jesus, I have gatekeeping in my heart \u2014 people I've decided are not worth my attention, not important enough for my time. You were indignant at the disciples for the same thing. Forgive me. Let me see the children \u2014 the overlooked, the statusless \u2014 the way You see them. The kingdom belongs to such as these. Amen.",
+      },
+    ]
+  },
+  {
+    id:29, icon:"\ud83d\udd11", title:"The I Am Statements", color:"gold", subtitle:"Seven declarations of who He is.",
+    sayings:[
+      {
+        id:"29_1", text:"I am the vine; you are the branches. If you remain in me and I in you, you will bear much fruit; apart from me you can do nothing.",
+        ref:"John 15:5", gospel:"john",
+        context:"This is the culminating statement of the vine-and-branches teaching in John 15, spoken in the upper room the night before the crucifixion. Jesus had already said 'remain in me' \u2014 now He makes the stakes explicit: apart from Him, nothing.",
+        meaning:"The statement 'apart from me you can do nothing' is absolute. Not 'less' or 'with more difficulty' \u2014 nothing. This is not about effort or talent or spiritual discipline. It is about the nature of life itself: it flows from the vine, not the branch.\n\nThe flip side is equally absolute: if you remain, you will bear much fruit. Not 'might' or 'could' \u2014 will.",
+        obey:"Be honest: what are you currently trying to accomplish for God that you have not actually connected to Him in? Where are you a branch working hard in separation from the vine? That is the zone where you can do nothing, no matter how much effort you apply.",
+        prayer:"Jesus, I am the branch. You are the vine. Apart from You I can do nothing \u2014 I have tried to prove otherwise and you've been patient with me. I come back to the connection. I remain. I stay. I stop trying to produce fruit and start receiving life. Then the fruit will come. Amen.",
+      },
+      {
+        id:"29_2", text:"I am the true vine, and my Father is the gardener. He cuts off every branch in me that bears no fruit, while every branch that does bear fruit he prunes so that it will be even more fruitful.",
+        ref:"John 15:1-2", gospel:"john",
+        context:"Jesus opened the vine-and-branches discourse by identifying the Father as the gardener. The gardener's work includes two acts: cutting off unfruitful branches, and pruning fruitful ones. Both are the gardener's work. Both involve a blade.",
+        meaning:"The word 'prunes' (kathairo) is the same root as 'clean' \u2014 Jesus used it in verse 3 when He said 'you are already clean.' Pruning is not punishment. It is the necessary work of removing what limits growth, even from branches that are already fruitful.\n\nIf you are experiencing pruning \u2014 loss, limitation, the removal of something that mattered to you \u2014 this may be the gardener at work, not the enemy.",
+        obey:"What in your life feels like pruning right now \u2014 something being cut away, something being reduced, something you valued that is no longer available to you? Can you hold that experience as the gardener's work rather than abandonment?",
+        prayer:"Father, You are the gardener. I don't always like what You cut. I have confused pruning with punishment, discipline with abandonment. Give me the trust to stay in the vine while You do the necessary work. What You cut is for more fruit, not less life. I trust the gardener. Amen.",
+      },
+      {
+        id:"29_3", text:"Before Abraham was born, I am!",
+        ref:"John 8:58", gospel:"john",
+        context:"The religious leaders had asked Jesus: 'Are you greater than our father Abraham, who died? Who do you think you are?' Jesus's response built to this explosive claim: before Abraham was born \u2014 more than 2,000 years earlier \u2014 'I am.'",
+        meaning:"'I am' is the divine name revealed to Moses at the burning bush (Exodus 3:14). Jesus was not just claiming to pre-exist Abraham. He was claiming the divine name \u2014 identifying Himself with the eternal, self-existent God. The crowd understood exactly what He was claiming and picked up stones to stone Him.\n\nThis is the most explicit claim to deity in the Gospels. Jesus was not a great teacher who got elevated to divinity by his followers. He claimed it Himself, in the clearest possible terms.",
+        obey:"When you say 'I believe in Jesus,' do you believe in the one who said 'I am' \u2014 the eternal, self-existent God who entered human history \u2014 or a reduced version who is primarily a moral teacher? The crowd's attempt to stone Him tells you exactly how radical the claim was.",
+        prayer:"Jesus, before Abraham was, You are. You are not a figure in history \u2014 You are the eternal I Am who stepped into history. I bow before that. Not just before a teacher, a prophet, or a good man \u2014 before the God who was before everything and will be after everything. I am. I worship You. Amen.",
+      },
+    ]
+  },
+  {
+    id:30, icon:"\u270b", title:"Hard Sayings", color:"red", subtitle:"The words that made people walk away.",
+    sayings:[
+      {
+        id:"30_1", text:"If your right eye causes you to stumble, gouge it out and throw it away. It is better for you to lose one part of your body than for your whole body to be thrown into hell.",
+        ref:"Matthew 5:29", gospel:"matthew",
+        context:"This comes from the Sermon on the Mount, in the context of Jesus's teaching on lust. He had just said that looking at a woman with lust commits adultery in the heart. Now He gives the radical prescription: whatever causes you to stumble, remove it.",
+        meaning:"Jesus is using hyperbole \u2014 deliberate exaggeration to make a point. He is not teaching self-mutilation. He is making a point about the seriousness of sin: it is better to live with significant loss than to enter eternity with everything and find yourself in hell.\n\nThe radical implication: there are things in your life that may need to be surgically removed. Not moderated. Removed.",
+        obey:"What in your life causes you to stumble \u2014 what access, what habit, what relationship, what content \u2014 that you have been moderating when Jesus is calling you to remove? The surgery metaphor is intentional. Surgery is painful. It leaves a scar. But it saves the patient.",
+        prayer:"Jesus, I have been moderating what You are telling me to remove. I have kept the eye that causes me to stumble, just squinting. I know what it is. I am choosing today to remove it \u2014 not in my own strength but in the seriousness with which You named it. Give me the courage to cut clean. Amen.",
+      },
+      {
+        id:"30_2", text:"Whoever divorces his wife, except for sexual immorality, and marries another, commits adultery.",
+        ref:"Matthew 19:9", gospel:"matthew",
+        context:"The Pharisees had asked Jesus about divorce, trying to trap Him between two competing schools of thought. Jesus bypassed the debate and went back to creation: from the beginning, God's design was one man and one woman, one flesh, not to be separated.\n\nHis teaching was stricter than both schools of Pharisaic thought, and His disciples' response was telling: 'If this is the situation, it is better not to marry.'",
+        meaning:"Jesus was addressing the casualness with which people discarded spouses. The Pharisees had found grounds for divorce in almost anything they found displeasing. Jesus returned to the original design: marriage is a covenant, not a contract. Covenants are not broken for convenience.\n\nThis is a hard teaching that has brought pain to many. It must be read with both the seriousness Jesus intended and the grace He always extended to the broken.",
+        obey:"Whatever your marital history, Jesus's teaching on marriage is an invitation to take covenants seriously going forward \u2014 whether in your own marriage, in how you support others' marriages, or in how you counsel those considering divorce. Where can you honor the covenant design of marriage today?",
+        prayer:"Father, Your design for marriage is one flesh, for life. I honor that design. Where my own life has not matched it, I receive Your grace. Where I can protect and honor covenant going forward, I commit to that. Give me the grace to love covenant the way You love covenant. Amen.",
+      },
+      {
+        id:"30_3", text:"I tell you that unless your righteousness surpasses that of the Pharisees and the teachers of the law, you will certainly not enter the kingdom of heaven.",
+        ref:"Matthew 5:20", gospel:"matthew",
+        context:"Jesus said this early in the Sermon on the Mount, before the specific 'you have heard... but I tell you' contrasts. The Pharisees were considered the most righteous people in Israel \u2014 their level of religious observance was extraordinary. And Jesus said His disciples had to exceed it.",
+        meaning:"The Pharisees' righteousness was external: keeping rules, maintaining appearance, managing their religious reputation. The righteousness Jesus describes in the rest of the Sermon is internal: the transformation of the heart, the alignment of motive with action, the inside matching the outside.\n\nYou cannot exceed Pharisaic righteousness by trying harder at Pharisaic righteousness. You exceed it by being transformed.",
+        obey:"Where are you managing your external religious appearance while leaving the interior largely unchanged? The Pharisees were not hypocrites because they tried hard \u2014 they were hypocrites because they stopped at the exterior. What interior work is Jesus pressing you toward?",
+        prayer:"Jesus, I want righteousness that exceeds the Pharisees \u2014 not by more religious performance, but by transformation that runs deeper than rules. Work on my interior. Change what I actually want, not just what I do. Let my outside become an accurate reflection of an inside that You have genuinely changed. Amen.",
+      },
+    ]
+  },
+  {
+    id:31, icon:"\ud83c\udf05", title:"Resurrection Appearances", color:"gold", subtitle:"What He said after He rose.",
+    sayings:[
+      {
+        id:"31_1", text:"Why are you troubled, and why do doubts rise in your minds? Look at my hands and my feet. It is I myself! Touch me and see.",
+        ref:"Luke 24:38-39", gospel:"luke",
+        context:"Jesus appeared to the disciples in the upper room after His resurrection. They were terrified, thinking they were seeing a ghost. He addressed their doubt not with rebuke but with invitation \u2014 see my hands and feet, touch me, I am not a ghost.",
+        meaning:"The resurrection of Jesus was physical and verifiable. He did not appear as a spirit or a vision. He had hands and feet \u2014 specifically, the hands and feet that bore the nail marks. He was the same person who was crucified, now alive in a transformed but genuinely physical body.\n\nHis first words address their trouble and doubt. He meets them where they are: afraid and uncertain. He doesn't demand faith before offering evidence.",
+        obey:"Where are you troubled and doubting right now \u2014 about His resurrection, about His presence, about whether He is actually there? He is extending the same invitation: look at my hands and feet. The evidence is in the wounds. The doubt is met not with a lecture but with an invitation to examine.",
+        prayer:"Lord Jesus, I am sometimes troubled and doubting \u2014 not sure You are really there, not sure the resurrection is real. I receive Your invitation: look, touch, see. The wounds are the proof. The one who was crucified is the one who rose. I am not seeing a ghost. I am encountering the living Lord. Amen.",
+      },
+      {
+        id:"31_2", text:"Peace be with you! As the Father has sent me, I am sending you.",
+        ref:"John 20:21", gospel:"john",
+        context:"The risen Jesus appeared to the disciples in the locked room on resurrection Sunday evening. He showed them His hands and side. They were filled with joy. Then He said this \u2014 giving them peace and a commission in the same breath.",
+        meaning:"Peace before commission: He doesn't send them out in anxiety, striving, or fear. He first gives peace. The same peace He spoke in John 14:27 \u2014 'not as the world gives' \u2014 He speaks again now, from the other side of the resurrection.\n\nThen: as the Father has sent me, I am sending you. The model of His sending becomes the model of theirs. The same intimacy, the same dependence, the same willingness to enter the world.",
+        obey:"Do you receive the peace before the commission? Many people accept the sending but miss the peace \u2014 they go out in anxiety and striving rather than from a place of settled peace. The order matters. Peace first. Then go.",
+        prayer:"Lord Jesus, You spoke peace before You gave the commission. I receive the peace first. Not the peace that comes when everything is resolved \u2014 the peace You give, which exists before anything is resolved. From that peace, I am sent. I go from Your peace, not toward it. Amen.",
+      },
+      {
+        id:"31_3", text:"Simon son of John, do you love me more than these? Feed my lambs.",
+        ref:"John 21:15", gospel:"john",
+        context:"Peter had denied Jesus three times around a charcoal fire during the trial. Now, after the resurrection, Jesus met Peter at another charcoal fire \u2014 the same smell, the same setting, a deliberate echo. Three denials; three questions: 'Do you love me?'",
+        meaning:"Each question and each answer was a restoration \u2014 covering the three denials with three affirmations. Jesus did not ignore what happened. He addressed it directly, redemptively.\n\n'Feed my lambs' \u2014 the restoration is immediately followed by a commission. Peter is not returned to the sidelines in disgrace. He is returned to ministry. The failure is not the end of the story.",
+        obey:"Where have you denied Jesus \u2014 in your words, your choices, your silence at the wrong moment? Have you been waiting for permission to return to serving Him? The question He asked Peter is the question He asks you: 'Do you love me?' Answer it honestly. Then receive the commission that follows.",
+        prayer:"Jesus, You met Peter at the scene of the failure. You didn't let the denial be the final word. You asked: do you love me? I answer: yes. You know everything \u2014 including my denials, my failures, my silence when I should have spoken. Yes, I love You. I receive the commission that follows. Feed Your lambs. I will. Amen.",
+      },
+    ]
+  },
+
 ]
 
 export const ALL_SAYINGS = THEMES.flatMap(t =>
