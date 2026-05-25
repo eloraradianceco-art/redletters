@@ -411,6 +411,228 @@ export const THEMES = [
       },
     ]
   },
+  {
+    id:17, icon:"\ud83c\udf5e", title:"Bread of Life", color:"red", subtitle:"The one who satisfies every hunger.",
+    sayings:[
+      {
+        id:"17_1", text:"I am the bread of life. Whoever comes to me will never go hungry, and whoever believes in me will never be thirsty.",
+        ref:"John 6:35", gospel:"john",
+        context:"The day before, Jesus had fed five thousand people with five loaves and two fish. The crowd tracked Him down across the lake, seeking more bread. He told them they were seeking Him not because they saw the miraculous sign but because they ate and were filled. Then He pointed to something deeper.",
+        meaning:"To call Himself the bread of life is to claim to be the essential sustenance for human beings at their deepest level. Every human hunger \u2014 for meaning, for security, for love, for significance \u2014 finds its satisfaction in Him. Other things can provide temporary satiation. He alone satisfies.",
+        obey:"What are you currently using to satisfy a hunger that only Jesus can fill \u2014 entertainment, achievement, relationships, success? Name the hunger honestly. Then bring it to the Bread of Life.",
+        prayer:"Jesus, I am hungry in ways I have been feeding with everything except You. I have eaten from other tables and remained hungry. I come to You now \u2014 the Bread of Life. Feed me with what actually satisfies. Amen.",
+      },
+      {
+        id:"17_2", text:"Do not work for food that spoils, but for food that endures to eternal life, which the Son of Man will give you.",
+        ref:"John 6:27", gospel:"john",
+        context:"The crowd had asked Jesus what they must do to do the works of God. He redirected them: don't work for bread that perishes. Work for the bread that endures. Then He told them the work is faith.",
+        meaning:"Jesus is addressing what you are fundamentally orienting your life toward \u2014 what you are spending your deepest energy on. The 'food that endures' is not something you earn. It is something given. The work is faith. The bread is gift.",
+        obey:"What are you working hardest for right now? What is consuming your deepest energy and attention? Is it the food that spoils or the food that endures?",
+        prayer:"Jesus, I have been working hard for food that spoils \u2014 security, success, comfort, recognition. I am tired. I receive now the food that endures \u2014 the gift You give, not the wage I earn. Reorient my deepest efforts toward what lasts. Amen.",
+      },
+    ]
+  },
+  {
+    id:18, icon:"\ud83d\udc11", title:"The Good Shepherd", color:"gold", subtitle:"He knows you by name.",
+    sayings:[
+      {
+        id:"18_1", text:"I am the good shepherd. The good shepherd lays down his life for the sheep.",
+        ref:"John 10:11", gospel:"john",
+        context:"Jesus used the metaphor of a shepherd describing His difference from the religious leaders \u2014 the hired hands who run when danger comes. He is not a manager of a flock. He is a shepherd who dies for it.",
+        meaning:"In the culture of Jesus's time, a shepherd knew each sheep individually, called them by name, went ahead of them into dangerous territory. 'Lays down his life' \u2014 the cross is the act of a shepherd who refused to let the wolves win.",
+        obey:"Do you experience your relationship with Jesus as personal and individual? He is the Good Shepherd \u2014 He knows your name, your face, your specific fear. Let today's need be brought to a shepherd who knows you specifically.",
+        prayer:"Jesus, You are the Good Shepherd. You laid down Your life for the sheep \u2014 for me, specifically. You know my name, my face, my fears. I am not a number in a flock. I am known. I bring my specific need to my specific Shepherd today. Amen.",
+      },
+      {
+        id:"18_2", text:"I give them eternal life, and they shall never perish; no one will snatch them out of my hand.",
+        ref:"John 10:28", gospel:"john",
+        context:"Jesus was speaking to the religious leaders pressing Him about whether He was the Messiah. He spoke of His sheep \u2014 and made this extraordinary promise of security.",
+        meaning:"No one will snatch them out of my hand. The same hands that were pierced on the cross are the hands that hold the sheep. No power \u2014 demonic, human, or otherwise \u2014 can overpower the grip of the crucified and risen Shepherd.",
+        obey:"Do you live with the security that you are in His hands \u2014 or are you living as though your position before God is precarious, dependent on your ongoing performance? The Shepherd holds you. Rest in that today.",
+        prayer:"Jesus, no one can snatch me out of Your hand. I stop living as though my belonging to You depends on my grip on You \u2014 it depends on Your grip on me. You are stronger than everything that would take me. I rest in Your hands today. Amen.",
+      },
+    ]
+  },
+  {
+    id:19, icon:"\ud83d\udcb0", title:"Money & Possessions", color:"red", subtitle:"Where your treasure is, there your heart will be.",
+    sayings:[
+      {
+        id:"19_1", text:"Do not store up for yourselves treasures on earth, where moths and vermin destroy, and where thieves break in and steal. But store up for yourselves treasures in heaven.",
+        ref:"Matthew 6:19-20", gospel:"matthew",
+        context:"This saying comes from the Sermon on the Mount. Jesus is not teaching asceticism. He is teaching about orientation: what you are fundamentally building, what you are securing yourself with.",
+        meaning:"Everything on earth is perishable \u2014 moths, rust, thieves. The question is not whether you will lose your earthly wealth, but when. Treasure in heaven is the result of living now in ways that align with the eternal.",
+        obey:"Look at how you spent your last month \u2014 your money, your time, your energy. What does the distribution reveal about where your treasure actually is?",
+        prayer:"Father, I have been storing up in the wrong place. My energy, my money, my time have been accumulating where they can't last. Reorient my investment. Teach me to be generous, to be faithful, to do the eternal things that outlast everything I own. Amen.",
+      },
+      {
+        id:"19_2", text:"You cannot serve both God and money.",
+        ref:"Matthew 6:24", gospel:"matthew",
+        context:"Jesus framed this as an impossibility, not a difficulty: you cannot serve both. Not 'it's hard to serve both' but 'you cannot.' The grammar is absolute.",
+        meaning:"Money is not inherently evil \u2014 it is a tool. But as a master, it is tyrannical. When financial security is your primary source of peace, when financial fear is your primary anxiety \u2014 it has become a god. Jesus names money as a competing lord.",
+        obey:"Who is your master right now? Not who you say your master is \u2014 but who do your financial decisions actually serve? The answer reveals your master.",
+        prayer:"Lord, I confess that money has had more authority over my decisions than You have. I name it as a rival god and I dethrone it today. You are my master. My money is Your tool. Amen.",
+      },
+    ]
+  },
+  {
+    id:20, icon:"\u2696\ufe0f", title:"Judgment & Grace", color:"gold", subtitle:"The God who condemns no one who comes.",
+    sayings:[
+      {
+        id:"20_1", text:"Do not judge, or you too will be judged. For in the same way you judge others, you will be judged, and with the measure you use, it will be measured to you.",
+        ref:"Matthew 7:1-2", gospel:"matthew",
+        context:"One of the most quoted sayings of Jesus. In context, Jesus is warning about a specific kind of judging: the harsh, dismissive verdict that treats other people's sin differently from your own.",
+        meaning:"The standard you apply to others becomes the standard applied to you. Jesus isn't prohibiting moral clarity. He is requiring moral consistency \u2014 that before you evaluate the speck in another person's eye, you reckon with the log in your own.",
+        obey:"Who are you judging harshly right now? Apply the same standard to yourself. What do you find? That's the beginning of both humility and genuine mercy.",
+        prayer:"Father, I have been judging with a standard I don't apply to myself. Forgive me. I see their speck while carrying a log. Remove the log first. Then \u2014 with clarity that comes from having been forgiven much \u2014 let me see others the way You see them. Amen.",
+      },
+      {
+        id:"20_2", text:"For God did not send his Son into the world to condemn the world, but to save the world through him.",
+        ref:"John 3:17", gospel:"john",
+        context:"This verse immediately follows John 3:16. It is the clarification of purpose: the mission of the Son is salvation, not condemnation.",
+        meaning:"Condemnation was already the world's condition apart from Christ. Jesus didn't arrive to add to it. He arrived to remove it. This changes how the gospel is offered \u2014 not a threat held over people's heads, but a rescue extended to people already drowning.",
+        obey:"How do you present Jesus to people who don't know Him \u2014 as a judge they need to appease, or as a Savior who came because God loves the world? The difference shapes everything about how you speak.",
+        prayer:"Father, thank You for sending Your Son to save, not to condemn. I was already condemned by my own life. He entered the condemnation to get me out. Let me carry the message of the Savior \u2014 not the threat of the judge \u2014 to everyone I meet. Amen.",
+      },
+    ]
+  },
+  {
+    id:21, icon:"\ud83d\udcd6", title:"The Beatitudes", color:"red", subtitle:"The sermon that rewrites the world.",
+    sayings:[
+      {
+        id:"21_1", text:"Blessed are the poor in spirit, for theirs is the kingdom of heaven. Blessed are those who mourn, for they will be comforted.",
+        ref:"Matthew 5:3-4", gospel:"matthew",
+        context:"Jesus sat down on a hillside \u2014 the teacher's posture of authority \u2014 and opened His mouth. The Beatitudes were not a list of virtues to achieve. They were a description of the people to whom God was running.",
+        meaning:"Poor in spirit means deeply aware of your spiritual bankruptcy before God. These are the ones the kingdom belongs to \u2014 because the kingdom is a gift, and gifts flow to those who know they need them. Those who mourn \u2014 not the stoic, not the 'fine' \u2014 they will be comforted.",
+        obey:"Where are you performing spiritual wealth you don't have? Where are you pretending to be fine when you are mourning? Today, come before God exactly as you are \u2014 poor, mourning, honest.",
+        prayer:"Father, I am poorer in spirit than I admit. I am mourning things I haven't let myself acknowledge. I come to You with both \u2014 the poverty and the grief \u2014 and I receive what You promised: the kingdom, the comfort. I just have to come. Amen.",
+      },
+      {
+        id:"21_2", text:"Blessed are the meek, for they will inherit the earth. Blessed are those who hunger and thirst for righteousness, for they will be filled.",
+        ref:"Matthew 5:5-6", gospel:"matthew",
+        context:"The Beatitudes continue: the meek inherit the earth \u2014 which was supposed to belong to the powerful. And the hungry and thirsty (not the satisfied) get filled.",
+        meaning:"Meekness is power submitted to God \u2014 not weakness but yielded strength. The inheritance of the earth was the Messianic promise; Jesus gives it to those who stopped fighting for it. Hunger and thirst for righteousness describes the person who is genuinely desperate for justice, for holiness.",
+        obey:"Do you genuinely hunger for righteousness \u2014 in your own life, in the world \u2014 or has familiarity with the concept dulled the appetite? Let the unsatisfied things in you become a hunger directed toward God.",
+        prayer:"Father, make me hungry for the right things. I have been feeding on comfort when I should be hungry for righteousness. Create in me a genuine appetite for justice and holiness. And fill me with what only You can give. Amen.",
+      },
+      {
+        id:"21_3", text:"Blessed are the merciful, for they will be shown mercy. Blessed are the pure in heart, for they will see God. Blessed are the peacemakers, for they will be called children of God.",
+        ref:"Matthew 5:7-9", gospel:"matthew",
+        context:"The Beatitudes continue with mercy, purity of heart, and peacemaking. Each one is a description of the person formed by the kingdom \u2014 not a requirement to earn entry, but a portrait of what kingdom life looks like.",
+        meaning:"The merciful receive mercy \u2014 not as a transaction but as a description of spiritual reality. Pure in heart means single-minded, undivided, oriented toward God. And peacemakers actively pursue reconciliation \u2014 they are called children of God because they reflect the character of the Father who reconciled the world through the cross.",
+        obey:"Which of these three speaks most directly to where you are today \u2014 do you need to give mercy, pursue purity, or make peace? One of these is your assignment today.",
+        prayer:"Father, make me merciful \u2014 because I've been forgiven much. Make me pure in heart \u2014 because I want to see You. Make me a peacemaker \u2014 because that's what Your children do. I receive these as descriptions of who I'm becoming, not requirements I must achieve. Amen.",
+      },
+    ]
+  },
+  {
+    id:22, icon:"\ud83c\udf0a", title:"Power & Authority", color:"gold", subtitle:"All authority has been given to Him.",
+    sayings:[
+      {
+        id:"22_1", text:"Quiet! Be still!",
+        ref:"Mark 4:39", gospel:"mark",
+        context:"A furious storm had come up on the Sea of Galilee while Jesus slept in the stern. The disciples woke Him in terror: 'Teacher, don't you care if we drown?' He got up, rebuked the wind, and spoke to the waves.",
+        meaning:"Jesus rebuked the storm as He had rebuked demons \u2014 with authority that expected compliance. And there was a great calm. The disciples' question afterward is one of the most profound in the Gospels: 'Who is this? Even the wind and the waves obey him.'",
+        obey:"What is the storm in your life right now \u2014 the circumstance that feels chaotic, out of control? The One who speaks to storms is in the boat with you. He is not asleep to your situation.",
+        prayer:"Jesus, I am in the storm and I am afraid. You are in this boat. Speak to this storm. And speak to my fear first \u2014 the fear that You are absent or indifferent. Quiet the waves. And quiet me. Let there be a great calm. Amen.",
+      },
+      {
+        id:"22_2", text:"With God all things are possible.",
+        ref:"Matthew 19:26", gospel:"matthew",
+        context:"The disciples had just heard Jesus say that it was easier for a camel to go through the eye of a needle than for a rich person to enter the kingdom of God. They were astonished: 'Who then can be saved?' Jesus looked at them and said this.",
+        meaning:"The impossibility Jesus is responding to is the impossibility of human self-salvation. No one can save themselves. But God is not limited by human impossibility. What no human effort can accomplish, God accomplishes. This is the ground of all hope.",
+        obey:"What have you concluded is impossible? Not just difficult \u2014 actually impossible? Bring it to Him with the statement: 'I can't. You can. I believe You.'",
+        prayer:"Father, with You all things are possible. The thing I have been calling impossible \u2014 I name it now. I have been defining it by what I can do, not by what You can do. I cannot. You can. I bring my 'impossible' to the God for whom that word doesn't apply. Do what only You can do. Amen.",
+      },
+    ]
+  },
+  {
+    id:23, icon:"\ud83d\udcdc", title:"The Parables", color:"red", subtitle:"Stories that contain the kingdom.",
+    sayings:[
+      {
+        id:"23_1", text:"The kingdom of heaven is like a merchant looking for fine pearls. When he found one of great value, he went away and sold everything he had and bought it.",
+        ref:"Matthew 13:45-46", gospel:"matthew",
+        context:"Jesus told this parable paired with the parable of the hidden treasure. Together they make the same point: the kingdom is worth everything you have.",
+        meaning:"The merchant is an expert. He has seen pearls his whole life. When he finds this one, there is no hesitation \u2014 he sells everything. Not reluctantly. Because he recognized what he had found. The kingdom is not a good deal among other good deals. It is the great pearl that makes every other possession look like a fair trade.",
+        obey:"Have you found the pearl? Or are you still browsing the market, considering the kingdom as one option among many? Spend time today in recognition. What would you give everything for, and why isn't that Jesus?",
+        prayer:"Jesus, You are the pearl of great price. I have sometimes treated You as one option in a portfolio. I repent of that. Help me see clearly \u2014 to recognize what I have, to understand what it cost, to live as someone who sold everything for the best thing. Amen.",
+      },
+      {
+        id:"23_2", text:"A man had two sons. The younger one said to his father, 'Father, give me my share of the estate.' So he divided his property between them.",
+        ref:"Luke 15:11-12", gospel:"luke",
+        context:"The Parable of the Prodigal Son is the third in a trilogy of lost-and-found parables in Luke 15. Jesus told them in response to the Pharisees' grumbling that He received sinners and ate with them.",
+        meaning:"Asking for the inheritance early was culturally equivalent to wishing the father dead. Yet the father gives it. When the son returns \u2014 not yet home, still far off \u2014 the father sees him, has compassion, and runs. Patriarchs don't run in that culture. This father abandoned dignity. The parable is not primarily about the son's repentance. It is about the father's extravagance.",
+        obey:"Do you believe the Father runs toward you? Not that He receives you when you arrive, but that He runs toward you while you are still far off? That distance \u2014 between where you are now and the father's house \u2014 is where the running happens.",
+        prayer:"Father, I have come to my senses. I know what I left, I know what I wasted. But I am coming home. And I believe \u2014 I choose to believe \u2014 that You are already running. I see You on the horizon. Run to me. I am coming. Amen.",
+      },
+      {
+        id:"23_3", text:"Which of these three do you think was a neighbor to the man who fell into the hands of robbers? The expert in the law replied: The one who had mercy on him. Jesus told him: Go and do likewise.",
+        ref:"Luke 10:36-37", gospel:"luke",
+        context:"A legal expert had asked Jesus what he must do to inherit eternal life. After he answered correctly, he asked: 'And who is my neighbor?' \u2014 trying to limit the obligation. Jesus told the Parable of the Good Samaritan, then flipped the original question on its head.",
+        meaning:"The original question was 'who is my neighbor?' \u2014 asking for a category that limits obligation. Jesus replaced it with 'who was a neighbor?' \u2014 asking for a behavior that defines character. The instruction is devastatingly simple: go and do likewise.",
+        obey:"Who is in the ditch in your immediate vicinity \u2014 not the person on the other side of the world, but the person you walk past today? The Samaritan's great virtue was that he didn't cross to the other side. He saw, he had compassion, he crossed over.",
+        prayer:"Jesus, show me who is in the ditch. Not the theoretical neighbor \u2014 the actual one on my actual road today. I don't want to cross to the other side. I don't want to be too busy, too clean, too spiritual to stop. Give me the Samaritan's eyes and the Samaritan's hands. Go and do likewise. I will. Amen.",
+      },
+    ]
+  },
+  {
+    id:24, icon:"\ud83c\udf04", title:"The Last Days", color:"gold", subtitle:"What He said about the end.",
+    sayings:[
+      {
+        id:"24_1", text:"Watch out that no one deceives you. For many will come in my name, claiming, 'I am the Messiah,' and will deceive many.",
+        ref:"Matthew 24:4-5", gospel:"matthew",
+        context:"The disciples had asked Jesus: 'When will this happen, and what will be the sign of your coming?' Jesus's first and most repeated warning in the Olivet Discourse is not about tribulation or signs. It is about deception.",
+        meaning:"The greatest danger in the last days is not external persecution but internal deception \u2014 being led away from the truth by compelling but false representations of Christ. The warning 'watch out' is a call to active vigilance, not passive waiting.",
+        obey:"What voices are shaping your understanding of Jesus right now? Are they forming your knowledge of the actual Christ \u2014 complex, demanding, gracious, costly \u2014 or a more convenient version?",
+        prayer:"Jesus, guard me from deception. I know that false versions of You can seem compelling \u2014 more comfortable, less demanding, more culturally appealing. Keep my eyes on the actual You \u2014 the one in these words. Let me not be deceived. Amen.",
+      },
+      {
+        id:"24_2", text:"Therefore keep watch, because you do not know on what day your Lord will come.",
+        ref:"Matthew 24:42", gospel:"matthew",
+        context:"Having described the signs of the end and the coming of the Son of Man, Jesus pivots to the practical application: since you don't know the timing, the posture is watchfulness.",
+        meaning:"Watchfulness is not anxious waiting or obsessive sign-reading. It is living each day with the awareness that the Master could return at any time \u2014 which means living each day as though it matters. The opposite of watchfulness is drifting: behaving as though the Master is away indefinitely.",
+        obey:"If Jesus returned today, what would He find you doing? Not in the sense of panic \u2014 in the sense of an honest examination: am I living watchfully, faithfully, with the awareness of the larger story?",
+        prayer:"Lord, I want to be found faithful \u2014 not perfect, but genuinely engaged with what You've given me to do. Keep me watchful without anxiety, attentive without obsession. Let today's faithfulness be an act of readiness. Come, Lord Jesus. Amen.",
+      },
+      {
+        id:"24_3", text:"Truly I tell you, this generation will certainly not pass away until all these things have happened. Heaven and earth will pass away, but my words will never pass away.",
+        ref:"Matthew 24:34-35", gospel:"matthew",
+        context:"In the middle of the Olivet Discourse \u2014 a teaching about the end of all things \u2014 Jesus made this personal claim about His own words. In a discourse about things that are temporary, He declares His words to be the one thing that will not pass away.",
+        meaning:"The universe is more temporary than what He speaks. Not even heaven and earth have the permanence of His words. This is the most extraordinary claim of authority imaginable. Every promise He made, every command He gave, every word He spoke \u2014 none of it expires.",
+        obey:"How are you treating the words of Jesus? With the same casualness as something you read online today? Or as words that outlast everything else in existence? Let the permanence of His words change how much attention you pay to them.",
+        prayer:"Jesus, Your words will outlast the universe. Let me treat them that way. Let me return to them again and again, knowing that I will never exhaust them, never outgrow them, never find a situation they don't speak to. Let Your permanent words live in my temporary life. Amen.",
+      },
+    ]
+  },
+  {
+    id:25, icon:"\ud83e\udec0", title:"Healing Encounters", color:"red", subtitle:"The words He spoke when He healed.",
+    sayings:[
+      {
+        id:"25_1", text:"Your faith has healed you. Go in peace and be freed from your suffering.",
+        ref:"Mark 5:34", gospel:"mark",
+        context:"A woman had been bleeding for twelve years. She touched the edge of Jesus's cloak in the crowd. Jesus stopped and called her out \u2014 not to shame her, but to honor her. He called her 'daughter.'",
+        meaning:"Jesus attributed the healing not to His power alone but to her faith. Her faith was not theologically sophisticated \u2014 it was desperate and reaching and certain all at once. She just reached. 'Go in peace' \u2014 the same word as shalom. Not just an absence of bleeding but a fullness of wholeness.",
+        obey:"Where have you stopped reaching? Where has shame or disappointment kept you from pressing toward Jesus? The crowd is still there. He is still there. Reach again \u2014 not with perfect theology but with desperate certainty that contact with Him changes things.",
+        prayer:"Jesus, I have been bleeding for a long time \u2014 in ways I don't always name. I have been too tired, too ashamed to press through the crowd again. But I reach for You now. Take heart, You said. I take heart. Touch me. Send me away in peace and freed from my suffering. Amen.",
+      },
+      {
+        id:"25_2", text:"I am willing. Be clean!",
+        ref:"Matthew 8:3", gospel:"matthew",
+        context:"A man with leprosy came and knelt before Jesus, saying: 'Lord, if you are willing, you can make me clean.' Leprosy made a person untouchable \u2014 ceremonially, socially, physically. The man's question was not about Jesus's ability but His willingness. Jesus reached out His hand and touched him.",
+        meaning:"Before the healing, the touch. Jesus touched the untouchable before the leprosy was gone. That touch was itself an act of compassion. 'I am willing' \u2014 Jesus never declined a genuine request for healing in the Gospels.",
+        obey:"Have you been living as though Jesus might not be willing to help you \u2014 as though your specific condition might be the exception to His compassion? Bring the 'if you are willing' prayer. He is willing.",
+        prayer:"Lord, I come like the leper \u2014 uncertain of Your willingness but certain of Your power. If You are willing, You can make me clean. You can heal this thing I've been living with. And I hear You say: I am willing. Be clean. Amen.",
+      },
+      {
+        id:"25_3", text:"Pick up your mat and walk.",
+        ref:"John 5:8", gospel:"john",
+        context:"A man had been an invalid for thirty-eight years beside the pool of Bethesda. Jesus asked him: 'Do you want to get well?' The man answered with excuses. Jesus didn't engage the excuses. He just gave the command.",
+        meaning:"The question 'Do you want to get well?' is penetrating. Sometimes people have organized their identity around their condition. The disability becomes part of who they are. The command to 'pick up your mat' meant he was declaring the need for it was over.",
+        obey:"Is there a mat you have been lying on so long that you have stopped believing life could be different? Jesus's question comes to you: do you want to get well? Pick up your mat. Start moving.",
+        prayer:"Jesus, do I want to get well? Yes. But I have organized my life around this condition. I don't know who I am without it. You are asking me to want something new. I want it. I pick up my mat. Carry me from this place into whatever You are making me next. Amen.",
+      },
+    ]
+  },
+
 ]
 
 export const ALL_SAYINGS = THEMES.flatMap(t =>
