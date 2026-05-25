@@ -18,9 +18,9 @@ const INP = {
 const BTN = (active) => ({
   width:'100%', padding:'16px', borderRadius:12, cursor:'pointer',
   fontSize:14, fontFamily:"'Cinzel',Georgia,serif", letterSpacing:'0.09em',
-  transition:'all .25s', touchAction:'manipulation', border:'none',
+  transition:'all .25s', touchAction:'manipulation',
   background:active?'linear-gradient(135deg,rgba(155,32,32,0.45),rgba(155,32,32,0.22))':'rgba(155,32,32,0.1)',
-  border:`1px solid rgba(155,32,32,${active?'0.5':'0.3'})`,
+  border:active?'1px solid rgba(155,32,32,0.5)':'1px solid rgba(155,32,32,0.3)',
   color:active?C.cream:C.muted,
 })
 
