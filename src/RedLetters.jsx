@@ -428,9 +428,9 @@ export default function RedLetters({ session, profile }) {
               if(v==='search'){setShowSearch(true);setSearchQ('');setSearchResults([])}
               else if(v==='saved'){setShowSaved(true)}
               else if(v==='settings'){setShowSettings(true)}
-            }} style={{background:'transparent',border:'none',color:C.muted,padding:'4px 10px',
+            }} style={{background:'transparent',border:'1px solid transparent',color:C.muted,padding:'4px 8px',
               borderRadius:6,cursor:'pointer',fontSize:10,fontFamily:"'Cinzel',Georgia,serif",
-              letterSpacing:'0.06em',whiteSpace:'nowrap',flexShrink:0,touchAction:'manipulation'}}>
+              letterSpacing:'0.04em',whiteSpace:'nowrap',flexShrink:0,touchAction:'manipulation',transition:'all .2s'}}>
               {l}
             </button>
           ))}
@@ -440,24 +440,23 @@ export default function RedLetters({ session, profile }) {
         <div style={{margin:'0 20px 28px'}}>
           <div style={{fontSize:9,color:C.redL,fontFamily:"'Cinzel',Georgia,serif",
             letterSpacing:'0.2em',textTransform:'uppercase',marginBottom:10}}>✦ Today's Word</div>
-          <div style={{background:`linear-gradient(145deg,rgba(155,32,32,0.1),rgba(155,32,32,0.04))`,
-            border:`1px solid ${C.redB}`,borderRadius:18,padding:22,cursor:'pointer',position:'relative',
-            overflow:'hidden'}}
+          <div style={{background:'linear-gradient(145deg,rgba(155,32,32,0.14),rgba(155,32,32,0.05))',
+            border:`1px solid ${C.redB}`,borderRadius:16,padding:'22px 24px',cursor:'pointer',
+            boxShadow:'0 8px 24px rgba(0,0,0,0.1)'}}
             onClick={() => openSaying(todaySaying, todayTheme)}>
-            <div style={{position:'absolute',top:-10,right:-10,fontSize:60,opacity:0.04}}>✦</div>
-            {/* Gospel tag */}
-            <div style={{display:'inline-block',fontSize:9,color:gospelInfo.color||C.redL,
-              background:`${gospelInfo.color||C.redL}18`,border:`1px solid ${gospelInfo.color||C.redL}40`,
-              borderRadius:6,padding:'2px 8px',fontFamily:"'Cinzel',Georgia,serif",
-              letterSpacing:'0.1em',textTransform:'uppercase',marginBottom:14}}>
-              {gospelInfo.label}
+            <div style={{display:'flex',gap:10}}>
+              <span style={{color:C.redL,fontSize:32,lineHeight:1,opacity:.3,flexShrink:0,fontFamily:'Georgia,serif'}}>"</span>
+              <div style={{flex:1}}>
+                <p style={{fontSize:19,lineHeight:1.95,color:C.words,fontStyle:'italic',marginBottom:12,letterSpacing:'0.01em'}}>{todaySaying.text}</p>
+                <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',flexWrap:'wrap',gap:8}}>
+                  <span style={{fontSize:11,color:gospelInfo.color||C.redL,fontFamily:"'Cinzel',Georgia,serif",fontWeight:500,letterSpacing:'0.08em',textTransform:'uppercase'}}>{todaySaying.ref}</span>
+                  <div style={{display:'flex',alignItems:'center',gap:8}}>
+                    <span style={{fontSize:9,color:gospelInfo.color||C.redL,background:`${gospelInfo.color||C.redL}18`,border:`1px solid ${gospelInfo.color||C.redL}40`,borderRadius:6,padding:'1px 7px',fontFamily:"'Cinzel',Georgia,serif",letterSpacing:'0.1em',textTransform:'uppercase'}}>{gospelInfo.label}</span>
+                    <span style={{fontSize:11,color:C.muted,fontFamily:"'Cinzel',Georgia,serif"}}>{todaySaying.themeIcon} {todaySaying.themeTitle}</span>
+                  </div>
+                </div>
+              </div>
             </div>
-            <p style={{fontSize:'clamp(17px,2.5vw,22px)',color:C.words,fontStyle:'italic',lineHeight:1.9,
-              marginBottom:14,letterSpacing:'0.01em'}}>"{todaySaying.text}"</p>
-            <div style={{fontSize:11,color:C.gold,fontFamily:"'Cinzel',Georgia,serif",
-              letterSpacing:'0.1em',marginBottom:4}}>{todaySaying.ref}</div>
-            <div style={{fontSize:11,color:C.muted,fontFamily:"'Cinzel',Georgia,serif",
-              letterSpacing:'0.06em'}}>{todaySaying.themeIcon} {todaySaying.themeTitle}</div>
           </div>
         </div>
 
@@ -631,20 +630,20 @@ export default function RedLetters({ session, profile }) {
           </div>
         </div>
 
-        {/* Tabs */}
-        <div style={{display:'flex',gap:0,padding:'0 20px',marginBottom:0,
-          borderBottom:`1px solid ${C.border}`,overflowX:'auto'}}>
+        {/* Tabs — AS1 style pills */}
+        <div style={{display:'flex',gap:3,padding:'8px 14px 10px',flexWrap:'nowrap',
+          overflowX:'auto',borderBottom:`1px solid ${C.border}`}}>
           {TABS.map(tb => {
             const locked = !isPremium && !tb.free
             return (
               <button key={tb.id}
                 onClick={()=>{ if (!locked) setTab(tb.id) }}
-                style={{flex:'0 0 auto',padding:'10px 14px',cursor:locked?'default':'pointer',
-                  background:'transparent',border:'none',
-                  borderBottom:`2px solid ${tab===tb.id?C.redL:'transparent'}`,
+                style={{flex:'0 0 auto',padding:'6px 10px',cursor:locked?'default':'pointer',
+                  background:tab===tb.id?'linear-gradient(135deg,rgba(155,32,32,0.15),rgba(155,32,32,0.06))':'transparent',
+                  border:`1px solid ${tab===tb.id?C.redB:C.border}`,
                   color:tab===tb.id?C.redL:locked?C.dim:C.muted,
-                  fontSize:11,fontFamily:"'Cinzel',Georgia,serif",letterSpacing:'0.06em',
-                  transition:'all .2s',whiteSpace:'nowrap'}}>
+                  borderRadius:8,fontSize:11,fontFamily:"'Cinzel',Georgia,serif",letterSpacing:'0.04em',
+                  transition:'all .18s',whiteSpace:'nowrap',touchAction:'manipulation',opacity:locked?.5:1}}>
                 {tb.icon} {tb.label}{locked?' 🔒':''}
               </button>
             )
@@ -656,15 +655,18 @@ export default function RedLetters({ session, profile }) {
 
           {tab === 'words' && (
             <div>
-              <div style={{background:`linear-gradient(145deg,rgba(155,32,32,0.08),rgba(155,32,32,0.03))`,
-                border:`1px solid ${C.redB}`,borderRadius:16,padding:24,marginBottom:16,
-                position:'relative',overflow:'hidden'}}>
-                <div style={{position:'absolute',top:-10,right:-10,fontSize:70,
-                  opacity:0.04,color:C.redL,pointerEvents:'none'}}>✦</div>
-                <p style={{fontSize:20,color:C.words,fontStyle:'italic',lineHeight:1.95,
-                  margin:'0 0 16px',letterSpacing:'0.01em'}}>"{s.text}"</p>
-                <div style={{fontSize:12,color:C.gold,fontFamily:"'Cinzel',Georgia,serif",
-                  letterSpacing:'0.12em',textTransform:'uppercase'}}>{s.ref}</div>
+              <div style={{background:'linear-gradient(145deg,rgba(155,32,32,0.14),rgba(155,32,32,0.05))',
+                border:`1px solid ${C.redB}`,borderRadius:16,padding:'22px 24px',marginBottom:16,
+                boxShadow:'0 8px 24px rgba(0,0,0,0.1)'}}>
+                <div style={{display:'flex',gap:10}}>
+                  <span style={{color:C.redL,fontSize:32,lineHeight:1,opacity:.3,flexShrink:0,fontFamily:'Georgia,serif'}}>"</span>
+                  <div style={{flex:1}}>
+                    <p style={{fontSize:19,color:C.words,fontStyle:'italic',lineHeight:1.95,
+                      margin:'0 0 14px',letterSpacing:'0.01em'}}>{s.text}</p>
+                    <span style={{fontSize:11,color:C.gold,fontFamily:"'Cinzel',Georgia,serif",
+                      fontWeight:500,letterSpacing:'0.1em',textTransform:'uppercase'}}>{s.ref}</span>
+                  </div>
+                </div>
               </div>
               {/* Gospel source info */}
               <div style={{background:C.bgCard,border:`1px solid ${C.border}`,
