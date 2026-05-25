@@ -316,6 +316,11 @@ export default function RedLetters({ session, profile }) {
   const [shareCard, setShareCard] = useState(null)
   const [journalSaved, setJournalSaved] = useState(false)
   const [showSearch, setShowSearch] = useState(false)
+  const [savedSayings, setSavedSayings] = useState(() => {
+    try { return JSON.parse(localStorage.getItem('rl_saved') || '[]') } catch { return [] }
+  })
+  const [showSaved, setShowSaved] = useState(false)
+  const [showThemeJump, setShowThemeJump] = useState(false)
   const [searchQ, setSearchQ] = useState('')
   const [searchResults, setSearchResults] = useState([])
   const [showSettings, setShowSettings] = useState(false)
@@ -372,6 +377,15 @@ export default function RedLetters({ session, profile }) {
     setSearchResults(results)
   }
 
+  const toggleSave = (sayingId) => {
+    const next = savedSayings.includes(sayingId)
+      ? savedSayings.filter(id => id !== sayingId)
+      : [...savedSayings, sayingId]
+    setSavedSayings(next)
+    localStorage.setItem('rl_saved', JSON.stringify(next))
+  }
+  const isSaved = (sayingId) => savedSayings.includes(sayingId)
+
   const openSaying = (saying, theme) => {
     setSelectedSaying(saying)
     setSelectedTheme(theme)
@@ -394,21 +408,32 @@ export default function RedLetters({ session, profile }) {
       <div style={{padding:'0 0 100px',maxWidth:720,margin:'0 auto',width:'100%'}}>
         {/* Header */}
         <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',
-          padding:'20px 20px 0',marginBottom:24}}>
+          padding:'20px 20px 0',marginBottom:8}}>
           <div>
             <div style={{fontSize:22,fontWeight:700,color:C.cream,
               fontFamily:"'Cinzel',Georgia,serif",letterSpacing:'0.06em'}}>The Red Letters</div>
             <div style={{fontSize:11,color:C.redL,letterSpacing:'0.14em',textTransform:'uppercase',
               fontFamily:"'Cinzel',Georgia,serif",marginTop:2}}>The Words of Jesus</div>
           </div>
-          <div style={{display:'flex',gap:8}}>
-            <button onClick={()=>{ setShowSearch(true); setSearchQ(''); setSearchResults([]) }}
-              style={{background:C.bgCard,border:`1px solid ${C.border}`,color:C.muted,
-                borderRadius:10,padding:'8px 12px',cursor:'pointer',fontSize:14}}>🔍</button>
-            <button onClick={()=>setShowSettings(true)}
-              style={{background:C.bgCard,border:`1px solid ${C.border}`,color:C.muted,
-                borderRadius:10,padding:'8px 12px',cursor:'pointer',fontSize:14}}>⚙️</button>
-          </div>
+          <button onClick={()=>setShowSettings(true)}
+            style={{background:C.bgCard,border:`1px solid ${C.border}`,color:C.muted,
+              borderRadius:10,padding:'8px 12px',cursor:'pointer',fontSize:14}}>⚙️</button>
+        </div>
+
+        {/* AS1-style under-header nav */}
+        <div style={{display:'flex',justifyContent:'center',gap:3,padding:'6px 14px 12px',
+          flexWrap:'nowrap',overflowX:'auto',borderBottom:`1px solid ${C.border}`,marginBottom:16}}>
+          {[['search','🔍 Search'],['saved','★ Saved'],['settings','⚙️ Settings']].map(([v,l])=>(
+            <button key={v} onClick={()=>{
+              if(v==='search'){setShowSearch(true);setSearchQ('');setSearchResults([])}
+              else if(v==='saved'){setShowSaved(true)}
+              else if(v==='settings'){setShowSettings(true)}
+            }} style={{background:'transparent',border:'none',color:C.muted,padding:'4px 10px',
+              borderRadius:6,cursor:'pointer',fontSize:10,fontFamily:"'Cinzel',Georgia,serif",
+              letterSpacing:'0.06em',whiteSpace:'nowrap',flexShrink:0,touchAction:'manipulation'}}>
+              {l}
+            </button>
+          ))}
         </div>
 
         {/* Today's Word */}
@@ -499,14 +524,25 @@ export default function RedLetters({ session, profile }) {
             fontSize:12,fontFamily:"'Cinzel',Georgia,serif",letterSpacing:'0.08em',marginBottom:16}}>
             ← Back
           </button>
-          <div style={{display:'flex',alignItems:'center',gap:12,marginBottom:6}}>
+          <div style={{display:'flex',alignItems:'center',gap:12,marginBottom:6,position:'relative'}}>
             <span style={{fontSize:28}}>{selectedTheme.icon}</span>
-            <div>
-              <div style={{fontSize:18,fontWeight:700,color:C.cream,
-                fontFamily:"'Cinzel',Georgia,serif",letterSpacing:'0.06em'}}>{selectedTheme.title}</div>
+            <div style={{flex:1}}>
+              <button onClick={()=>setShowThemeJump(v=>!v)} style={{background:'transparent',border:'none',cursor:'pointer',padding:0,textAlign:'left',touchAction:'manipulation'}}>
+                <div style={{fontSize:18,fontWeight:700,color:C.cream,fontFamily:"'Cinzel',Georgia,serif",letterSpacing:'0.06em'}}>{selectedTheme.title} <span style={{fontSize:12,color:C.muted}}>{showThemeJump?'▲':'▼'}</span></div>
+              </button>
               <div style={{fontSize:12,color:C.muted,fontStyle:'italic'}}>{selectedTheme.subtitle}</div>
             </div>
           </div>
+          {showThemeJump && (
+            <div style={{background:C.bg,border:`1px solid ${C.border}`,borderRadius:12,padding:10,marginBottom:14,display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:6,maxHeight:220,overflowY:'auto',boxShadow:'0 8px 24px rgba(0,0,0,0.4)'}}>
+              {THEMES.map(t=>(
+                <button key={t.id} onClick={()=>{setSelectedTheme(t);setShowThemeJump(false);window.scrollTo(0,0);}} style={{background:t.id===selectedTheme.id?C.redF:'transparent',border:`1px solid ${t.id===selectedTheme.id?C.redB:C.border}`,color:t.id===selectedTheme.id?C.redL:C.muted,borderRadius:10,padding:'8px 6px',cursor:'pointer',fontSize:9,fontFamily:"'Cinzel',Georgia,serif",textAlign:'center',lineHeight:1.4,touchAction:'manipulation'}}>
+                  <div style={{fontSize:18,marginBottom:2}}>{t.icon}</div>
+                  <div>{t.title}</div>
+                </button>
+              ))}
+            </div>
+          )}
         </div>
         <div style={{padding:'0 20px',display:'flex',flexDirection:'column',gap:12}}>
           {selectedTheme.sayings.map(s => {
@@ -517,7 +553,7 @@ export default function RedLetters({ session, profile }) {
               <button key={s.id} onClick={()=>openSaying(s,selectedTheme)}
                 style={{background:isRead?`linear-gradient(145deg,${C.redF},rgba(155,32,32,0.04))`:C.bgCard,
                   border:`1px solid ${isRead?C.redB:C.border}`,borderRadius:16,padding:18,
-                  cursor:'pointer',textAlign:'left',transition:'all .2s'}}>
+                  cursor:'pointer',textAlign:'left',transition:'all .2s',position:'relative'}}>
                 <div style={{display:'flex',justifyContent:'space-between',alignItems:'flex-start',marginBottom:10}}>
                   <div style={{fontSize:9,color:gospelInfo.color||C.redL,
                     background:`${gospelInfo.color||C.redL}18`,border:`1px solid ${gospelInfo.color||C.redL}40`,
@@ -525,9 +561,10 @@ export default function RedLetters({ session, profile }) {
                     letterSpacing:'0.1em',textTransform:'uppercase'}}>
                     {gospelInfo.label}
                   </div>
-                  <div style={{display:'flex',gap:6}}>
+                  <div style={{display:'flex',gap:8,alignItems:'center'}}>
                     {isRead && <span style={{fontSize:10,color:C.redL}}>✓</span>}
                     {isMemo && <span style={{fontSize:10,color:C.green}}>✦</span>}
+                    <button onClick={(e)=>{e.stopPropagation();toggleSave(s.id);}} style={{background:'transparent',border:'none',color:isSaved(s.id)?C.gold:C.dim,cursor:'pointer',fontSize:16,lineHeight:1,touchAction:'manipulation'}}>{isSaved(s.id)?'★':'☆'}</button>
                   </div>
                 </div>
                 <p style={{fontSize:16,color:C.words,fontStyle:'italic',lineHeight:1.8,
@@ -930,6 +967,56 @@ export default function RedLetters({ session, profile }) {
       {view === 'theme'  && <ThemeView/>}
       {view === 'saying' && <SayingView/>}
 
+      {showSaved && (
+        <div style={{position:'fixed',inset:0,background:'rgba(0,0,0,0.88)',zIndex:700,
+          display:'flex',alignItems:'flex-start',justifyContent:'center',
+          overflowY:'auto',padding:'16px 16px 48px'}} onClick={()=>setShowSaved(false)}>
+          <div onClick={e=>e.stopPropagation()} style={{background:`linear-gradient(145deg,${C.bg},#101820)`,
+            border:`1px solid ${C.border}`,borderRadius:20,padding:22,width:'100%',maxWidth:460,marginTop:20}}>
+            <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:20}}>
+              <div style={{fontSize:10,color:C.gold,fontFamily:"'Cinzel',Georgia,serif",
+                letterSpacing:'0.18em',textTransform:'uppercase'}}>★ Saved Sayings</div>
+              <button onClick={()=>setShowSaved(false)} style={{background:'transparent',border:'none',
+                color:C.muted,cursor:'pointer',fontSize:20,lineHeight:1,padding:0}}>×</button>
+            </div>
+            {savedSayings.length === 0 ? (
+              <div style={{textAlign:'center',padding:'32px 0'}}>
+                <div style={{fontSize:36,marginBottom:12}}>☆</div>
+                <p style={{fontSize:14,color:C.muted,fontStyle:'italic'}}>No saved sayings yet. Tap ☆ on any saying to save it here.</p>
+              </div>
+            ) : (
+              <div style={{display:'flex',flexDirection:'column',gap:8}}>
+                {savedSayings.map(sid => {
+                  const found = ALL_SAYINGS.find(s=>s.id===sid)
+                  if (!found) return null
+                  const theme = THEMES.find(t=>t.id===found.themeId)
+                  const gi = GOSPEL_LABELS[found.gospel]||{}
+                  return (
+                    <button key={sid} onClick={()=>{openSaying(found,theme);setShowSaved(false);}}
+                      style={{display:'flex',alignItems:'flex-start',gap:12,padding:'13px 16px',
+                        borderRadius:12,cursor:'pointer',textAlign:'left',
+                        background:C.redF,border:`1px solid ${C.redB}`}}>
+                      <div style={{flex:1,minWidth:0}}>
+                        <div style={{fontSize:9,color:gi.color||C.redL,fontFamily:"'Cinzel',Georgia,serif",
+                          letterSpacing:'0.1em',textTransform:'uppercase',marginBottom:3}}>
+                          {gi.label} · {found.themeIcon} {found.themeTitle}
+                        </div>
+                        <div style={{fontSize:13,color:C.words,fontStyle:'italic',lineHeight:1.6,
+                          marginBottom:4,overflow:'hidden',display:'-webkit-box',
+                          WebkitLineClamp:2,WebkitBoxOrient:'vertical'}}>"{found.text}"</div>
+                        <div style={{fontSize:11,color:C.gold,fontFamily:"'Cinzel',Georgia,serif"}}>{found.ref}</div>
+                      </div>
+                      <button onClick={(e)=>{e.stopPropagation();toggleSave(sid);}}
+                        style={{background:'transparent',border:'none',color:C.gold,
+                          cursor:'pointer',fontSize:16,flexShrink:0,touchAction:'manipulation'}}>★</button>
+                    </button>
+                  )
+                })}
+              </div>
+            )}
+          </div>
+        </div>
+      )}
       {showSearch && <SearchModal/>}
       {showSettings && <SettingsView/>}
 
