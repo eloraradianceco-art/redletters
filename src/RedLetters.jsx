@@ -466,8 +466,7 @@ export default function RedLetters({ session, profile }) {
             <div style={{display:'flex',gap:8}}>
               <span style={{color:C.gold,fontSize:28,lineHeight:1,opacity:.3,flexShrink:0,fontFamily:'Georgia,serif'}}>"</span>
               <div>
-                <p style={{fontSize:15,lineHeight:1.85,color:C.red,fontStyle:'italic',marginBottom:10}}>{p.text.split('
-')[0].slice(0,200)}{p.text.length>200?'…':''}</p>
+                <p style={{fontSize:15,lineHeight:1.85,color:C.red,fontStyle:'italic',marginBottom:10}}>{p.text.split('\n')[0].slice(0,200)}{p.text.length>200?'…':''}</p>
                 <div style={{fontSize:10,color:C.gold,fontFamily:"'Cinzel',Georgia,serif",letterSpacing:'0.1em',textTransform:'uppercase',marginBottom:2}}>{p.ref}</div>
                 <div style={{fontSize:9,color:C.muted,fontFamily:"'Cinzel',Georgia,serif",letterSpacing:'0.08em'}}>The Red Letters · redletters.vercel.app</div>
               </div>
