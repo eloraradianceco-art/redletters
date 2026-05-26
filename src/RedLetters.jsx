@@ -19,9 +19,9 @@ const TABS = [
   {id:'passage', label:'📖 The Passage'},
   {id:'context', label:'🧭 Context'},
   {id:'meaning', label:'💡 Meaning'},
-  {id:'apply',   label:'⚡ Live It',  premium:true},
-  {id:'prayer',  label:'🙏 Pray It',  premium:true},
-  {id:'journal', label:'📝 Journal',  premium:true},
+  {id:'apply',   label:'⚡ Live It'},
+  {id:'prayer',  label:'🙏 Pray It'},
+  {id:'journal', label:'📝 Journal'},
 ]
 
 const LBL = {fontSize:9,color:C.gold,letterSpacing:'0.16em',textTransform:'uppercase',fontFamily:"'Cinzel',Georgia,serif",marginBottom:12,display:'block'}
@@ -76,7 +76,7 @@ function MemorizeModal({text, ref, onClose, isMemorized, onMark}) {
 // ── Main App ───────────────────────────────────────────────────────────────
 export default function RedLetters({ session, profile }) {
   const userId = session?.user?.id
-  const isPremium = profile?.premium === true
+  const isPremium = true // All content free
 
   const [view,setView]=useState('home')     // 'home'|'theme'|'passage'
   const [selTheme,setSelTheme]=useState(null)
@@ -89,6 +89,7 @@ export default function RedLetters({ session, profile }) {
   const [searchQ,setSearchQ]=useState('')
   const [searchResults,setSearchResults]=useState([])
   const [showMemo,setShowMemo]=useState(false)
+  const [sharePassage,setSharePassage]=useState(null)
   const [showThemeJump,setShowThemeJump]=useState(false)
   const [showSettings,setShowSettings]=useState(false)
   const [journalSaved,setJournalSaved]=useState(false)
@@ -277,7 +278,7 @@ export default function RedLetters({ session, profile }) {
           const prevPass = selTheme.passages[passIdx-1]
           const nextPass = selTheme.passages[passIdx+1]
           // Unlocked tabs only for nav
-          const visibleTabs = TABS.filter(tb => !tb.premium || isPremium)
+          const visibleTabs = TABS
           const tabIdx = visibleTabs.findIndex(tb => tb.id === tab)
           const prevTab = visibleTabs[tabIdx-1]
           const nextTab = visibleTabs[tabIdx+1]
@@ -325,10 +326,9 @@ export default function RedLetters({ session, profile }) {
           {/* Section tabs — AS1 pill style */}
           <div style={{display:'flex',gap:3,flexWrap:'wrap',paddingBottom:2}}>
             {TABS.map(tb=>{
-              const locked=tb.premium&&!isPremium
               return (
-                <button key={tb.id} onClick={()=>{if(!locked)setTab(tb.id)}} style={{background:tab===tb.id?'linear-gradient(135deg,rgba(139,26,26,0.15),rgba(139,26,26,0.06))':'transparent',border:`1px solid ${tab===tb.id?C.redB:C.border}`,color:tab===tb.id?C.red:locked?C.dim:C.muted,padding:'6px 10px',borderRadius:8,cursor:locked?'default':'pointer',fontSize:11,fontFamily:"'Cinzel',Georgia,serif",letterSpacing:'0.04em',transition:'all .18s',whiteSpace:'nowrap',flexShrink:0,touchAction:'manipulation',opacity:locked?.5:1}}>
-                  {tb.label}{locked?' 🔒':''}
+                <button key={tb.id} onClick={()=>setTab(tb.id)} style={{background:tab===tb.id?'linear-gradient(135deg,rgba(139,26,26,0.15),rgba(139,26,26,0.06))':'transparent',border:`1px solid ${tab===tb.id?C.redB:C.border}`,color:tab===tb.id?C.red:C.muted,padding:'6px 10px',borderRadius:8,cursor:'pointer',fontSize:11,fontFamily:"'Cinzel',Georgia,serif",letterSpacing:'0.04em',transition:'all .18s',whiteSpace:'nowrap',flexShrink:0,touchAction:'manipulation'}}>
+                  {tb.label}
                 </button>
               )
             })}
@@ -359,6 +359,7 @@ export default function RedLetters({ session, profile }) {
                 <button onClick={()=>toggleSave(p.id)} style={{background:'transparent',border:`1px solid ${isSaved(p.id)?C.goldB:C.border}`,color:isSaved(p.id)?C.gold:C.muted,padding:'4px 10px',borderRadius:12,cursor:'pointer',fontSize:13}}>
                   {isSaved(p.id)?'★':'☆'}
                 </button>
+                <button onClick={()=>setSharePassage(p)} style={{background:'transparent',border:`1px solid ${C.border}`,color:C.muted,padding:'4px 10px',borderRadius:12,cursor:'pointer',fontSize:12}}>↗</button>
               </div>
             </div>
           )}
@@ -394,9 +395,9 @@ export default function RedLetters({ session, profile }) {
                 ))}
               </div>
             </div>
-          ):<UpgradePrompt/>)}
+          )}
 
-          {tab==='prayer'&&(isPremium?(
+          {tab==='prayer'&&((
             <div>
               <label style={LBL}>Pray It</label>
               <div style={{background:'linear-gradient(145deg,rgba(139,106,46,0.1),rgba(139,106,46,0.03))',border:`1px solid ${C.goldB}`,borderRadius:14,padding:'22px 24px'}}>
@@ -404,9 +405,9 @@ export default function RedLetters({ session, profile }) {
               </div>
               <p style={{fontSize:12,color:C.dim,textAlign:'center',fontStyle:'italic',marginTop:12}}>Pray this aloud. The spoken prayer has weight.</p>
             </div>
-          ):<UpgradePrompt/>)}
+          )}
 
-          {tab==='journal'&&(isPremium?(
+          {tab==='journal'&&((
             <div>
               <label style={LBL}>Journal</label>
               <p style={{fontSize:13,color:C.muted,fontStyle:'italic',lineHeight:1.7,marginBottom:12}}>What is Jesus saying to you through this passage? What do you notice? What does it ask of you?</p>
@@ -417,9 +418,10 @@ export default function RedLetters({ session, profile }) {
                 {journalSaved?'✓ Saved':'Save Entry'}
               </button>
             </div>
-          ):<UpgradePrompt/>)}
+          )}
         </div>
 
+        {sharePassage&&<SharePassageModal passage={sharePassage} onClose={()=>setSharePassage(null)}/>}
         {showMemo&&<MemorizeModal text={p.text} ref={p.ref} onClose={()=>setShowMemo(false)} isMemorized={isMemorized(p.id)} onMark={()=>{set(p.id,'mem','true');setShowMemo(false)}}/>}
         {showSearch&&<SearchModal/>}
         {showSaved&&<SavedModal/>}
@@ -428,15 +430,64 @@ export default function RedLetters({ session, profile }) {
   }
 
   // ── Sub-components ─────────────────────────────────────────────────────
-  function UpgradePrompt() {
+
+
+  // ── Share Passage Modal ────────────────────────────────────────────────
+  function SharePassageModal({passage, onClose}) {
+    const {useRef, useEffect, useState: useLocalState} = require !== undefined ? {useRef:()=>({current:null}),useEffect:()=>{},useState:s=>([s,()=>{}])} : {}
+    const cardRef = React.useRef(null)
+    const [lightCard, setLightCard] = React.useState(false)
+    const [copied, setCopied] = React.useState(false)
+    const p = passage
+    const bg = lightCard ? '#F7F2EA' : '#1A0C06'
+    const textCol = lightCard ? '#3D2E1A' : '#EDE6D6'
+    const redCol = lightCard ? '#8B1A1A' : '#C04040'
+    const goldCol = lightCard ? '#8B6A2E' : '#C9A46A'
+    const caption = `"${p.text.split('\n')[0].slice(0,120)}..." — ${p.ref}\n\nThe Red Letters · redletters.vercel.app`
+    const handleShare = async () => {
+      try {
+        if (navigator.share) {
+          await navigator.share({ text: caption })
+        } else {
+          await navigator.clipboard.writeText(caption)
+          setCopied(true); setTimeout(()=>setCopied(false), 2000)
+        }
+      } catch(e) {}
+    }
     return (
-      <div style={{background:C.redF,border:`1px solid ${C.redB}`,borderRadius:14,padding:24,textAlign:'center'}}>
-        <div style={{fontSize:24,marginBottom:10}}>✦</div>
-        <div style={{fontSize:14,color:C.cream,fontFamily:"'Cinzel',Georgia,serif",marginBottom:8}}>Unlock Full Access</div>
-        <p style={{fontSize:13,color:C.muted,lineHeight:1.7,marginBottom:16,fontStyle:'italic'}}>Live It, Pray It, and Journal — one-time access for $9.</p>
-        <button onClick={()=>window.location.href='https://buy.stripe.com/STRIPE_LINK'} style={{background:`linear-gradient(135deg,${C.redF},rgba(139,26,26,0.06))`,border:`1px solid ${C.redB}`,color:C.red,padding:'12px 28px',borderRadius:50,cursor:'pointer',fontSize:12,fontFamily:"'Cinzel',Georgia,serif",letterSpacing:'0.1em'}}>
-          Upgrade — $9 One-Time →
-        </button>
+      <div style={{position:'fixed',inset:0,background:'rgba(0,0,0,0.8)',zIndex:800,display:'flex',alignItems:'center',justifyContent:'center',padding:16}} onClick={onClose}>
+        <div onClick={e=>e.stopPropagation()} style={{background:C.bg,border:`1px solid ${C.border}`,borderRadius:20,padding:22,width:'100%',maxWidth:400}}>
+          <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:16}}>
+            <div style={{fontSize:10,color:C.gold,fontFamily:"'Cinzel',Georgia,serif",letterSpacing:'0.16em',textTransform:'uppercase'}}>↗ Share Passage</div>
+            <button onClick={onClose} style={{background:'transparent',border:'none',color:C.muted,cursor:'pointer',fontSize:20}}>×</button>
+          </div>
+          {/* Card preview */}
+          <div ref={cardRef} style={{background:`linear-gradient(145deg,rgba(139,26,26,0.12),rgba(139,26,26,0.04))`,border:`1px solid ${C.redB}`,borderRadius:14,padding:'20px 22px',marginBottom:14}}>
+            <div style={{display:'flex',gap:8}}>
+              <span style={{color:C.gold,fontSize:28,lineHeight:1,opacity:.3,flexShrink:0,fontFamily:'Georgia,serif'}}>"</span>
+              <div>
+                <p style={{fontSize:15,lineHeight:1.85,color:C.red,fontStyle:'italic',marginBottom:10}}>{p.text.split('
+')[0].slice(0,200)}{p.text.length>200?'…':''}</p>
+                <div style={{fontSize:10,color:C.gold,fontFamily:"'Cinzel',Georgia,serif",letterSpacing:'0.1em',textTransform:'uppercase',marginBottom:2}}>{p.ref}</div>
+                <div style={{fontSize:9,color:C.muted,fontFamily:"'Cinzel',Georgia,serif",letterSpacing:'0.08em'}}>The Red Letters · redletters.vercel.app</div>
+              </div>
+            </div>
+          </div>
+          {/* Actions */}
+          <div style={{display:'flex',gap:8}}>
+            <button onClick={handleShare} style={{flex:1,background:C.redF,border:`1px solid ${C.redB}`,color:C.red,padding:'13px',borderRadius:12,cursor:'pointer',fontSize:12,fontFamily:"'Cinzel',Georgia,serif",letterSpacing:'0.08em'}}>
+              {copied ? '✓ Copied!' : '↗ Share'}
+            </button>
+            <button onClick={async()=>{
+              try {
+                await navigator.clipboard.writeText(`"${p.text}" — ${p.ref}\n\nredletters.vercel.app`)
+                setCopied(true); setTimeout(()=>setCopied(false),2000)
+              } catch(e){}
+            }} style={{background:'transparent',border:`1px solid ${C.border}`,color:C.muted,padding:'13px 16px',borderRadius:12,cursor:'pointer',fontSize:12}}>
+              Copy
+            </button>
+          </div>
+        </div>
       </div>
     )
   }
@@ -503,9 +554,9 @@ export default function RedLetters({ session, profile }) {
   }
 
   function SettingsModal() {
-    const total=ALL_PASSAGES.length
     const read=ALL_PASSAGES.filter(p=>get(p.id,'read')==='true').length
     const mem=ALL_PASSAGES.filter(p=>isMemorized(p.id)).length
+    const [resetDone,setResetDone]=React.useState(false)
     return (
       <div style={{position:'fixed',inset:0,background:'rgba(0,0,0,0.6)',zIndex:700,display:'flex',alignItems:'flex-start',justifyContent:'center',overflowY:'auto',padding:'16px 16px 48px'}} onClick={()=>setShowSettings(false)}>
         <div onClick={e=>e.stopPropagation()} style={{background:C.bg,border:`1px solid ${C.border}`,borderRadius:18,padding:20,width:'100%',maxWidth:420,marginTop:20}}>
@@ -513,32 +564,47 @@ export default function RedLetters({ session, profile }) {
             <div style={{fontSize:10,color:C.gold,fontFamily:"'Cinzel',Georgia,serif",letterSpacing:'0.16em',textTransform:'uppercase'}}>⚙️ Settings</div>
             <button onClick={()=>setShowSettings(false)} style={{background:'transparent',border:'none',color:C.muted,cursor:'pointer',fontSize:20}}>×</button>
           </div>
-          <div style={{background:C.bgCard,border:`1px solid ${C.border}`,borderRadius:12,padding:16,marginBottom:14}}>
+          {/* Progress */}
+          <div style={{background:C.bgCard,border:`1px solid ${C.border}`,borderRadius:14,padding:'16px 18px',marginBottom:12}}>
             <div style={{fontSize:10,color:C.gold,fontFamily:"'Cinzel',Georgia,serif",letterSpacing:'0.12em',textTransform:'uppercase',marginBottom:12}}>Your Progress</div>
-            <div style={{display:'grid',gridTemplateColumns:'1fr 1fr 1fr',gap:8}}>
-              {[[read,'Read','📖'],[mem,'Memorized','✦'],[THEMES.length,'Themes','👑']].map(([v,l,icon])=>(
-                <div key={l} style={{background:C.redF,border:`1px solid ${C.redB}`,borderRadius:10,padding:'12px',textAlign:'center'}}>
-                  <div style={{fontSize:22,fontWeight:700,color:C.red,fontFamily:"'Cinzel',Georgia,serif"}}>{v}</div>
-                  <div style={{fontSize:10,color:C.muted}}>{l}</div>
+            <div style={{display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:8,marginBottom:12}}>
+              {[[read,'Read'],[mem,'Memorized'],[THEMES.length,'Themes'],[savedIds.length,'Saved']].map(([v,l])=>(
+                <div key={l} style={{background:C.redF,border:`1px solid ${C.redB}`,borderRadius:10,padding:'10px 4px',textAlign:'center'}}>
+                  <div style={{fontSize:20,fontWeight:700,color:C.red,fontFamily:"'Cinzel',Georgia,serif"}}>{v}</div>
+                  <div style={{fontSize:9,color:C.muted}}>{l}</div>
                 </div>
               ))}
             </div>
-          </div>
-          {isPremium?(
-            <div style={{background:C.greenF,border:`1px solid ${C.greenB}`,borderRadius:12,padding:'12px 16px',marginBottom:14,textAlign:'center'}}>
-              <div style={{fontSize:12,color:C.green,fontFamily:"'Cinzel',Georgia,serif"}}>✓ Full Access Unlocked</div>
-            </div>
-          ):(
-            <button onClick={()=>window.location.href='https://buy.stripe.com/STRIPE_LINK'} style={{width:'100%',background:`linear-gradient(135deg,${C.redF},rgba(139,26,26,0.04))`,border:`1px solid ${C.redB}`,color:C.red,padding:'14px',borderRadius:12,cursor:'pointer',fontSize:13,fontFamily:"'Cinzel',Georgia,serif",letterSpacing:'0.08em',marginBottom:14}}>
-              ✦ Upgrade to Full Access — $9 One-Time
+            <button onClick={()=>{if(window.confirm('Reset reading progress? Journal entries are kept.')){setEntries(prev=>prev.filter(e=>e.field_key==='journal'));setResetDone(true)}}}
+              style={{width:'100%',background:'transparent',border:`1px solid ${C.border}`,color:C.muted,padding:'10px',borderRadius:10,cursor:'pointer',fontSize:12,fontFamily:"'Cinzel',Georgia,serif",letterSpacing:'0.06em'}}>
+              {resetDone?'✓ Progress Reset':'↺ Reset Reading Progress'}
             </button>
-          )}
-          <button onClick={()=>supabase.auth.signOut()} style={{width:'100%',background:'transparent',border:`1px solid ${C.border}`,color:C.muted,padding:'13px',borderRadius:12,cursor:'pointer',fontSize:12,fontFamily:"'Cinzel',Georgia,serif",letterSpacing:'0.08em'}}>Sign Out</button>
-          <div style={{marginTop:14,textAlign:'center',fontSize:11,color:C.dim}}>The Red Letters · Elora Radiance Co.</div>
+          </div>
+          {/* Free */}
+          <div style={{background:C.greenF,border:`1px solid ${C.greenB}`,borderRadius:12,padding:'12px 16px',marginBottom:12,textAlign:'center'}}>
+            <div style={{fontSize:12,color:C.green,fontFamily:"'Cinzel',Georgia,serif"}}>✦ All Content Free — The Red Letters</div>
+          </div>
+          {/* Share */}
+          <div style={{background:C.bgCard,border:`1px solid ${C.border}`,borderRadius:14,padding:'16px 18px',marginBottom:12}}>
+            <div style={{fontSize:10,color:C.gold,fontFamily:"'Cinzel',Georgia,serif",letterSpacing:'0.12em',textTransform:'uppercase',marginBottom:10}}>Share the App</div>
+            <button onClick={()=>{
+              const msg='The Red Letters — study the complete words of Jesus. Free at redletters.vercel.app'
+              if(navigator.share)navigator.share({text:msg})
+              else navigator.clipboard.writeText('https://redletters.vercel.app').then(()=>alert('Link copied!'))
+            }} style={{width:'100%',background:`linear-gradient(135deg,${C.redF},rgba(139,26,26,0.02))`,border:`1px solid ${C.redB}`,color:C.red,padding:'12px',borderRadius:10,cursor:'pointer',fontSize:12,fontFamily:"'Cinzel',Georgia,serif",letterSpacing:'0.08em'}}>
+              Share The Red Letters ↗
+            </button>
+          </div>
+          {/* Account */}
+          <div style={{background:C.bgCard,border:`1px solid ${C.border}`,borderRadius:14,padding:'14px 18px',marginBottom:12}}>
+            <div style={{fontSize:10,color:C.gold,fontFamily:"'Cinzel',Georgia,serif",letterSpacing:'0.12em',textTransform:'uppercase',marginBottom:8}}>Account</div>
+            <div style={{fontSize:13,color:C.muted}}>{session?.user?.email}</div>
+          </div>
+          <button onClick={()=>supabase.auth.signOut()} style={{width:'100%',background:'transparent',border:`1px solid ${C.border}`,color:C.muted,padding:'13px',borderRadius:12,cursor:'pointer',fontSize:12,fontFamily:"'Cinzel',Georgia,serif",letterSpacing:'0.08em',marginBottom:10}}>Sign Out</button>
+          <div style={{textAlign:'center',fontSize:11,color:C.dim}}>The Red Letters · Elora Radiance Co.</div>
         </div>
       </div>
     )
   }
-
   return null
 }
