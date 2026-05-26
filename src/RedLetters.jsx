@@ -386,7 +386,7 @@ export default function RedLetters({ session, profile }) {
             </div>
           )}
 
-          {tab==='apply'&&(isPremium?(
+          {tab==='apply'&&(
             <div>
               <label style={LBL}>Live It Out</label>
               <div style={{background:'linear-gradient(145deg,rgba(139,26,26,0.08),rgba(139,26,26,0.02))',border:`1px solid ${C.redB}`,borderRadius:14,padding:'20px 22px'}}>
@@ -397,7 +397,7 @@ export default function RedLetters({ session, profile }) {
             </div>
           )}
 
-          {tab==='prayer'&&((
+          {tab==='prayer'&&(
             <div>
               <label style={LBL}>Pray It</label>
               <div style={{background:'linear-gradient(145deg,rgba(139,106,46,0.1),rgba(139,106,46,0.03))',border:`1px solid ${C.goldB}`,borderRadius:14,padding:'22px 24px'}}>
@@ -407,7 +407,7 @@ export default function RedLetters({ session, profile }) {
             </div>
           )}
 
-          {tab==='journal'&&((
+          {tab==='journal'&&(
             <div>
               <label style={LBL}>Journal</label>
               <p style={{fontSize:13,color:C.muted,fontStyle:'italic',lineHeight:1.7,marginBottom:12}}>What is Jesus saying to you through this passage? What do you notice? What does it ask of you?</p>
