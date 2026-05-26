@@ -21,12 +21,12 @@ export default function ShareCard({ passage, theme, onClose }) {
   ]
 
   const getContent = (type) => {
-    const firstPara = (txt) => { const p = txt.split('\n\n')[0]; return p.length > 300 ? p.slice(0, 300) + '…' : p }
+    const firstPara = (txt) => txt
     if (type === 'passage') return {
       label: p.ref,
       sublabel: `${theme?.icon || ''} ${theme?.title || ''}`,
-      main: p.text.split('\n\n')[0].length > 280 ? p.text.split('\n\n')[0].slice(0, 280) + '…' : p.text.split('\n\n')[0],
-      caption: `"${p.text.slice(0, 280)}…"\n\n— ${p.ref}\n\nThe Red Letters · ${theme?.title}\nredletters.vercel.app`,
+      main: p.text,
+      caption: `"${p.text}"\n\n— ${p.ref}\n\nThe Red Letters · ${theme?.title}\nredletters.vercel.app`,
     }
     if (type === 'context') return {
       label: 'Setting & Context',
