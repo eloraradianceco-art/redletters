@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { supabase } from './supabaseClient'
 import { THEMES, ALL_PASSAGES, GOSPEL_COLORS } from './data.js'
+import ShareCard from './components/ShareCard'
 import { toPng } from 'html-to-image'
 
 // ── Color tokens — warm parchment light theme ─────────────────────────────
@@ -421,7 +422,7 @@ export default function RedLetters({ session, profile }) {
           )}
         </div>
 
-        {sharePassage&&<SharePassageModal passage={sharePassage} onClose={()=>setSharePassage(null)}/>}
+        {sharePassage&&<ShareCard passage={sharePassage} theme={selTheme} onClose={()=>setSharePassage(null)}/>}
         {showMemo&&<MemorizeModal text={p.text} ref={p.ref} onClose={()=>setShowMemo(false)} isMemorized={isMemorized(p.id)} onMark={()=>{set(p.id,'mem','true');setShowMemo(false)}}/>}
         {showSearch&&<SearchModal/>}
         {showSaved&&<SavedModal/>}
@@ -431,58 +432,6 @@ export default function RedLetters({ session, profile }) {
 
   // ── Sub-components ─────────────────────────────────────────────────────
 
-
-  // ── Share Passage Modal ────────────────────────────────────────────────
-  function SharePassageModal({passage, onClose}) {
-    const [copied, setCopied] = useState(false)
-    const p = passage
-    const caption = `"${p.text.split('\n')[0].slice(0,120)}..." — ${p.ref}\n\nThe Red Letters · redletters.vercel.app`
-    const handleShare = async () => {
-      try {
-        if (navigator.share) {
-          await navigator.share({ text: caption })
-        } else {
-          await navigator.clipboard.writeText(caption)
-          setCopied(true); setTimeout(()=>setCopied(false), 2000)
-        }
-      } catch(e) {}
-    }
-    return (
-      <div style={{position:'fixed',inset:0,background:'rgba(0,0,0,0.8)',zIndex:800,display:'flex',alignItems:'center',justifyContent:'center',padding:16}} onClick={onClose}>
-        <div onClick={e=>e.stopPropagation()} style={{background:C.bg,border:`1px solid ${C.border}`,borderRadius:20,padding:22,width:'100%',maxWidth:400}}>
-          <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:16}}>
-            <div style={{fontSize:10,color:C.gold,fontFamily:"'Cinzel',Georgia,serif",letterSpacing:'0.16em',textTransform:'uppercase'}}>↗ Share Passage</div>
-            <button onClick={onClose} style={{background:'transparent',border:'none',color:C.muted,cursor:'pointer',fontSize:20}}>×</button>
-          </div>
-          {/* Card preview */}
-          <div style={{background:`linear-gradient(145deg,rgba(139,26,26,0.12),rgba(139,26,26,0.04))`,border:`1px solid ${C.redB}`,borderRadius:14,padding:'20px 22px',marginBottom:14}}>
-            <div style={{display:'flex',gap:8}}>
-              <span style={{color:C.gold,fontSize:28,lineHeight:1,opacity:.3,flexShrink:0,fontFamily:'Georgia,serif'}}>"</span>
-              <div>
-                <p style={{fontSize:15,lineHeight:1.85,color:C.red,fontStyle:'italic',marginBottom:10}}>{p.text.split('\n')[0].slice(0,200)}{p.text.length>200?'…':''}</p>
-                <div style={{fontSize:10,color:C.gold,fontFamily:"'Cinzel',Georgia,serif",letterSpacing:'0.1em',textTransform:'uppercase',marginBottom:2}}>{p.ref}</div>
-                <div style={{fontSize:9,color:C.muted,fontFamily:"'Cinzel',Georgia,serif",letterSpacing:'0.08em'}}>The Red Letters · redletters.vercel.app</div>
-              </div>
-            </div>
-          </div>
-          {/* Actions */}
-          <div style={{display:'flex',gap:8}}>
-            <button onClick={handleShare} style={{flex:1,background:C.redF,border:`1px solid ${C.redB}`,color:C.red,padding:'13px',borderRadius:12,cursor:'pointer',fontSize:12,fontFamily:"'Cinzel',Georgia,serif",letterSpacing:'0.08em'}}>
-              {copied ? '✓ Copied!' : '↗ Share'}
-            </button>
-            <button onClick={async()=>{
-              try {
-                await navigator.clipboard.writeText(`"${p.text}" — ${p.ref}\n\nredletters.vercel.app`)
-                setCopied(true); setTimeout(()=>setCopied(false),2000)
-              } catch(e){}
-            }} style={{background:'transparent',border:`1px solid ${C.border}`,color:C.muted,padding:'13px 16px',borderRadius:12,cursor:'pointer',fontSize:12}}>
-              Copy
-            </button>
-          </div>
-        </div>
-      </div>
-    )
-  }
 
   function SearchModal() {
     return (
