@@ -434,15 +434,8 @@ export default function RedLetters({ session, profile }) {
 
   // ── Share Passage Modal ────────────────────────────────────────────────
   function SharePassageModal({passage, onClose}) {
-    const {useRef, useEffect, useState: useLocalState} = require !== undefined ? {useRef:()=>({current:null}),useEffect:()=>{},useState:s=>([s,()=>{}])} : {}
-    const cardRef = React.useRef(null)
-    const [lightCard, setLightCard] = React.useState(false)
-    const [copied, setCopied] = React.useState(false)
+    const [copied, setCopied] = useState(false)
     const p = passage
-    const bg = lightCard ? '#F7F2EA' : '#1A0C06'
-    const textCol = lightCard ? '#3D2E1A' : '#EDE6D6'
-    const redCol = lightCard ? '#8B1A1A' : '#C04040'
-    const goldCol = lightCard ? '#8B6A2E' : '#C9A46A'
     const caption = `"${p.text.split('\n')[0].slice(0,120)}..." — ${p.ref}\n\nThe Red Letters · redletters.vercel.app`
     const handleShare = async () => {
       try {
@@ -462,7 +455,7 @@ export default function RedLetters({ session, profile }) {
             <button onClick={onClose} style={{background:'transparent',border:'none',color:C.muted,cursor:'pointer',fontSize:20}}>×</button>
           </div>
           {/* Card preview */}
-          <div ref={cardRef} style={{background:`linear-gradient(145deg,rgba(139,26,26,0.12),rgba(139,26,26,0.04))`,border:`1px solid ${C.redB}`,borderRadius:14,padding:'20px 22px',marginBottom:14}}>
+          <div style={{background:`linear-gradient(145deg,rgba(139,26,26,0.12),rgba(139,26,26,0.04))`,border:`1px solid ${C.redB}`,borderRadius:14,padding:'20px 22px',marginBottom:14}}>
             <div style={{display:'flex',gap:8}}>
               <span style={{color:C.gold,fontSize:28,lineHeight:1,opacity:.3,flexShrink:0,fontFamily:'Georgia,serif'}}>"</span>
               <div>
@@ -555,7 +548,7 @@ export default function RedLetters({ session, profile }) {
   function SettingsModal() {
     const read=ALL_PASSAGES.filter(p=>get(p.id,'read')==='true').length
     const mem=ALL_PASSAGES.filter(p=>isMemorized(p.id)).length
-    const [resetDone,setResetDone]=React.useState(false)
+    const [resetDone,setResetDone]=useState(false)
     return (
       <div style={{position:'fixed',inset:0,background:'rgba(0,0,0,0.6)',zIndex:700,display:'flex',alignItems:'flex-start',justifyContent:'center',overflowY:'auto',padding:'16px 16px 48px'}} onClick={()=>setShowSettings(false)}>
         <div onClick={e=>e.stopPropagation()} style={{background:C.bg,border:`1px solid ${C.border}`,borderRadius:18,padding:20,width:'100%',maxWidth:420,marginTop:20}}>
