@@ -271,14 +271,34 @@ export default function RedLetters({ session, profile }) {
       <div style={{minHeight:'100vh',background:C.bg,fontFamily:"'EB Garamond',Georgia,serif",color:C.text}}>
         <Header showBack/>
 
-        {/* Floating prev/next passage */}
+        {/* Floating prev/next study tab — crosses to prev/next passage at edges */}
         {(() => {
           const passIdx = selTheme.passages.findIndex(x => x.id === p.id)
-          const prev = selTheme.passages[passIdx-1], next = selTheme.passages[passIdx+1]
-          const s = {position:'fixed',bottom:32,zIndex:250,background:'rgba(247,242,234,0.93)',backdropFilter:'blur(12px)',border:`1px solid ${C.redB}`,color:C.red,borderRadius:50,padding:'10px 14px',cursor:'pointer',fontSize:12,fontFamily:"'Cinzel',Georgia,serif",letterSpacing:'0.04em',boxShadow:'0 4px 16px rgba(139,26,26,0.15)',touchAction:'manipulation',transition:'all .2s',display:'flex',alignItems:'center',gap:6}
+          const prevPass = selTheme.passages[passIdx-1]
+          const nextPass = selTheme.passages[passIdx+1]
+          // Unlocked tabs only for nav
+          const visibleTabs = TABS.filter(tb => !tb.premium || isPremium)
+          const tabIdx = visibleTabs.findIndex(tb => tb.id === tab)
+          const prevTab = visibleTabs[tabIdx-1]
+          const nextTab = visibleTabs[tabIdx+1]
+          const showPrev = prevTab || prevPass
+          const showNext = nextTab || nextPass
+          const s = {position:'fixed',bottom:32,zIndex:250,background:'rgba(247,242,234,0.93)',backdropFilter:'blur(12px)',border:`1px solid ${C.redB}`,color:C.red,borderRadius:50,padding:'10px 14px',cursor:'pointer',fontSize:11,fontFamily:"'Cinzel',Georgia,serif",letterSpacing:'0.04em',boxShadow:'0 4px 16px rgba(139,26,26,0.15)',touchAction:'manipulation',transition:'all .2s',display:'flex',alignItems:'center',gap:5,maxWidth:160}
           return (<>
-            {prev && <button onClick={()=>openPassage(prev,selTheme)} style={{...s,left:16}}>‹ <span style={{maxWidth:80,overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap',fontSize:10}}>{prev.title.split(' ').slice(0,3).join(' ')}</span></button>}
-            {next && <button onClick={()=>openPassage(next,selTheme)} style={{...s,right:16}}><span style={{maxWidth:80,overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap',fontSize:10}}>{next.title.split(' ').slice(0,3).join(' ')}</span> ›</button>}
+            {showPrev && <button onClick={()=>{
+              if(prevTab){setTab(prevTab.id);window.scrollTo(0,0)}
+              else if(prevPass){openPassage(prevPass,selTheme)}
+            }} style={{...s,left:16}}>
+              <span>‹</span>
+              <span style={{overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{prevTab?prevTab.label:prevPass?.title.split(' ').slice(0,3).join(' ')}</span>
+            </button>}
+            {showNext && <button onClick={()=>{
+              if(nextTab){setTab(nextTab.id);window.scrollTo(0,0)}
+              else if(nextPass){openPassage(nextPass,selTheme)}
+            }} style={{...s,right:16}}>
+              <span style={{overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{nextTab?nextTab.label:nextPass?.title.split(' ').slice(0,3).join(' ')}</span>
+              <span>›</span>
+            </button>}
           </>)
         })()}
 
@@ -303,7 +323,7 @@ export default function RedLetters({ session, profile }) {
             <div style={{height:'100%',background:`linear-gradient(90deg,${C.red},${C.redL})`,width:`${((passageIdx+1)/t.passages.length)*100}%`,transition:'width .4s ease'}}/>
           </div>
           {/* Section tabs — AS1 pill style */}
-          <div style={{display:'flex',gap:3,flexWrap:'nowrap',overflowX:'auto',paddingBottom:2}}>
+          <div style={{display:'flex',gap:3,flexWrap:'wrap',paddingBottom:2}}>
             {TABS.map(tb=>{
               const locked=tb.premium&&!isPremium
               return (
