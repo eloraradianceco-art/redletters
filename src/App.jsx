@@ -11,7 +11,7 @@ const C = {
 const INP = {
   width:'100%', background:'rgba(139,26,26,0.05)',
   border:'1px solid rgba(176,138,78,0.2)', borderRadius:10,
-  color:'#EDE6D6', fontSize:16, padding:'14px 16px',
+  color:'#3D2E1A', fontSize:16, padding:'14px 16px',
   fontFamily:"'EB Garamond',Georgia,serif", outline:'none',
   boxSizing:'border-box', marginBottom:12,
 }
@@ -21,7 +21,7 @@ const BTN = (active) => ({
   transition:'all .25s', touchAction:'manipulation',
   background:active?'linear-gradient(135deg,rgba(155,32,32,0.45),rgba(155,32,32,0.22))':'rgba(155,32,32,0.1)',
   border:active?'1px solid rgba(155,32,32,0.5)':'1px solid rgba(155,32,32,0.3)',
-  color:active?C.cream:C.muted,
+  color:active?C.text:C.muted,
 })
 
 class ErrorBoundary extends Component {
