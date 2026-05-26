@@ -3,13 +3,13 @@ import { supabase } from './supabaseClient'
 import RedLetters from './RedLetters.jsx'
 
 const C = {
-  bg:'#080D14', red:'#9B2020', redL:'#C23B3B', redF:'rgba(155,32,32,0.12)',
-  redB:'rgba(155,32,32,0.32)', gold:'#B08A4E', goldF:'rgba(176,138,78,0.1)',
-  goldB:'rgba(176,138,78,0.28)', cream:'#EDE6D6', text:'#C8BEAA',
-  muted:'#7C90A2', dim:'#4E6070', border:'rgba(255,255,255,0.06)', green:'#7C9284',
+  bg:'#F7F2EA', red:'#8B1A1A', redL:'#A52020', redF:'rgba(139,26,26,0.08)',
+  redB:'rgba(139,26,26,0.22)', gold:'#8B6A2E', goldF:'rgba(139,106,46,0.1)',
+  goldB:'rgba(139,106,46,0.25)', cream:'#2A1A0E', text:'#3D2E1A',
+  muted:'#7A6248', dim:'#B09A80', border:'rgba(139,26,26,0.12)', green:'#2E6040',
 }
 const INP = {
-  width:'100%', background:'rgba(255,255,255,0.04)',
+  width:'100%', background:'rgba(139,26,26,0.05)',
   border:'1px solid rgba(176,138,78,0.2)', borderRadius:10,
   color:'#EDE6D6', fontSize:16, padding:'14px 16px',
   fontFamily:"'EB Garamond',Georgia,serif", outline:'none',
@@ -90,7 +90,7 @@ function AuthScreen({ onComplete }) {
       justifyContent:'flex-start',
       background:`radial-gradient(ellipse at 50% 0%,rgba(155,32,32,0.12) 0%,transparent 60%),${C.bg}`,
       fontFamily:"'EB Garamond',Georgia,serif",overflowY:'auto',padding:'0 16px 40px'}}>
-      <div style={{background:'rgba(13,26,42,0.98)',borderRadius:20,
+      <div style={{background:'#EDE8DC',borderRadius:20,
         border:`1px solid rgba(155,32,32,0.2)`,padding:'32px 28px 40px',
         width:'100%',maxWidth:420,marginTop:'8vh'}}>
         <div style={{textAlign:'center',marginBottom:28}}>
@@ -239,7 +239,7 @@ function PasswordReset({ onDone }) {
   return (
     <div style={{minHeight:'100vh',display:'flex',alignItems:'flex-start',justifyContent:'center',
       flexDirection:'column',background:C.bg,padding:'0 16px',overflowY:'auto',fontFamily:"'EB Garamond',Georgia,serif"}}>
-      <div style={{background:'rgba(13,26,42,0.98)',borderRadius:20,border:`1px solid rgba(155,32,32,0.2)`,
+      <div style={{background:'#EDE8DC',borderRadius:20,border:`1px solid rgba(155,32,32,0.2)`,
         padding:'32px 28px',width:'100%',maxWidth:420,marginTop:'10vh'}}>
         <div style={{textAlign:'center',marginBottom:24}}>
           <div style={{fontSize:28,marginBottom:10}}>🔐</div>
