@@ -154,6 +154,17 @@ export default function RedLetters({ session, profile }) {
   )
 
 
+  // ── Settings — must be before view checks ──────────────────────────────
+  if (showSettings) return (
+    <Settings
+      profile={profile}
+      userId={userId}
+      entries={entries}
+      passages={ALL_PASSAGES}
+      onClose={()=>setShowSettings(false)}
+    />
+  )
+
   // ── HOME ────────────────────────────────────────────────────────────────
   if (view==='home') return (
     <div style={{minHeight:'100vh',background:C.bg,fontFamily:"'EB Garamond',Georgia,serif",color:C.text}}>
@@ -786,16 +797,6 @@ export default function RedLetters({ session, profile }) {
       </div>
     )
   }
-
-  if (showSettings) return (
-    <Settings
-      profile={profile}
-      userId={userId}
-      entries={entries}
-      passages={ALL_PASSAGES}
-      onClose={()=>setShowSettings(false)}
-    />
-  )
 
   return null
 }
