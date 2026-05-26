@@ -212,8 +212,7 @@ function AuthScreen({ onComplete }) {
         <div style={{marginTop:24,background:'rgba(255,255,255,0.03)',border:`1px solid ${C.border}`,
           borderRadius:12,padding:'14px 16px',textAlign:'center'}}>
           <div style={{fontSize:11,color:C.muted,lineHeight:1.6}}>
-            Free to read the words of Jesus.<br/>
-            <span style={{color:C.redL}}>$9 one-time</span> unlocks Journal, Pray It, and Memorization.
+            The words of Jesus — completely free.
           </div>
         </div>
       </div>
