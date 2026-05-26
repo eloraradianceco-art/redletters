@@ -21,11 +21,11 @@ export default function ShareCard({ passage, theme, onClose }) {
   ]
 
   const getContent = (type) => {
-    const firstPara = (txt) => txt.split('\n\n')[0]
+    const firstPara = (txt) => { const p = txt.split('\n\n')[0]; return p.length > 300 ? p.slice(0, 300) + '…' : p }
     if (type === 'passage') return {
       label: p.ref,
       sublabel: `${theme?.icon || ''} ${theme?.title || ''}`,
-      main: p.text.length > 400 ? p.text.slice(0, 400) + '…' : p.text,
+      main: p.text.split('\n\n')[0].length > 280 ? p.text.split('\n\n')[0].slice(0, 280) + '…' : p.text.split('\n\n')[0],
       caption: `"${p.text.slice(0, 280)}…"\n\n— ${p.ref}\n\nThe Red Letters · ${theme?.title}\nredletters.vercel.app`,
     }
     if (type === 'context') return {
@@ -174,7 +174,7 @@ export default function ShareCard({ passage, theme, onClose }) {
         <div ref={cardRef} style={{
           background: th.bgGrad,
           borderRadius: 18,
-          padding: '28px 28px 22px',
+          padding: '22px 22px 18px',
           textAlign: 'center',
           fontFamily: "'EB Garamond', Georgia, serif",
           border: `2px solid ${th.border}`,
@@ -191,20 +191,20 @@ export default function ShareCard({ passage, theme, onClose }) {
           }}/>
 
           {/* Icon */}
-          <img src="/icon.png" alt="" style={{ width: 52, height: 52, borderRadius: 13, display: 'block', margin: '0 auto 10px' }} />
+          <img src="/icon.png" alt="" style={{ width: 40, height: 40, borderRadius: 10, display: 'block', margin: '0 auto 8px' }} />
 
           {/* Elora Radiance Co. */}
-          <div style={{ fontSize: 11, color: th.brand, letterSpacing: '0.2em', textTransform: 'uppercase', fontFamily: "'Cinzel',Georgia,serif", marginBottom: 5 }}>
+          <div style={{ fontSize: 10, color: th.brand, letterSpacing: '0.18em', textTransform: 'uppercase', fontFamily: "'Cinzel',Georgia,serif", marginBottom: 5 }}>
             Elora Radiance Co.
           </div>
 
           {/* The Red Letters */}
-          <div style={{ fontSize: 22, fontWeight: 700, color: th.title, fontFamily: "'Cinzel',Georgia,serif", letterSpacing: '0.03em', marginBottom: 4 }}>
+          <div style={{ fontSize: 19, fontWeight: 700, color: th.title, fontFamily: "'Cinzel',Georgia,serif", letterSpacing: '0.03em', marginBottom: 4 }}>
             The Red Letters
           </div>
 
           {/* Theme */}
-          <div style={{ fontSize: 12, color: th.sublabel, letterSpacing: '0.1em', textTransform: 'uppercase', fontFamily: "'Cinzel',Georgia,serif", marginBottom: 14 }}>
+          <div style={{ fontSize: 11, color: th.sublabel, letterSpacing: '0.09em', textTransform: 'uppercase', fontFamily: "'Cinzel',Georgia,serif", marginBottom: 14 }}>
             {theme?.icon}&nbsp;&nbsp;{theme?.title}
           </div>
 
@@ -223,7 +223,7 @@ export default function ShareCard({ passage, theme, onClose }) {
 
           {/* Main text */}
           <p style={{
-            fontSize: isPassage ? 17 : 16,
+            fontSize: isPassage ? 15 : 15,
             color: isPassage ? th.brand.replace('0.7','0.9').replace('0.8','0.95') : th.body,
             lineHeight: 1.85, marginBottom: 12,
             fontStyle: 'italic', letterSpacing: '0.01em',
