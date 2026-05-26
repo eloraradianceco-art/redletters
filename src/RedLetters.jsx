@@ -151,11 +151,75 @@ export default function RedLetters({ session, profile }) {
     </div>
   )
 
+
+  // ── Bottom Navigation Bar ─────────────────────────────────────────────
+  const BottomNav = () => {
+    // In theme view, show prev/next theme
+    // In passage view, show prev/next passage
+    // Always show main nav tabs
+    const themeIdx = selTheme ? THEMES.findIndex(t => t.id === selTheme.id) : -1
+    const passIdx  = (selPassage && selTheme) ? selTheme.passages.findIndex(p => p.id === selPassage.id) : -1
+    const prevTheme = themeIdx > 0 ? THEMES[themeIdx-1] : null
+    const nextTheme = themeIdx >= 0 && themeIdx < THEMES.length-1 ? THEMES[themeIdx+1] : null
+    const prevPass  = passIdx > 0 ? selTheme.passages[passIdx-1] : null
+    const nextPass  = passIdx >= 0 && passIdx < selTheme.passages.length-1 ? selTheme.passages[passIdx+1] : null
+
+    const showPrevNext = view === 'theme' || view === 'passage'
+    const prevItem = view === 'passage' ? prevPass : prevTheme
+    const nextItem = view === 'passage' ? nextPass : nextTheme
+    const prevLabel = view === 'passage' ? prevItem?.title : prevItem?.title
+    const nextLabel = view === 'passage' ? nextItem?.title : nextItem?.title
+
+    const handlePrev = () => {
+      if (view === 'passage' && prevPass) openPassage(prevPass, selTheme)
+      else if (view === 'theme' && prevTheme) { setSelTheme(prevTheme); window.scrollTo(0,0) }
+    }
+    const handleNext = () => {
+      if (view === 'passage' && nextPass) openPassage(nextPass, selTheme)
+      else if (view === 'theme' && nextTheme) { setSelTheme(nextTheme); window.scrollTo(0,0) }
+    }
+
+    return (
+      <div style={{position:'fixed',bottom:0,left:0,right:0,zIndex:300,background:'rgba(247,242,234,0.97)',backdropFilter:'blur(14px)',borderTop:`1px solid ${C.border}`}}>
+        {/* Prev / Next strip */}
+        {showPrevNext && (
+          <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',padding:'5px 16px 0',borderBottom:`1px solid ${C.border}`}}>
+            <button onClick={handlePrev} disabled={!prevItem}
+              style={{background:'transparent',border:'none',color:prevItem?C.red:C.dim,cursor:prevItem?'pointer':'default',fontSize:11,fontFamily:"'Cinzel',Georgia,serif",padding:'4px 0',touchAction:'manipulation',display:'flex',alignItems:'center',gap:4,maxWidth:'40%'}}>
+              {prevItem && <><span>‹</span><span style={{overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{prevLabel}</span></>}
+            </button>
+            <div style={{fontSize:9,color:C.muted,fontFamily:"'Cinzel',Georgia,serif",letterSpacing:'0.1em',textTransform:'uppercase',flexShrink:0}}>
+              {view==='passage' ? `${passIdx+1} / ${selTheme?.passages?.length}` : `${themeIdx+1} / ${THEMES.length}`}
+            </div>
+            <button onClick={handleNext} disabled={!nextItem}
+              style={{background:'transparent',border:'none',color:nextItem?C.red:C.dim,cursor:nextItem?'pointer':'default',fontSize:11,fontFamily:"'Cinzel',Georgia,serif",padding:'4px 0',touchAction:'manipulation',display:'flex',alignItems:'center',gap:4,maxWidth:'40%',justifyContent:'flex-end'}}>
+              {nextItem && <><span style={{overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{nextLabel}</span><span>›</span></>}
+            </button>
+          </div>
+        )}
+        {/* Main nav tabs */}
+        <div style={{display:'flex',justifyContent:'space-around',padding:'6px 4px',paddingBottom:'max(8px,env(safe-area-inset-bottom))'}}>
+          {[['home','📚','Themes'],['search','🔍','Search'],['saved','★','Saved'],['settings','⚙️','Settings']].map(([id,icon,label])=>(
+            <button key={id} onClick={()=>{
+              if(id==='home'){setView('home');setSelTheme(null);setSelPassage(null);window.scrollTo(0,0)}
+              else if(id==='search'){setShowSearch(true);setSearchQ('');setSearchResults([])}
+              else if(id==='saved')setShowSaved(true)
+              else if(id==='settings')setShowSettings(true)
+            }} style={{display:'flex',flexDirection:'column',alignItems:'center',gap:2,background:'transparent',border:'none',padding:'4px 6px',borderRadius:8,cursor:'pointer',minWidth:52,touchAction:'manipulation',transition:'all .15s'}}>
+              <span style={{fontSize:18,lineHeight:1}}>{icon}</span>
+              <span style={{fontSize:9,fontFamily:"'Cinzel',Georgia,serif",letterSpacing:'0.04em',color:view==='home'&&id==='home'?C.red:C.muted}}>{label}</span>
+            </button>
+          ))}
+        </div>
+      </div>
+    )
+  }
+
   // ── HOME ────────────────────────────────────────────────────────────────
   if (view==='home') return (
     <div style={{minHeight:'100vh',background:C.bg,fontFamily:"'EB Garamond',Georgia,serif",color:C.text}}>
       <Header/>
-      <div style={{maxWidth:860,margin:'0 auto',padding:'26px 18px 100px'}}>
+      <div style={{maxWidth:860,margin:'0 auto',padding:'26px 18px 130px'}}>
         <div style={{fontSize:9,color:C.muted,letterSpacing:'0.16em',textTransform:'uppercase',fontFamily:"'Cinzel',Georgia,serif",marginBottom:14}}>Browse by Theme</div>
         {THEMES.map((t,i)=>{
           const read=t.passages.filter(p=>get(p.id,'read')==='true').length
@@ -177,6 +241,7 @@ export default function RedLetters({ session, profile }) {
       {showSearch&&<SearchModal/>}
       {showSaved&&<SavedModal/>}
       {showSettings&&<SettingsModal/>}
+      <BottomNav/>
     </div>
   )
 
@@ -210,7 +275,7 @@ export default function RedLetters({ session, profile }) {
         </div>
       </div>
       {/* Passage cards */}
-      <div style={{maxWidth:860,margin:'0 auto',padding:'0 18px 100px'}}>
+      <div style={{maxWidth:860,margin:'0 auto',padding:'0 18px 130px'}}>
         <label style={LBL}>Passages — {selTheme.title}</label>
         {selTheme.passages.map((p,i)=>{
           const gc=GOSPEL_COLORS[p.gospel]||C.red
@@ -242,6 +307,7 @@ export default function RedLetters({ session, profile }) {
       </div>
       {showSearch&&<SearchModal/>}
       {showSaved&&<SavedModal/>}
+      <BottomNav/>
     </div>
   )
 
@@ -292,7 +358,7 @@ export default function RedLetters({ session, profile }) {
         </div>
 
         {/* Tab content */}
-        <div style={{maxWidth:860,margin:'0 auto',padding:'20px 18px 120px'}}>
+        <div style={{maxWidth:860,margin:'0 auto',padding:'20px 18px 140px'}}>
 
           {tab==='passage'&&(
             <div>
@@ -379,6 +445,7 @@ export default function RedLetters({ session, profile }) {
         {showMemo&&<MemorizeModal text={p.text} ref={p.ref} onClose={()=>setShowMemo(false)} isMemorized={isMemorized(p.id)} onMark={()=>{set(p.id,'mem','true');setShowMemo(false)}}/>}
         {showSearch&&<SearchModal/>}
         {showSaved&&<SavedModal/>}
+        <BottomNav/>
       </div>
     )
   }
