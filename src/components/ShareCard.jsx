@@ -1,5 +1,4 @@
 import { useState, useRef } from 'react'
-import { toPng } from 'html-to-image'
 
 const TAGLINE = 'The complete words of Jesus — redletters.vercel.app'
 
@@ -96,6 +95,7 @@ export default function ShareCard({ passage, theme, onClose }) {
     if (!cardRef.current || sharing) return
     setSharing(true)
     try {
+      const { toPng } = await import('html-to-image')
       const dataUrl = await toPng(cardRef.current, {
         cacheBust: true,
         pixelRatio: 2,
