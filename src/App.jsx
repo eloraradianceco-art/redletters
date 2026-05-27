@@ -112,6 +112,7 @@ function AppInner() {
   const [profile, setProfile] = useState(null)
   const [loading, setLoading] = useState(true)
   const [showOnboarding, setShowOnboarding] = useState(false)
+  const [onboarded, setOnboarded] = useState(() => !!localStorage.getItem('rl_onboarded'))
   const [showPasswordReset, setShowPasswordReset] = useState(false)
 
   useEffect(() => {
@@ -151,8 +152,9 @@ function AppInner() {
   }
 
   const handleOnboardingComplete = () => {
-    setShowOnboarding(false)
     localStorage.setItem('rl_onboarded', 'true')
+    setOnboarded(true)
+    setShowOnboarding(false)
   }
 
   if (showPasswordReset) return <PasswordReset onDone={() => setShowPasswordReset(false)} />
@@ -162,7 +164,7 @@ function AppInner() {
   if (!session) return <Auth onComplete={handleAuthComplete} />
 
   // Show onboarding for new users
-  if (showOnboarding || !localStorage.getItem('rl_onboarded')) {
+  if (showOnboarding || !onboarded) {
     return <Onboarding onComplete={handleOnboardingComplete} />
   }
 
