@@ -430,11 +430,11 @@ export default function RedLetters({ session, profile }) {
         </div>
         <div style={{display:'flex',alignItems:'center',gap:8}}>
           <span style={{fontSize:10,color:C.muted,fontFamily:"'Cinzel',Georgia,serif"}}>{session?.user?.email?.split('@')[0]}</span>
-          <button onClick={()=>supabase.auth.signOut()} style={{background:'transparent',border:`1px solid ${C.border}`,color:C.muted,padding:'3px 10px',borderRadius:6,cursor:'pointer',fontSize:10,fontFamily:"'Cinzel',Georgia,serif",letterSpacing:'0.06em'}}>Sign Out</button>
+
         </div>
       </div>
       <div style={{display:'flex',justifyContent:'center',gap:2,padding:'4px 12px 7px',flexWrap:'nowrap',overflowX:'auto'}}>
-        {(showBack?[['back','← Themes'],['search','🔍 Search'],['saved','★ Saved']]:[['search','🔍 Search'],['saved','★ Saved'],['progress','📊 Progress'],['settings','⚙️ Settings']]).map(([v,l])=>(
+        {(showBack?[['back','← Themes'],['search','🔍 Search'],['saved','★ Saved'],['settings','⚙️ Settings']]:[['search','🔍 Search'],['saved','★ Saved'],['progress','📊 Progress'],['settings','⚙️ Settings']]).map(([v,l])=>(
           <button key={v} onClick={()=>{
             if(v==='back')goBack()
             else if(v==='search'){setShowSearch(true);setSearchQ('');setSearchResults([])}
