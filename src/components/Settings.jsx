@@ -1,7 +1,20 @@
 import { useState } from 'react'
 import { supabase } from '../supabaseClient'
 
-export default function Settings({ profile, userId, entries, passages, onClose }) {
+export default function Settings({ profile, userId, entries, passages, darkMode, onToggleDarkMode, onClose }) {
+  const C = darkMode ? {
+    bg:'#0F0A06', bgCard:'rgba(201,64,64,0.07)', bgMid:'#1A0E08',
+    red:'#C94040', redL:'#D96060', redF:'rgba(201,64,64,0.12)', redB:'rgba(201,64,64,0.32)',
+    gold:'#B08A4E', goldF:'rgba(176,138,78,0.11)', goldB:'rgba(176,138,78,0.28)',
+    cream:'#EDE6D6', text:'rgba(220,210,195,0.9)', muted:'rgba(176,160,130,0.65)', dim:'rgba(150,130,100,0.4)',
+    border:'rgba(201,64,64,0.12)', ink:'#EDE6D6',
+  } : {
+    bg:'#F7F2EA', bgCard:'rgba(139,26,26,0.04)', bgMid:'#EDE8DC',
+    red:'#8B1A1A', redL:'#A52020', redF:'rgba(139,26,26,0.08)', redB:'rgba(139,26,26,0.22)',
+    gold:'#8B6A2E', goldF:'rgba(139,106,46,0.1)', goldB:'rgba(139,106,46,0.28)',
+    cream:'#2A1A0E', text:'#3D2E1A', muted:'#7A6248', dim:'#B09A80',
+    border:'rgba(139,26,26,0.12)', ink:'#1C150A',
+  }
   const [copiedShare, setCopiedShare] = useState(false)
   const [signingOut, setSigningOut] = useState(false)
   const [exporting, setExporting] = useState(false)
@@ -257,7 +270,32 @@ export default function Settings({ profile, userId, entries, passages, onClose }
             </button>
           </div>
 
-          {/* About */}
+          {/* Appearance */}
+      <div style={{ marginTop:24, marginBottom:8 }}>
+        <div style={{ fontSize:9, color:C.muted, letterSpacing:'0.14em', textTransform:'uppercase',
+          fontFamily:"'Cinzel',Georgia,serif", marginBottom:4 }}>Appearance</div>
+      </div>
+      <div style={{ background:C.bgCard, border:`1px solid ${C.border}`, borderRadius:14, padding:'0 16px' }}>
+        <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between',
+          padding:'16px 0', borderBottom:'none' }}>
+          <div style={{ display:'flex', alignItems:'center', gap:12 }}>
+            <span style={{ fontSize:18, width:26, textAlign:'center' }}>{darkMode ? '🌙' : '☀️'}</span>
+            <span style={{ fontSize:16, color:C.text, fontFamily:"'EB Garamond',Georgia,serif" }}>
+              {darkMode ? 'Dark Mode' : 'Light Mode'}
+            </span>
+          </div>
+          <div onClick={onToggleDarkMode} style={{ width:48, height:28, borderRadius:14, cursor:'pointer',
+            background: darkMode ? C.red : C.bgCard,
+            border:`1px solid ${darkMode ? C.redB : C.border}`,
+            position:'relative', transition:'all .25s' }}>
+            <div style={{ position:'absolute', top:3, left: darkMode ? 22 : 3, width:20, height:20,
+              borderRadius:'50%', background: darkMode ? '#fff' : C.muted,
+              transition:'left .25s', boxShadow:'0 1px 4px rgba(0,0,0,0.3)' }}/>
+          </div>
+        </div>
+      </div>
+
+      {/* About */}
           <div style={{ marginTop: 24, marginBottom: 8 }}>
             <div style={{ fontSize: 9, color: C.muted, letterSpacing: '0.14em', textTransform: 'uppercase', fontFamily: "'Cinzel',Georgia,serif", marginBottom: 4 }}>About</div>
           </div>
