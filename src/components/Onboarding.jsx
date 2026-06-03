@@ -5,7 +5,7 @@ const C = {
   redF: 'rgba(139,26,26,0.08)', redB: 'rgba(139,26,26,0.22)',
   gold: '#8B6A2E', goldF: 'rgba(139,106,46,0.1)', goldB: 'rgba(139,106,46,0.28)',
   cream: '#2A1A0E', text: '#3D2E1A', muted: '#7A6248',
-  border: 'rgba(139,26,26,0.12)',
+  dim: '#B09A80', border: 'rgba(139,26,26,0.12)',
 }
 
 const SLIDES = [
@@ -57,76 +57,36 @@ const SLIDES = [
     title: 'You\'re Ready.',
     subtitle: 'The words of Jesus are living and active. They are not ancient history. They are addressed to you, right now.',
     detail: null,
-    isLast: true,
     color: C.redL,
+    isLast: true,
   },
 ]
 
 export default function Onboarding({ onComplete }) {
   const [slide, setSlide] = useState(0)
+  const [fadingOut, setFadingOut] = useState(false)
   const current = SLIDES[slide]
   const isLast = slide === SLIDES.length - 1
 
-  const next = () => {
-    if (isLast) { onComplete() } else { setSlide(s => s + 1) }
+  const finish = () => {
+    setFadingOut(true)
+    setTimeout(() => onComplete(), 400)
   }
 
   return (
     <div style={{
       minHeight: '100vh', display: 'flex', flexDirection: 'column',
       alignItems: 'center', justifyContent: 'center',
-      background: `radial-gradient(ellipse at 50% 0%, rgba(139,26,26,0.08) 0%, transparent 55%), ${C.bg}`,
+      background: `radial-gradient(ellipse at 50% 0%, rgba(139,26,26,0.07) 0%, transparent 55%), ${C.bg}`,
       fontFamily: "'EB Garamond',Georgia,serif",
-      padding: '24px 20px',
+      padding: '32px 24px', textAlign: 'center',
+      opacity: fadingOut ? 0 : 1,
+      transition: 'opacity 0.4s ease',
     }}>
-      <div style={{
-        maxWidth: 420, width: '100%',
-        background: '#EDE8DC', borderRadius: 24,
-        border: '1px solid rgba(139,26,26,0.15)',
-        padding: '48px 32px 36px',
-        boxShadow: '0 12px 40px rgba(139,26,26,0.1)',
-        textAlign: 'center',
-      }}>
-        {/* Icon */}
-        <div style={{
-          fontSize: 52, marginBottom: 24, lineHeight: 1,
-          color: current.color,
-        }}>
-          {current.icon}
-        </div>
-
-        {/* Title */}
-        <h2 style={{
-          fontSize: 22, fontWeight: 700, color: C.cream,
-          fontFamily: "'Cinzel',Georgia,serif", letterSpacing: '0.04em',
-          lineHeight: 1.25, marginBottom: 16,
-        }}>
-          {current.title}
-        </h2>
-
-        {/* Subtitle */}
-        <p style={{
-          fontSize: 16, color: C.text, lineHeight: 1.8,
-          marginBottom: current.detail ? 16 : 32,
-        }}>
-          {current.subtitle}
-        </p>
-
-        {/* Detail */}
-        {current.detail && (
-          <p style={{
-            fontSize: 14, color: C.muted,
-            fontStyle: current.italic ? 'italic' : 'normal',
-            lineHeight: 1.75, marginBottom: 32,
-            background: C.redF, border: `1px solid ${C.redB}`,
-            borderRadius: 10, padding: '12px 16px',
-          }}>
-            {current.detail}
-          </p>
-        )}
+      <div style={{ maxWidth: 440, width: '100%' }}>
 
         {/* Progress dots */}
-        <div style={{ display: 'flex', justifyContent: 'center', gap: 6, marginBottom: 28 }}>
+        <div style={{ display: 'flex', justifyContent: 'center', gap: 6, marginBottom: 40 }}>
           {SLIDES.map((_, i) => (
             <div key={i} style={{
               width: i === slide ? 20 : 6, height: 6, borderRadius: 3,
@@ -136,28 +96,75 @@ export default function Onboarding({ onComplete }) {
           ))}
         </div>
 
-        {/* Next button */}
-        <button onClick={next} style={{
-          width: '100%', padding: '16px', borderRadius: 14, cursor: 'pointer',
-          background: `linear-gradient(135deg,rgba(139,26,26,0.35),rgba(139,26,26,0.18))`,
-          border: `1px solid ${C.redB}`,
-          color: C.cream, fontSize: 14,
-          fontFamily: "'Cinzel',Georgia,serif", letterSpacing: '0.09em',
-          transition: 'all .2s', touchAction: 'manipulation',
-          marginBottom: 12,
-        }}>
-          {isLast ? 'Begin Reading ✦' : 'Continue →'}
-        </button>
+        <div style={{ fontSize: 52, marginBottom: 24, lineHeight: 1, color: current.color }}>
+          {current.icon}
+        </div>
 
-        {/* Skip */}
-        {!isLast && (
-          <button onClick={onComplete} style={{
-            background: 'transparent', border: 'none',
-            color: C.muted, cursor: 'pointer', fontSize: 13,
-            fontFamily: "'EB Garamond',Georgia,serif",
+        <h2 style={{
+          fontSize: 24, fontWeight: 700, color: C.cream,
+          fontFamily: "'Cinzel',Georgia,serif", letterSpacing: '0.04em',
+          lineHeight: 1.25, marginBottom: 16,
+        }}>{current.title}</h2>
+
+        <p style={{
+          fontSize: 17, color: C.text, lineHeight: 1.85,
+          marginBottom: current.detail ? 20 : 40,
+        }}>{current.subtitle}</p>
+
+        {current.detail && (
+          <div style={{
+            background: current.color === C.gold
+              ? 'linear-gradient(145deg,rgba(139,106,46,0.1),rgba(139,106,46,0.03))'
+              : 'linear-gradient(145deg,rgba(139,26,26,0.08),rgba(139,26,26,0.02))',
+            border: `1px solid ${current.color === C.gold ? C.goldB : C.redB}`,
+            borderRadius: 12, padding: '14px 18px', marginBottom: 40,
           }}>
-            Skip intro
+            <p style={{
+              fontSize: 15,
+              color: current.color === C.gold ? C.gold : C.redL,
+              fontStyle: current.italic ? 'italic' : 'normal',
+              lineHeight: 1.75,
+            }}>{current.detail}</p>
+          </div>
+        )}
+
+        {isLast ? (
+          <button onClick={finish} style={{
+            width: '100%',
+            background: 'linear-gradient(135deg,rgba(139,26,26,0.35),rgba(139,26,26,0.15))',
+            border: `1px solid ${C.redB}`, color: C.cream,
+            padding: '18px', borderRadius: 14, cursor: 'pointer',
+            fontSize: 16, fontFamily: "'Cinzel',Georgia,serif", letterSpacing: '0.1em',
+            marginBottom: 16, touchAction: 'manipulation',
+          }}>
+            Begin Reading ✦
           </button>
+        ) : (
+          <div style={{ display: 'flex', gap: 10 }}>
+            {slide > 0 && (
+              <button onClick={() => setSlide(s => s - 1)} style={{
+                flex: 1, background: 'transparent', border: `1px solid ${C.border}`,
+                color: C.muted, padding: '14px', borderRadius: 12,
+                cursor: 'pointer', fontSize: 14, fontFamily: "'Cinzel',Georgia,serif",
+              }}>‹ Back</button>
+            )}
+            <button onClick={() => setSlide(s => s + 1)} style={{
+              flex: 2,
+              background: 'linear-gradient(135deg,rgba(139,26,26,0.28),rgba(139,26,26,0.1))',
+              border: `1px solid ${C.redB}`, color: C.cream,
+              padding: '14px', borderRadius: 12, cursor: 'pointer',
+              fontSize: 14, fontFamily: "'Cinzel',Georgia,serif", letterSpacing: '0.07em',
+              touchAction: 'manipulation',
+            }}>Next ›</button>
+          </div>
+        )}
+
+        {!isLast && (
+          <button onClick={finish} style={{
+            background: 'none', border: 'none', color: C.dim,
+            cursor: 'pointer', fontSize: 12, marginTop: 16,
+            fontFamily: "'Cinzel',Georgia,serif", letterSpacing: '0.08em',
+          }}>Skip intro</button>
         )}
       </div>
     </div>
