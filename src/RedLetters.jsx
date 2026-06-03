@@ -22,7 +22,6 @@ const DARK_C = {
   border:'rgba(201,64,64,0.12)',
 }
 
-const G = C // alias so AS1 color refs work
 
 const TABS = [
   {id:'passage', label:'📖 The Passage'},
