@@ -33,13 +33,12 @@ const TABS = [
   {id:'journal', label:'📝 Journal'},
 ]
 
-const LBL = {fontSize:9,color:C.gold,letterSpacing:'0.16em',textTransform:'uppercase',fontFamily:"'Cinzel',Georgia,serif",marginBottom:12,display:'block'}
 
 
 // ── Share Card ──────────────────────────────────────────────────────────────
 const TAGLINE = 'The complete words of Jesus — redletters.vercel.app'
 
-function ShareCard({ passage, theme, onClose }) {
+function ShareCard({ passage, theme, onClose, C }) {
   const cardRef = useRef(null)
   const [cardType, setCardType] = useState('passage')
   const [lightCard, setLightCard] = useState(true) // RL defaults to light
@@ -331,7 +330,7 @@ function ShareCard({ passage, theme, onClose }) {
   )
 }
 // ── Memorize Modal ─────────────────────────────────────────────────────────
-function MemorizeModal({text, ref, onClose, isMemorized, onMark}) {
+function MemorizeModal({text, ref, onClose, isMemorized, onMark, C}) {
   const [mode,setMode]=useState(null)
   const [revealed,setRevealed]=useState(false)
   const [typed,setTyped]=useState('')
@@ -384,6 +383,7 @@ export default function RedLetters({ session, profile }) {
 
   const [darkMode,setDarkMode]=useState(()=>{try{return localStorage.getItem('rl_dark')==='1'}catch{return false}})
   const C = darkMode ? DARK_C : LIGHT_C
+  const LBL = {fontSize:9,color:C.gold,letterSpacing:'0.16em',textTransform:'uppercase',fontFamily:"'Cinzel',Georgia,serif",marginBottom:12,display:'block'}
   const [view,setView]=useState('home')     // 'home'|'theme'|'passage'
   const [selTheme,setSelTheme]=useState(null)
   const [selPassage,setSelPassage]=useState(null)
@@ -800,8 +800,8 @@ export default function RedLetters({ session, profile }) {
           )}
         </div>
 
-        {sharePassage&&<ShareCard passage={sharePassage} theme={selTheme} onClose={()=>setSharePassage(null)}/>}
-        {showMemo&&<MemorizeModal text={p.text} ref={p.ref} onClose={()=>setShowMemo(false)} isMemorized={isMemorized(p.id)} onMark={()=>{set(p.id,'mem','true');setShowMemo(false)}}/>}
+        {sharePassage&&<ShareCard passage={sharePassage} theme={selTheme} onClose={()=>setSharePassage(null)} C={C}/>}
+        {showMemo&&<MemorizeModal text={p.text} ref={p.ref} onClose={()=>setShowMemo(false)} isMemorized={isMemorized(p.id)} onMark={()=>{set(p.id,'mem','true');setShowMemo(false)}} C={C}/>}
         {showSearch&&<SearchModal/>}
         {showSaved&&<SavedModal/>}
         </div>
