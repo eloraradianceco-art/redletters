@@ -138,16 +138,26 @@ function AppInner() {
   }, [])
 
   const loadProfile = async (userId) => {
-    const { data } = await supabase.from('rl_profiles').select('*').eq('id', userId).single()
-    setProfile(data)
-    setLoading(false)
+    try {
+      const { data } = await supabase.from('rl_profiles').select('*').eq('id', userId).maybeSingle()
+      setProfile(data || null)
+    } catch (e) {
+      console.error('loadProfile error:', e)
+    } finally {
+      setLoading(false)
+    }
   }
 
   const handleAuthComplete = async (isNewUser) => {
-    const { data: { session } } = await supabase.auth.getSession()
-    if (session) {
-      await loadProfile(session.user.id)
-      if (isNewUser) setShowOnboarding(true)
+    try {
+      const { data: { session } } = await supabase.auth.getSession()
+      if (session) {
+        await loadProfile(session.user.id)
+        if (isNewUser) setShowOnboarding(true)
+      }
+    } catch (e) {
+      console.error('handleAuthComplete error:', e)
+      setLoading(false)
     }
   }
 
