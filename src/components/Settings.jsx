@@ -22,13 +22,6 @@ export default function Settings({ profile, userId, entries, passages, darkMode,
   const [exporting, setExporting] = useState(false)
   const [resetDone, setResetDone] = useState(false)
 
-  const C = {
-    bg: '#F7F2EA', bgCard: 'rgba(139,26,26,0.04)', border: 'rgba(139,26,26,0.12)',
-    cream: '#2A1A0E', text: '#3D2E1A', muted: '#7A6248', dim: '#B09A80',
-    red: '#8B1A1A', redL: '#A52020', redF: 'rgba(139,26,26,0.08)', redB: 'rgba(139,26,26,0.22)',
-    gold: '#8B6A2E', goldF: 'rgba(139,106,46,0.1)', goldB: 'rgba(139,106,46,0.28)',
-    green: '#2E6040', greenF: 'rgba(46,96,64,0.1)', greenB: 'rgba(46,96,64,0.3)',
-  }
 
   const read = passages ? passages.filter(p => entries?.find(e => e.saying_id === p.id && e.field_key === 'read')?.field_value === 'true').length : 0
   const mem  = passages ? passages.filter(p => entries?.find(e => e.saying_id === p.id && e.field_key === 'mem')?.field_value === 'true').length : 0
