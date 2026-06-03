@@ -4,15 +4,24 @@ import { THEMES, ALL_PASSAGES, GOSPEL_COLORS } from './data.js'
 import Settings from './components/Settings'
 
 // ── Color tokens — warm parchment light theme ─────────────────────────────
-const C = {
+const LIGHT_C = {
   bg:'#F7F2EA', bgCard:'rgba(139,26,26,0.04)', bgMid:'#EDE8DC',
   red:'#8B1A1A', redL:'#A52020',
   redF:'rgba(139,26,26,0.08)', redB:'rgba(139,26,26,0.22)',
   gold:'#8B6A2E', goldF:'rgba(139,106,46,0.1)', goldB:'rgba(139,106,46,0.28)',
   cream:'#2A1A0E', text:'#3D2E1A', muted:'#7A6248', dim:'#B09A80',
-  border:'rgba(139,26,26,0.12)', borderGold:'rgba(139,106,46,0.2)',
-  green:'#2E6040', greenF:'rgba(46,96,64,0.1)', greenB:'rgba(46,96,64,0.3)',
+  border:'rgba(139,26,26,0.12)',
 }
+
+const DARK_C = {
+  bg:'#0F0A06', bgCard:'rgba(201,64,64,0.07)', bgMid:'#1A0E08',
+  red:'#C94040', redL:'#D96060',
+  redF:'rgba(201,64,64,0.12)', redB:'rgba(201,64,64,0.32)',
+  gold:'#B08A4E', goldF:'rgba(176,138,78,0.11)', goldB:'rgba(176,138,78,0.28)',
+  cream:'#EDE6D6', text:'rgba(220,210,195,0.9)', muted:'rgba(176,160,130,0.65)', dim:'rgba(150,130,100,0.4)',
+  border:'rgba(201,64,64,0.12)',
+}
+
 const G = C // alias so AS1 color refs work
 
 const TABS = [
@@ -373,7 +382,9 @@ export default function RedLetters({ session, profile }) {
   const userId = session?.user?.id
   const isPremium = true // All content free
 
-  const [view,setView]=useState('home')     // 'home'|'theme'|'passage'
+const [darkMode,setDarkMode]=useState(()=>localStorage.getItem('rl_dark')==='1')
+    const [view,setView]=useState('home')     // 'home'|'theme'|'passage'
+  const C = darkMode ? DARK_C : LIGHT_C
   const [selTheme,setSelTheme]=useState(null)
   const [selPassage,setSelPassage]=useState(null)
   const [tab,setTab]=useState('passage')
@@ -548,6 +559,8 @@ export default function RedLetters({ session, profile }) {
       userId={userId}
       entries={entries}
       passages={ALL_PASSAGES}
+      darkMode={darkMode}
+      onToggleDarkMode={()=>{const n=!darkMode;setDarkMode(n);try{localStorage.setItem('rl_dark',n?'1':'0')}catch{}}}
       onClose={()=>setShowSettings(false)}
     />
   )
