@@ -10,7 +10,7 @@ const LIGHT_C = {
   redF:'rgba(139,26,26,0.08)', redB:'rgba(139,26,26,0.22)',
   gold:'#8B6A2E', goldF:'rgba(139,106,46,0.1)', goldB:'rgba(139,106,46,0.28)',
   cream:'#2A1A0E', ink:'#1C150A', text:'#3D2E1A', muted:'#7A6248', dim:'#B09A80',
-  border:'rgba(139,26,26,0.12)', borderGold:'rgba(139,106,46,0.28)',
+  border:'rgba(139,26,26,0.12)', borderGold:'rgba(139,106,46,0.2)',
   green:'#2E6040', greenF:'rgba(46,96,64,0.1)', greenB:'rgba(46,96,64,0.3)',
 }
 
@@ -23,7 +23,7 @@ const DARK_C = {
   border:'rgba(201,64,64,0.12)', borderGold:'rgba(176,138,78,0.28)',
   green:'#7C9284', greenF:'rgba(124,146,132,0.12)', greenB:'rgba(124,146,132,0.35)',
 }
-
+const G = C // alias so AS1 color refs work
 
 const TABS = [
   {id:'passage', label:'📖 The Passage'},
@@ -383,9 +383,9 @@ export default function RedLetters({ session, profile }) {
   const userId = session?.user?.id
   const isPremium = true // All content free
 
-const [darkMode,setDarkMode]=useState(()=>localStorage.getItem('rl_dark')==='1')
-    const [view,setView]=useState('home')     // 'home'|'theme'|'passage'
+  const [darkMode,setDarkMode]=useState(()=>{try{return localStorage.getItem('rl_dark')==='1'}catch{return false}})
   const C = darkMode ? DARK_C : LIGHT_C
+  const [view,setView]=useState('home')     // 'home'|'theme'|'passage'
   const [selTheme,setSelTheme]=useState(null)
   const [selPassage,setSelPassage]=useState(null)
   const [tab,setTab]=useState('passage')
@@ -442,11 +442,11 @@ const [darkMode,setDarkMode]=useState(()=>localStorage.getItem('rl_dark')==='1')
         </div>
         <div style={{display:'flex',alignItems:'center',gap:8}}>
           <span style={{fontSize:10,color:C.muted,fontFamily:"'Cinzel',Georgia,serif"}}>{session?.user?.email?.split('@')[0]}</span>
-
+          <button onClick={()=>supabase.auth.signOut()} style={{background:'transparent',border:`1px solid ${C.border}`,color:C.muted,padding:'3px 10px',borderRadius:6,cursor:'pointer',fontSize:10,fontFamily:"'Cinzel',Georgia,serif",letterSpacing:'0.06em'}}>Sign Out</button>
         </div>
       </div>
       <div style={{display:'flex',justifyContent:'center',gap:2,padding:'4px 12px 7px',flexWrap:'nowrap',overflowX:'auto'}}>
-        {(showBack?[['back','← Themes'],['search','🔍 Search'],['saved','★ Saved'],['settings','⚙️ Settings']]:[['search','🔍 Search'],['saved','★ Saved'],['progress','📊 Progress'],['settings','⚙️ Settings']]).map(([v,l])=>(
+        {(showBack?[['back','← Themes'],['search','🔍 Search'],['saved','★ Saved']]:[['search','🔍 Search'],['saved','★ Saved'],['progress','📊 Progress'],['settings','⚙️ Settings']]).map(([v,l])=>(
           <button key={v} onClick={()=>{
             if(v==='back')goBack()
             else if(v==='search'){setShowSearch(true);setSearchQ('');setSearchResults([])}
@@ -463,59 +463,37 @@ const [darkMode,setDarkMode]=useState(()=>localStorage.getItem('rl_dark')==='1')
 
 
   // ── Settings — must be before view checks ──────────────────────────────
-  // ── Progress overlay ────────────────────────────────────────────────────
   if (showProgress) {
-    const passagesRead   = ALL_PASSAGES.filter(p => get(p.id,'read')==='true').length
-    const passagesMem    = ALL_PASSAGES.filter(p => get(p.id,'mem')==='true').length
-    const passagesSaved  = savedIds.length
-    const journalCount   = entries.filter(e => e.field_key==='journal' && (e.field_value||'').trim()).length
-    const themesExplored = THEMES.filter(t => t.passages.some(p => get(p.id,'read')==='true')).length
-    const totalPassages  = ALL_PASSAGES.length
-    const pct = Math.round((passagesRead / totalPassages) * 100)
-
+    const passagesRead  = ALL_PASSAGES.filter(p => get(p.id,'read')==='true').length
+    const passagesMem   = ALL_PASSAGES.filter(p => get(p.id,'mem')==='true').length
+    const passagesSaved = savedIds.length
+    const journalCount  = entries.filter(e => e.field_key==='journal' && (e.field_value||'').trim()).length
+    const themesExplored= THEMES.filter(t => t.passages.some(p => get(p.id,'read')==='true')).length
+    const total = ALL_PASSAGES.length
+    const pct   = Math.round((passagesRead/total)*100)
     return (
       <div style={{position:'fixed',inset:0,zIndex:400,background:C.bg,fontFamily:"'EB Garamond',Georgia,serif",overflowY:'auto'}}>
         <div style={{maxWidth:560,margin:'0 auto',padding:'0 0 80px'}}>
-
-          {/* Header */}
-          <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',padding:'16px 20px',borderBottom:`1px solid ${C.border}`,position:'sticky',top:0,zIndex:10,background:C.bg,backdropFilter:'blur(12px)'}}>
+          <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',padding:'16px 20px',borderBottom:`1px solid ${C.border}`,position:'sticky',top:0,zIndex:10,background:C.bg}}>
             <div>
               <div style={{fontSize:9,color:C.red,letterSpacing:'0.16em',textTransform:'uppercase',fontFamily:"'Cinzel',Georgia,serif"}}>The Red Letters</div>
-              <div style={{fontSize:18,fontWeight:700,color:C.ink,fontFamily:"'Cinzel',Georgia,serif"}}>Your Progress</div>
+              <div style={{fontSize:18,fontWeight:700,color:C.ink||C.cream,fontFamily:"'Cinzel',Georgia,serif"}}>Your Progress</div>
             </div>
             <button onClick={()=>setShowProgress(false)} style={{background:C.redF,border:`1px solid ${C.redB}`,color:C.muted,width:36,height:36,borderRadius:9,cursor:'pointer',fontSize:18}}>←</button>
           </div>
-
           <div style={{padding:'8px 20px'}}>
-
-            {/* Overall progress */}
-            <div style={{marginTop:24,marginBottom:8}}>
-              <div style={{fontSize:9,color:C.muted,letterSpacing:'0.14em',textTransform:'uppercase',fontFamily:"'Cinzel',Georgia,serif",marginBottom:4}}>Overall</div>
-            </div>
+            <div style={{marginTop:24,marginBottom:8}}><div style={{fontSize:9,color:C.muted,letterSpacing:'0.14em',textTransform:'uppercase',fontFamily:"'Cinzel',Georgia,serif"}}>Overall</div></div>
             <div style={{background:C.redF,border:`1px solid ${C.redB}`,borderRadius:14,padding:'18px'}}>
               <div style={{display:'flex',justifyContent:'space-between',alignItems:'baseline',marginBottom:10}}>
-                <div style={{fontSize:14,color:C.ink,fontFamily:"'Cinzel',Georgia,serif",letterSpacing:'0.04em'}}>Passages Studied</div>
-                <div style={{fontSize:22,fontWeight:700,color:C.red,fontFamily:"'Cinzel',Georgia,serif"}}>{passagesRead}<span style={{fontSize:13,color:C.muted,fontWeight:400}}> / {totalPassages}</span></div>
+                <div style={{fontSize:14,color:C.ink||C.cream,fontFamily:"'Cinzel',Georgia,serif",letterSpacing:'0.04em'}}>Passages Studied</div>
+                <div style={{fontSize:22,fontWeight:700,color:C.red,fontFamily:"'Cinzel',Georgia,serif"}}>{passagesRead}<span style={{fontSize:13,color:C.muted,fontWeight:400}}> / {total}</span></div>
               </div>
-              <div style={{height:6,background:`${C.redB}`,borderRadius:3,overflow:'hidden'}}>
-                <div style={{height:'100%',background:`linear-gradient(90deg,${C.red},${C.redL})`,width:`${pct}%`,transition:'width .4s ease'}}/>
-              </div>
+              <div style={{height:6,background:C.redB,borderRadius:3,overflow:'hidden'}}><div style={{height:'100%',background:`linear-gradient(90deg,${C.red},${C.redL})`,width:`${pct}%`,transition:'width .4s ease'}}/></div>
               <div style={{fontSize:12,color:C.muted,textAlign:'center',marginTop:8}}>{pct}% complete</div>
             </div>
-
-            {/* Stats grid */}
-            <div style={{marginTop:24,marginBottom:8}}>
-              <div style={{fontSize:9,color:C.muted,letterSpacing:'0.14em',textTransform:'uppercase',fontFamily:"'Cinzel',Georgia,serif",marginBottom:4}}>Stats</div>
-            </div>
+            <div style={{marginTop:24,marginBottom:8}}><div style={{fontSize:9,color:C.muted,letterSpacing:'0.14em',textTransform:'uppercase',fontFamily:"'Cinzel',Georgia,serif"}}>Stats</div></div>
             <div style={{display:'grid',gridTemplateColumns:'repeat(2,1fr)',gap:10}}>
-              {[
-                ['📖', passagesRead,   'Passages Read'],
-                ['🧠', passagesMem,    'Memorized'],
-                ['📝', journalCount,   'Journal Entries'],
-                ['★',  passagesSaved,  'Saved'],
-                ['🏛',  themesExplored, 'Themes Explored'],
-                ['📚', totalPassages - passagesRead, 'Remaining'],
-              ].map(([icon, val, label]) => (
+              {[['📖',passagesRead,'Passages Read'],['🧠',passagesMem,'Memorized'],['📝',journalCount,'Journal Entries'],['★',passagesSaved,'Saved'],['🏛',themesExplored,'Themes Explored'],[' ',total-passagesRead,'Remaining']].map(([icon,val,label])=>(
                 <div key={label} style={{background:C.redF,border:`1px solid ${C.redB}`,borderRadius:12,padding:'16px 14px',textAlign:'center'}}>
                   <div style={{fontSize:22,marginBottom:6}}>{icon}</div>
                   <div style={{fontSize:28,fontWeight:700,color:C.red,fontFamily:"'Cinzel',Georgia,serif",lineHeight:1}}>{val}</div>
@@ -523,31 +501,21 @@ const [darkMode,setDarkMode]=useState(()=>localStorage.getItem('rl_dark')==='1')
                 </div>
               ))}
             </div>
-
-            {/* Per-theme breakdown */}
-            <div style={{marginTop:24,marginBottom:8}}>
-              <div style={{fontSize:9,color:C.muted,letterSpacing:'0.14em',textTransform:'uppercase',fontFamily:"'Cinzel',Georgia,serif",marginBottom:4}}>By Theme</div>
-            </div>
+            <div style={{marginTop:24,marginBottom:8}}><div style={{fontSize:9,color:C.muted,letterSpacing:'0.14em',textTransform:'uppercase',fontFamily:"'Cinzel',Georgia,serif"}}>By Theme</div></div>
             <div style={{background:C.redF,border:`1px solid ${C.redB}`,borderRadius:14,overflow:'hidden'}}>
-              {THEMES.map((t, ti) => {
-                const total = t.passages.length
-                const done  = t.passages.filter(p => get(p.id,'read')==='true').length
-                const pct   = Math.round((done/total)*100)
-                return (
-                  <div key={t.id} style={{padding:'14px 18px',borderBottom: ti < THEMES.length-1 ? `1px solid ${C.border}` : 'none'}}>
-                    <div style={{display:'flex',alignItems:'center',gap:12,marginBottom:6}}>
-                      <span style={{fontSize:18,flexShrink:0}}>{t.icon}</span>
-                      <span style={{flex:1,fontSize:14,color:C.ink,fontFamily:"'Cinzel',Georgia,serif",letterSpacing:'0.04em'}}>{t.title}</span>
-                      <span style={{fontSize:12,color:done===total?C.red:C.muted,fontFamily:"'Cinzel',Georgia,serif"}}>{done}/{total}</span>
-                    </div>
-                    <div style={{height:4,background:C.border,borderRadius:2,overflow:'hidden'}}>
-                      <div style={{height:'100%',background:`linear-gradient(90deg,${C.red},${C.redL})`,width:`${pct}%`,transition:'width .4s'}}/>
-                    </div>
+              {THEMES.map((t,ti)=>{
+                const done=t.passages.filter(p=>get(p.id,'read')==='true').length
+                const pct=Math.round((done/t.passages.length)*100)
+                return (<div key={t.id} style={{padding:'14px 18px',borderBottom:ti<THEMES.length-1?`1px solid ${C.border}`:'none'}}>
+                  <div style={{display:'flex',alignItems:'center',gap:12,marginBottom:6}}>
+                    <span style={{fontSize:18,flexShrink:0}}>{t.icon}</span>
+                    <span style={{flex:1,fontSize:14,color:C.ink||C.cream,fontFamily:"'Cinzel',Georgia,serif",letterSpacing:'0.04em'}}>{t.title}</span>
+                    <span style={{fontSize:12,color:done===t.passages.length?C.red:C.muted,fontFamily:"'Cinzel',Georgia,serif"}}>{done}/{t.passages.length}</span>
                   </div>
-                )
+                  <div style={{height:4,background:C.border,borderRadius:2,overflow:'hidden'}}><div style={{height:'100%',background:`linear-gradient(90deg,${C.red},${C.redL})`,width:`${pct}%`,transition:'width .4s'}}/></div>
+                </div>)
               })}
             </div>
-
           </div>
         </div>
       </div>
