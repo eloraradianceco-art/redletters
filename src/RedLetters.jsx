@@ -9,8 +9,9 @@ const LIGHT_C = {
   red:'#8B1A1A', redL:'#A52020',
   redF:'rgba(139,26,26,0.08)', redB:'rgba(139,26,26,0.22)',
   gold:'#8B6A2E', goldF:'rgba(139,106,46,0.1)', goldB:'rgba(139,106,46,0.28)',
-  cream:'#2A1A0E', text:'#3D2E1A', muted:'#7A6248', dim:'#B09A80',
-  border:'rgba(139,26,26,0.12)',
+  cream:'#2A1A0E', ink:'#1C150A', text:'#3D2E1A', muted:'#7A6248', dim:'#B09A80',
+  border:'rgba(139,26,26,0.12)', borderGold:'rgba(139,106,46,0.28)',
+  green:'#2E6040', greenF:'rgba(46,96,64,0.1)', greenB:'rgba(46,96,64,0.3)',
 }
 
 const DARK_C = {
@@ -18,8 +19,9 @@ const DARK_C = {
   red:'#C94040', redL:'#D96060',
   redF:'rgba(201,64,64,0.12)', redB:'rgba(201,64,64,0.32)',
   gold:'#B08A4E', goldF:'rgba(176,138,78,0.11)', goldB:'rgba(176,138,78,0.28)',
-  cream:'#EDE6D6', text:'rgba(220,210,195,0.9)', muted:'rgba(176,160,130,0.65)', dim:'rgba(150,130,100,0.4)',
-  border:'rgba(201,64,64,0.12)',
+  cream:'#EDE6D6', ink:'#EDE6D6', text:'rgba(220,210,195,0.9)', muted:'rgba(176,160,130,0.65)', dim:'rgba(150,130,100,0.4)',
+  border:'rgba(201,64,64,0.12)', borderGold:'rgba(176,138,78,0.28)',
+  green:'#7C9284', greenF:'rgba(124,146,132,0.12)', greenB:'rgba(124,146,132,0.35)',
 }
 
 
