@@ -329,8 +329,7 @@ function ShareCard({ passage, theme, onClose, C }) {
     </div>
   )
 }
-// ── Memorize Modal ─────────────────────────────────────────────────────────
-function MemorizeModal({text, ref, onClose, isMemorized, onMark, C}) {
+// ── Memorize Modal ─────────────────────────────────────────────────────────) {
   const [mode,setMode]=useState(null)
   const [revealed,setRevealed]=useState(false)
   const [typed,setTyped]=useState('')
@@ -461,7 +460,6 @@ export default function RedLetters({ session, profile }) {
   // ── Settings — must be before view checks ──────────────────────────────
   if (showProgress) {
     const passagesRead  = ALL_PASSAGES.filter(p => get(p.id,'read')==='true').length
-    const passagesMem   = ALL_PASSAGES.filter(p => get(p.id,'mem')==='true').length
     const passagesSaved = savedIds.length
     const journalCount  = entries.filter(e => e.field_key==='journal' && (e.field_value||'').trim()).length
     const themesExplored= THEMES.filter(t => t.passages.some(p => get(p.id,'read')==='true')).length
@@ -489,7 +487,7 @@ export default function RedLetters({ session, profile }) {
             </div>
             <div style={{marginTop:24,marginBottom:8}}><div style={{fontSize:9,color:C.muted,letterSpacing:'0.14em',textTransform:'uppercase',fontFamily:"'Cinzel',Georgia,serif"}}>Stats</div></div>
             <div style={{display:'grid',gridTemplateColumns:'repeat(2,1fr)',gap:10}}>
-              {[['📖',passagesRead,'Passages Read'],['🧠',passagesMem,'Memorized'],['📝',journalCount,'Journal Entries'],['★',passagesSaved,'Saved'],['🏛',themesExplored,'Themes Explored'],[' ',total-passagesRead,'Remaining']].map(([icon,val,label])=>(
+              {[['📖',passagesRead,'Passages Read'],['📝',journalCount,'Journal Entries'],['★',passagesSaved,'Saved'],['🏛',themesExplored,'Themes Explored'],[' ',total-passagesRead,'Remaining']].map(([icon,val,label])=>(
                 <div key={label} style={{background:C.redF,border:`1px solid ${C.redB}`,borderRadius:12,padding:'16px 14px',textAlign:'center'}}>
                   <div style={{fontSize:22,marginBottom:6}}>{icon}</div>
                   <div style={{fontSize:28,fontWeight:700,color:C.red,fontFamily:"'Cinzel',Georgia,serif",lineHeight:1}}>{val}</div>
@@ -798,7 +796,7 @@ export default function RedLetters({ session, profile }) {
         </div>
 
         {sharePassage&&<ShareCard passage={sharePassage} theme={selTheme} onClose={()=>setSharePassage(null)} C={C}/>}
-        {showMemo&&<MemorizeModal text={p.text} ref={p.ref} onClose={()=>setShowMemo(false)} isMemorized={isMemorized(p.id)} onMark={()=>{set(p.id,'mem','true');setShowMemo(false)}} C={C}/>}
+        {showMemo&&}
         {showSearch&&<SearchModal/>}
         {showSaved&&<SavedModal/>}
         </div>
