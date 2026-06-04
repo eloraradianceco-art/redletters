@@ -871,3 +871,4 @@ export default function RedLetters({ session, profile }) {
   }
 
   return null
+}
