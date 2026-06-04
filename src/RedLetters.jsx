@@ -324,6 +324,58 @@ function ShareCard({ passage, theme, onClose, C }) {
             {copiedCaption ? '✓ Copied' : 'Copy Caption'}
           </button>
         </div>
+
+      </div>
+    </div>
+  )
+}
+// ── Memorize Modal ─────────────────────────────────────────────────────────
+function MemorizeModal({text, ref, onClose, isMemorized, onMark, C}) {
+  const [mode,setMode]=useState(null)
+  const [revealed,setRevealed]=useState(false)
+  const [typed,setTyped]=useState('')
+  const [score,setScore]=useState(null)
+  const words=text.split(' ')
+  const blanked=words.map((w,i)=>(i+1)%3===0?'___':w)
+  const checkScore=()=>{
+    const norm=s=>s.toLowerCase().replace(/[^a-z0-9 ]/g,'').replace(/\s+/g,' ').trim()
+    const tw=norm(typed).split(' '),ow=norm(text).split(' ')
+    const pct=Math.round(tw.filter(w=>ow.includes(w)).length/ow.length*100)
+    setScore(pct); if(pct>=70) onMark()
+  }
+  return (
+    <div style={{position:'fixed',inset:0,background:'rgba(0,0,0,0.7)',zIndex:700,display:'flex',alignItems:'center',justifyContent:'center',padding:16,overflowY:'auto'}} onClick={()=>{if(!mode)onClose()}}>
+      <div onClick={e=>e.stopPropagation()} style={{background:`linear-gradient(145deg,${C.bg},#EDE8DC)`,border:`1px solid ${C.goldB}`,borderRadius:16,padding:24,maxWidth:420,width:'100%',boxShadow:'0 20px 60px rgba(0,0,0,0.3)'}}>
+        <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:14}}>
+          <div style={{fontSize:11,color:C.gold,fontFamily:"'Cinzel',Georgia,serif",letterSpacing:'0.14em',textTransform:'uppercase'}}>✦ Memorize</div>
+          <button onClick={onClose} style={{background:'transparent',border:'none',color:C.muted,cursor:'pointer',fontSize:20}}>×</button>
+        </div>
+        <div style={{fontSize:12,color:C.gold,fontFamily:"'Cinzel',Georgia,serif",letterSpacing:'0.1em',marginBottom:14,paddingBottom:12,borderBottom:`1px solid ${C.goldB}`,textAlign:'center'}}>{ref}{isMemorized&&<span style={{display:'block',fontSize:10,color:C.green,marginTop:3}}>✓ Memorized</span>}</div>
+        {!mode?(
+          <div style={{display:'flex',flexDirection:'column',gap:8}}>
+            {[{id:'recall',icon:'🧠',title:'Read & Recall',desc:'Recite aloud, then reveal'},{id:'blanks',icon:'✏️',title:'Fill the Gaps',desc:'Every 3rd word blanked'},{id:'write',icon:'✍️',title:'Write it Out',desc:'Type from memory, get a score'}].map(m=>(
+              <button key={m.id} onClick={()=>setMode(m.id)} style={{display:'flex',alignItems:'center',gap:12,padding:'12px 14px',borderRadius:10,cursor:'pointer',textAlign:'left',background:C.redF,border:`1px solid ${C.redB}`}}>
+                <span style={{fontSize:20}}>{m.icon}</span>
+                <span><span style={{display:'block',fontSize:12,color:C.cream,fontFamily:"'Cinzel',Georgia,serif",marginBottom:1}}>{m.title}</span><span style={{fontSize:11,color:C.muted}}>{m.desc}</span></span>
+              </button>
+            ))}
+          </div>
+        ):mode==='recall'?(
+          !revealed?(<div style={{textAlign:'center'}}><p style={{fontSize:13,color:C.muted,marginBottom:16,fontStyle:'italic',lineHeight:1.7}}>Say the passage aloud from memory, then reveal to check.</p><button onClick={()=>setRevealed(true)} style={{background:C.goldF,border:`1px solid ${C.goldB}`,color:C.gold,padding:'10px 24px',borderRadius:50,cursor:'pointer',fontSize:12,fontFamily:"'Cinzel',Georgia,serif"}}>Reveal</button></div>)
+          :(<div><p style={{fontSize:16,color:C.red,fontStyle:'italic',lineHeight:1.8,marginBottom:16}}>"{text}"</p><button onClick={onMark} style={{width:'100%',background:C.greenF,border:`1px solid ${C.greenB}`,color:C.green,padding:'12px',borderRadius:10,cursor:'pointer',fontSize:12,fontFamily:"'Cinzel',Georgia,serif",marginBottom:8}}>✓ Mark Memorized</button><button onClick={()=>setRevealed(false)} style={{width:'100%',background:'transparent',border:'none',color:C.muted,cursor:'pointer',fontSize:13}}>Try Again</button></div>)
+        ):mode==='blanks'?(
+          <div><div style={{background:'rgba(0,0,0,0.04)',borderRadius:10,padding:14,marginBottom:12}}><p style={{fontSize:15,lineHeight:2,margin:0}}>{blanked.map((w,i)=><span key={i} style={{color:w==='___'?C.gold:C.text,borderBottom:w==='___'?`1px solid ${C.gold}`:undefined}}>{w}{i<blanked.length-1?' ':''}</span>)}</p></div>
+          {!revealed?<button onClick={()=>setRevealed(true)} style={{width:'100%',background:C.goldF,border:`1px solid ${C.goldB}`,color:C.gold,padding:'11px',borderRadius:10,cursor:'pointer',fontSize:12,fontFamily:"'Cinzel',Georgia,serif",marginBottom:8}}>Reveal Missing Words</button>:<div style={{background:C.greenF,border:`1px solid ${C.greenB}`,borderRadius:10,padding:12,marginBottom:10}}><p style={{fontSize:13,lineHeight:1.8,margin:0}}>{words.map((w,i)=><span key={i} style={{color:(i+1)%3===0?C.green:C.text,fontWeight:(i+1)%3===0?600:400}}>{w}{i<words.length-1?' ':''}</span>)}</p></div>}
+          <button onClick={onMark} style={{width:'100%',background:C.greenF,border:`1px solid ${C.greenB}`,color:C.green,padding:'11px',borderRadius:10,cursor:'pointer',fontSize:12,fontFamily:"'Cinzel',Georgia,serif"}}>✓ Mark Memorized</button></div>
+        ):mode==='write'?(
+          score===null?(<div><textarea rows={5} value={typed} onChange={e=>setTyped(e.target.value)} placeholder="Type the passage from memory..." style={{width:'100%',background:'rgba(0,0,0,0.04)',border:`1px solid ${C.border}`,borderRadius:10,color:C.cream,fontSize:15,padding:'12px',fontFamily:"'EB Garamond',Georgia,serif",outline:'none',resize:'none',boxSizing:'border-box',marginBottom:10,lineHeight:1.7}}/><button onClick={checkScore} disabled={!typed.trim()} style={{width:'100%',background:C.goldF,border:`1px solid ${C.goldB}`,color:C.gold,padding:'11px',borderRadius:10,cursor:'pointer',fontSize:12,fontFamily:"'Cinzel',Georgia,serif",opacity:typed.trim()?1:0.4}}>Check My Score</button></div>)
+          :(<div style={{textAlign:'center'}}><div style={{fontSize:48,fontWeight:700,color:score>=80?C.green:score>=50?C.gold:C.red,fontFamily:"'Cinzel',Georgia,serif",marginBottom:4}}>{score}%</div><div style={{fontSize:13,color:C.muted,marginBottom:14}}>{score>=90?'Nearly perfect!':score>=70?'Great progress!':score>=50?'Good start!':'Keep practicing!'}</div>{score>=70&&<button onClick={onMark} style={{width:'100%',background:C.greenF,border:`1px solid ${C.greenB}`,color:C.green,padding:'11px',borderRadius:10,cursor:'pointer',fontSize:12,fontFamily:"'Cinzel',Georgia,serif",marginBottom:8}}>✓ Mark Memorized</button>}<button onClick={()=>{setTyped('');setScore(null)}} style={{width:'100%',background:'transparent',border:'none',color:C.muted,cursor:'pointer',fontSize:13}}>Try Again</button></div>)
+        ):(null)}
+      </div>
+    </div>
+  )
+}
+
 // ── Main App ───────────────────────────────────────────────────────────────
 export default function RedLetters({ session, profile }) {
   const userId = session?.user?.id
@@ -342,7 +394,6 @@ export default function RedLetters({ session, profile }) {
   const [showSearch,setShowSearch]=useState(false)
   const [searchQ,setSearchQ]=useState('')
   const [searchResults,setSearchResults]=useState([])
-  const [showMemo,setShowMemo]=useState(false)
   const [sharePassage,setSharePassage]=useState(null)
   const [showThemeJump,setShowThemeJump]=useState(false)
   const [showSettings,setShowSettings]=useState(false)
@@ -365,7 +416,7 @@ export default function RedLetters({ session, profile }) {
 
   const toggleSave=(pid)=>{const next=savedIds.includes(pid)?savedIds.filter(x=>x!==pid):[...savedIds,pid];setSavedIds(next);localStorage.setItem('rl_saved',JSON.stringify(next))}
   const isSaved=(pid)=>savedIds.includes(pid)
-  const isMemorized=()=>false
+  const isMemorized=(pid)=>get(pid,'mem')==='true'
 
   const openPassage=(p,t)=>{setSelPassage(p);setSelTheme(t);setTab('passage');setView('passage');window.scrollTo(0,0);if(userId)set(p.id,'read','true')}
   const goBack=()=>{if(view==='passage'){setView('theme');window.scrollTo(0,0)}else{setView('home');window.scrollTo(0,0)}}
@@ -409,6 +460,7 @@ export default function RedLetters({ session, profile }) {
   // ── Settings — must be before view checks ──────────────────────────────
   if (showProgress) {
     const passagesRead  = ALL_PASSAGES.filter(p => get(p.id,'read')==='true').length
+    const passagesMem   = ALL_PASSAGES.filter(p => get(p.id,'mem')==='true').length
     const passagesSaved = savedIds.length
     const journalCount  = entries.filter(e => e.field_key==='journal' && (e.field_value||'').trim()).length
     const themesExplored= THEMES.filter(t => t.passages.some(p => get(p.id,'read')==='true')).length
@@ -436,7 +488,7 @@ export default function RedLetters({ session, profile }) {
             </div>
             <div style={{marginTop:24,marginBottom:8}}><div style={{fontSize:9,color:C.muted,letterSpacing:'0.14em',textTransform:'uppercase',fontFamily:"'Cinzel',Georgia,serif"}}>Stats</div></div>
             <div style={{display:'grid',gridTemplateColumns:'repeat(2,1fr)',gap:10}}>
-              {[['📖',passagesRead,'Passages Read'],['📝',journalCount,'Journal Entries'],['★',passagesSaved,'Saved'],['🏛',themesExplored,'Themes Explored'],[' ',total-passagesRead,'Remaining']].map(([icon,val,label])=>(
+              {[['📖',passagesRead,'Passages Read'],['🧠',passagesMem,'Memorized'],['📝',journalCount,'Journal Entries'],['★',passagesSaved,'Saved'],['🏛',themesExplored,'Themes Explored'],[' ',total-passagesRead,'Remaining']].map(([icon,val,label])=>(
                 <div key={label} style={{background:C.redF,border:`1px solid ${C.redB}`,borderRadius:12,padding:'16px 14px',textAlign:'center'}}>
                   <div style={{fontSize:22,marginBottom:6}}>{icon}</div>
                   <div style={{fontSize:28,fontWeight:700,color:C.red,fontFamily:"'Cinzel',Georgia,serif",lineHeight:1}}>{val}</div>
