@@ -728,9 +728,6 @@ export default function RedLetters({ session, profile }) {
               </div>
               {/* Action buttons */}
               <div style={{display:'flex',justifyContent:'flex-end',gap:8,marginBottom:6}}>
-                <button onClick={()=>setShowMemo(true)} style={{background:isMemorized(p.id)?C.greenF:C.redF,border:`1px solid ${isMemorized(p.id)?C.greenB:C.redB}`,color:isMemorized(p.id)?C.green:C.red,padding:'4px 12px',borderRadius:12,cursor:'pointer',fontSize:11,fontFamily:"'Cinzel',Georgia,serif"}}>
-                  {isMemorized(p.id)?'✓ Memorized':'✦ Memorize'}
-                </button>
                 <button onClick={()=>toggleSave(p.id)} style={{background:'transparent',border:`1px solid ${isSaved(p.id)?C.goldB:C.border}`,color:isSaved(p.id)?C.gold:C.muted,padding:'4px 10px',borderRadius:12,cursor:'pointer',fontSize:13}}>
                   {isSaved(p.id)?'★':'☆'}
                 </button>
@@ -797,7 +794,6 @@ export default function RedLetters({ session, profile }) {
         </div>
 
         {sharePassage&&<ShareCard passage={sharePassage} theme={selTheme} onClose={()=>setSharePassage(null)} C={C}/>}
-        {showMemo&&<MemorizeModal text={p.text} ref={p.ref} onClose={()=>setShowMemo(false)} isMemorized={isMemorized(p.id)} onMark={()=>{set(p.id,'mem','true');setShowMemo(false)}} C={C}/>}
         {showSearch&&<SearchModal/>}
         {showSaved&&<SavedModal/>}
         </div>
