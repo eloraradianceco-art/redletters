@@ -370,7 +370,7 @@ function MemorizeModal({text, ref, onClose, isMemorized, onMark, C}) {
         ):mode==='write'?(
           score===null?(<div><textarea rows={5} value={typed} onChange={e=>setTyped(e.target.value)} placeholder="Type the passage from memory..." style={{width:'100%',background:'rgba(0,0,0,0.04)',border:`1px solid ${C.border}`,borderRadius:10,color:C.cream,fontSize:15,padding:'12px',fontFamily:"'EB Garamond',Georgia,serif",outline:'none',resize:'none',boxSizing:'border-box',marginBottom:10,lineHeight:1.7}}/><button onClick={checkScore} disabled={!typed.trim()} style={{width:'100%',background:C.goldF,border:`1px solid ${C.goldB}`,color:C.gold,padding:'11px',borderRadius:10,cursor:'pointer',fontSize:12,fontFamily:"'Cinzel',Georgia,serif",opacity:typed.trim()?1:0.4}}>Check My Score</button></div>)
           :(<div style={{textAlign:'center'}}><div style={{fontSize:48,fontWeight:700,color:score>=80?C.green:score>=50?C.gold:C.red,fontFamily:"'Cinzel',Georgia,serif",marginBottom:4}}>{score}%</div><div style={{fontSize:13,color:C.muted,marginBottom:14}}>{score>=90?'Nearly perfect!':score>=70?'Great progress!':score>=50?'Good start!':'Keep practicing!'}</div>{score>=70&&<button onClick={onMark} style={{width:'100%',background:C.greenF,border:`1px solid ${C.greenB}`,color:C.green,padding:'11px',borderRadius:10,cursor:'pointer',fontSize:12,fontFamily:"'Cinzel',Georgia,serif",marginBottom:8}}>✓ Mark Memorized</button>}<button onClick={()=>{setTyped('');setScore(null)}} style={{width:'100%',background:'transparent',border:'none',color:C.muted,cursor:'pointer',fontSize:13}}>Try Again</button></div>)
-        )}
+        ):(null)}
       </div>
     </div>
   )
