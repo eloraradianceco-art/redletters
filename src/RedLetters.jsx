@@ -871,4 +871,3 @@ export default function RedLetters({ session, profile }) {
   }
 
   return null
-},{id:'write',icon:'✍️',title:'Write it Out',desc:'Type from memory, check accuracy'}
