@@ -353,7 +353,7 @@ function MemorizeModal({text, ref, onClose, isMemorized, onMark, C}) {
         <div style={{fontSize:12,color:C.gold,fontFamily:"'Cinzel',Georgia,serif",letterSpacing:'0.1em',marginBottom:14,paddingBottom:12,borderBottom:`1px solid ${C.goldB}`,textAlign:'center'}}>{ref}{isMemorized&&<span style={{display:'block',fontSize:10,color:C.green,marginTop:3}}>✓ Memorized</span>}</div>
         {!mode?(
           <div style={{display:'flex',flexDirection:'column',gap:8}}>
-            {[{id:'recall',icon:'🧠',title:'Read & Recall',desc:'Recite aloud, then reveal'},{id:'blanks',icon:'✏️',title:'Fill the Gaps',desc:'Every 3rd word blanked'},{id:'type',icon:'⌨️',title:'Write it Out',desc:'Type from memory, get a score'}].map(m=>(
+            {[{id:'recall',icon:'🧠',title:'Read & Recall',desc:'Recite aloud, then reveal'},{id:'blanks',icon:'✏️',title:'Fill the Gaps',desc:'Every 3rd word blanked'},{id:'write',icon:'✍️',title:'Write it Out',desc:'Type from memory, get a score'}].map(m=>(
               <button key={m.id} onClick={()=>setMode(m.id)} style={{display:'flex',alignItems:'center',gap:12,padding:'12px 14px',borderRadius:10,cursor:'pointer',textAlign:'left',background:C.redF,border:`1px solid ${C.redB}`}}>
                 <span style={{fontSize:20}}>{m.icon}</span>
                 <span><span style={{display:'block',fontSize:12,color:C.cream,fontFamily:"'Cinzel',Georgia,serif",marginBottom:1}}>{m.title}</span><span style={{fontSize:11,color:C.muted}}>{m.desc}</span></span>
