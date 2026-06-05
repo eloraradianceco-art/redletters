@@ -403,7 +403,23 @@ export default function RedLetters({ session, profile }) {
 
   useEffect(()=>{
     if(!userId) return
-    supabase.from('rl_entries').select('*').eq('user_id',userId).then(({data})=>{if(data)setEntries(data)})
+    supabase.from('rl_entries').select('*').eq('user_id',userId).then(({data})=>{
+      if(!data) return
+      setEntries(data)
+      // Cross-device sync: hydrate savedIds from entries where field_key='saved' and field_value='true'
+      const serverSaved = data.filter(e=>e.field_key==='saved'&&e.field_value==='true').map(e=>e.saying_id)
+      if (serverSaved.length > 0) {
+        setSavedIds(serverSaved)
+        try { localStorage.setItem('rl_saved', JSON.stringify(serverSaved)) } catch {}
+      }
+      // Cross-device sync: dark mode preference (stored as saying_id='__user_prefs__', field_key='dark_mode')
+      const dm = data.find(e=>e.saying_id==='__user_prefs__'&&e.field_key==='dark_mode')
+      if (dm) {
+        const isDark = dm.field_value === '1'
+        setDarkMode(isDark)
+        try { localStorage.setItem('rl_dark', isDark?'1':'0') } catch {}
+      }
+    })
   },[userId])
 
   const get=(pid,key)=>entries.find(e=>e.saying_id===pid&&e.field_key===key)?.field_value||''
@@ -414,7 +430,7 @@ export default function RedLetters({ session, profile }) {
     saveTimers.current[tk]=setTimeout(()=>{supabase.from('rl_entries').upsert({user_id:userId,saying_id:pid,field_key:key,field_value:val,updated_at:new Date().toISOString()},{onConflict:'user_id,saying_id,field_key'})},1000)
   },[userId])
 
-  const toggleSave=(pid)=>{const next=savedIds.includes(pid)?savedIds.filter(x=>x!==pid):[...savedIds,pid];setSavedIds(next);localStorage.setItem('rl_saved',JSON.stringify(next))}
+  const toggleSave=(pid)=>{const wasIn=savedIds.includes(pid);const next=wasIn?savedIds.filter(x=>x!==pid):[...savedIds,pid];setSavedIds(next);try{localStorage.setItem('rl_saved',JSON.stringify(next))}catch{};if(userId)set(pid,'saved',wasIn?'':'true')}
   const isSaved=(pid)=>savedIds.includes(pid)
   const isMemorized=(pid)=>get(pid,'mem')==='true'
 
@@ -524,7 +540,7 @@ export default function RedLetters({ session, profile }) {
       entries={entries}
       passages={ALL_PASSAGES}
       darkMode={darkMode}
-      onToggleDarkMode={()=>{const n=!darkMode;setDarkMode(n);try{localStorage.setItem('rl_dark',n?'1':'0')}catch{}}}
+      onToggleDarkMode={()=>{const n=!darkMode;setDarkMode(n);try{localStorage.setItem('rl_dark',n?'1':'0')}catch{};if(userId)set('__user_prefs__','dark_mode',n?'1':'0')}}
       onClose={()=>setShowSettings(false)}
     />
   )
