@@ -229,26 +229,14 @@ function ShareCard({ passage, theme, onClose, C }) {
             pointerEvents: 'none',
           }}/>
 
-          {/* Icon */}
-          <img src="/icon.png" alt="" style={{ width: 40, height: 40, borderRadius: 10, display: 'block', margin: '0 auto 8px' }} />
-
-          {/* Elora Radiance Co. */}
-          <div style={{ fontSize: 10, color: th.brand, letterSpacing: '0.18em', textTransform: 'uppercase', fontFamily: "'Cinzel',Georgia,serif", marginBottom: 5 }}>
-            Elora Radiance Co.
+          {/* Header — icon + app name (matches AS1/AS2 pattern) */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12, paddingBottom: 12, borderBottom: '1px solid ' + th.divider }}>
+            <img src="/icon.png" alt="" style={{ width: 34, height: 34, borderRadius: 8 }}/>
+            <div>
+              <div style={{ fontSize: 12, color: th.brand, fontFamily: "'Cinzel',Georgia,serif", letterSpacing: '0.06em' }}>The Red Letters</div>
+              <div style={{ fontSize: 10, color: th.sublabel }}>{theme?.icon} {theme?.title}</div>
+            </div>
           </div>
-
-          {/* The Red Letters */}
-          <div style={{ fontSize: 19, fontWeight: 700, color: th.title, fontFamily: "'Cinzel',Georgia,serif", letterSpacing: '0.03em', marginBottom: 4 }}>
-            The Red Letters
-          </div>
-
-          {/* Theme */}
-          <div style={{ fontSize: 11, color: th.sublabel, letterSpacing: '0.09em', textTransform: 'uppercase', fontFamily: "'Cinzel',Georgia,serif", marginBottom: 14 }}>
-            {theme?.icon}&nbsp;&nbsp;{theme?.title}
-          </div>
-
-          {/* Divider */}
-          <div style={{ height: 1, background: th.divider, marginBottom: 12 }} />
 
           {/* Label */}
           <div style={{ fontSize: 10, color: th.label, letterSpacing: '0.18em', textTransform: 'uppercase', fontFamily: "'Cinzel',Georgia,serif", marginBottom: 10 }}>
