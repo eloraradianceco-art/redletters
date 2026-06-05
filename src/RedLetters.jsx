@@ -132,6 +132,9 @@ function ShareCard({ passage, theme, onClose, C }) {
     setSharing(true)
     try {
       const { toPng } = await import('html-to-image')
+      // Wait for fonts + 2 RAFs so the first share captures aligned layout
+      try { await document.fonts.ready } catch {}
+      await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)))
       const dataUrl = await toPng(cardRef.current, {
         cacheBust: true,
         pixelRatio: 2,
@@ -259,7 +262,7 @@ function ShareCard({ passage, theme, onClose, C }) {
 
           {/* Main text */}
           <p style={{
-            fontSize: isPassage ? 15 : 15,
+            fontSize: (content.main||'').length > 200 ? 16 : 18,
             color: isPassage ? th.brand.replace('0.7','0.9').replace('0.8','0.95') : th.body,
             lineHeight: 1.85, marginBottom: 12,
             fontStyle: 'italic', letterSpacing: '0.01em',
