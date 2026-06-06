@@ -853,17 +853,19 @@ export default function RedLetters({ session, profile }) {
           </div>
         </div>
 
-        {/* Persistent passage actions — visible on every tab */}
-        <div style={{maxWidth:860,margin:'0 auto',padding:'10px 18px 0',display:'flex',justifyContent:'flex-end',gap:8}}>
-          <button onClick={()=>toggleSave(p.id)} aria-label={isSaved(p.id)?'Unsave passage':'Save passage'} style={{background:isSaved(p.id)?`linear-gradient(135deg,rgba(139,106,46,0.18),rgba(139,106,46,0.05))`:'transparent',border:`1px solid ${isSaved(p.id)?C.goldB:C.border}`,color:isSaved(p.id)?C.gold:C.muted,padding:'5px 12px',borderRadius:12,cursor:'pointer',fontSize:13,fontFamily:"'Cinzel',Georgia,serif",letterSpacing:'0.04em',touchAction:'manipulation',display:'flex',alignItems:'center',gap:5}}>
-            <span style={{fontSize:14,lineHeight:1}}>{isSaved(p.id)?'★':'☆'}</span>
-            <span style={{fontSize:10}}>{isSaved(p.id)?'Saved':'Save'}</span>
-          </button>
-          <button onClick={()=>setSharePassage(p)} aria-label="Share passage" style={{background:'transparent',border:`1px solid ${C.border}`,color:C.muted,padding:'5px 12px',borderRadius:12,cursor:'pointer',fontSize:12,fontFamily:"'Cinzel',Georgia,serif",letterSpacing:'0.04em',touchAction:'manipulation',display:'flex',alignItems:'center',gap:5}}>
-            <span style={{fontSize:13,lineHeight:1}}>↗</span>
-            <span style={{fontSize:10}}>Share</span>
-          </button>
-        </div>
+        {/* Save + Share pills — Passage tab only (share remains accessible from floating FAB on other tabs) */}
+        {tab==='passage' && (
+          <div style={{maxWidth:860,margin:'0 auto',padding:'10px 18px 0',display:'flex',justifyContent:'flex-end',gap:8}}>
+            <button onClick={()=>toggleSave(p.id)} aria-label={isSaved(p.id)?'Unsave passage':'Save passage'} style={{background:isSaved(p.id)?`linear-gradient(135deg,rgba(139,106,46,0.18),rgba(139,106,46,0.05))`:'transparent',border:`1px solid ${isSaved(p.id)?C.goldB:C.border}`,color:isSaved(p.id)?C.gold:C.muted,padding:'5px 12px',borderRadius:12,cursor:'pointer',fontSize:13,fontFamily:"'Cinzel',Georgia,serif",letterSpacing:'0.04em',touchAction:'manipulation',display:'flex',alignItems:'center',gap:5}}>
+              <span style={{fontSize:14,lineHeight:1}}>{isSaved(p.id)?'★':'☆'}</span>
+              <span style={{fontSize:10}}>{isSaved(p.id)?'Saved':'Save'}</span>
+            </button>
+            <button onClick={()=>setSharePassage(p)} aria-label="Share passage" style={{background:'transparent',border:`1px solid ${C.border}`,color:C.muted,padding:'5px 12px',borderRadius:12,cursor:'pointer',fontSize:12,fontFamily:"'Cinzel',Georgia,serif",letterSpacing:'0.04em',touchAction:'manipulation',display:'flex',alignItems:'center',gap:5}}>
+              <span style={{fontSize:13,lineHeight:1}}>↗</span>
+              <span style={{fontSize:10}}>Share</span>
+            </button>
+          </div>
+        )}
 
         {/* Tab content */}
         <div style={{maxWidth:860,margin:'0 auto',padding:'20px 18px 140px'}}>
