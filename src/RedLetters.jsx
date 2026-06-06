@@ -908,14 +908,15 @@ export default function RedLetters({ session, profile }) {
           )}
         </div>
 
-        {/* Floating share button — always visible */}
+        {/* Floating share button — centered horizontally with prev/next nav below */}
         <button
           onClick={()=>setSharePassage(p)}
           aria-label="Share this passage"
           style={{
             position:'fixed',
-            bottom:`calc(${88}px + env(safe-area-inset-bottom))`,
-            right:18,
+            bottom:`calc(88px + env(safe-area-inset-bottom))`,
+            left:'50%',
+            transform:'translateX(-50%)',
             width:48,
             height:48,
             borderRadius:'50%',
@@ -932,9 +933,9 @@ export default function RedLetters({ session, profile }) {
             touchAction:'manipulation',
             transition:'transform .15s ease',
           }}
-          onMouseDown={e=>e.currentTarget.style.transform='scale(0.92)'}
-          onMouseUp={e=>e.currentTarget.style.transform='scale(1)'}
-          onMouseLeave={e=>e.currentTarget.style.transform='scale(1)'}
+          onMouseDown={e=>e.currentTarget.style.transform='translateX(-50%) scale(0.92)'}
+          onMouseUp={e=>e.currentTarget.style.transform='translateX(-50%) scale(1)'}
+          onMouseLeave={e=>e.currentTarget.style.transform='translateX(-50%) scale(1)'}
         >↗</button>
 
         {sharePassage&&<ShareCard passage={sharePassage} theme={selTheme} onClose={()=>setSharePassage(null)} C={C}/>}
