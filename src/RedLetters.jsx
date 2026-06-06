@@ -768,34 +768,56 @@ export default function RedLetters({ session, profile }) {
       <div style={{minHeight:'100vh',background:C.bg,fontFamily:"'EB Garamond',Georgia,serif",color:C.text}}>
         <Header showBack/>
 
-        {/* Floating prev/next study tab — crosses to prev/next passage at edges */}
+        {/* Floating prev/next + share FAB — FAB stacks above next pill, shares its horizontal center */}
         {(() => {
           const passIdx = selTheme.passages.findIndex(x => x.id === p.id)
           const prevPass = selTheme.passages[passIdx-1]
           const nextPass = selTheme.passages[passIdx+1]
-          // Unlocked tabs only for nav
           const visibleTabs = TABS
           const tabIdx = visibleTabs.findIndex(tb => tb.id === tab)
           const prevTab = visibleTabs[tabIdx-1]
           const nextTab = visibleTabs[tabIdx+1]
           const showPrev = prevTab || prevPass
           const showNext = nextTab || nextPass
-          const s = {position:'fixed',bottom:32,zIndex:250,background:'rgba(247,242,234,0.93)',backdropFilter:'blur(12px)',border:`1px solid ${C.redB}`,color:C.red,borderRadius:50,padding:'10px 14px',cursor:'pointer',fontSize:11,fontFamily:"'Cinzel',Georgia,serif",letterSpacing:'0.04em',boxShadow:'0 4px 16px rgba(139,26,26,0.15)',touchAction:'manipulation',transition:'all .2s',display:'flex',alignItems:'center',gap:5,maxWidth:160}
+          const pillStatic = {background:'rgba(247,242,234,0.93)',backdropFilter:'blur(12px)',border:`1px solid ${C.redB}`,color:C.red,borderRadius:50,padding:'10px 14px',cursor:'pointer',fontSize:11,fontFamily:"'Cinzel',Georgia,serif",letterSpacing:'0.04em',boxShadow:'0 4px 16px rgba(139,26,26,0.15)',touchAction:'manipulation',transition:'all .2s',display:'flex',alignItems:'center',gap:5,maxWidth:160}
+          const pillFixed = (extra) => ({...pillStatic,position:'fixed',bottom:32,zIndex:250,...extra})
+          const fabBtn = (
+            <button
+              onClick={()=>setSharePassage(p)}
+              aria-label="Share this passage"
+              style={{
+                width:48,height:48,borderRadius:'50%',
+                background:`linear-gradient(135deg, ${C.red}, ${C.gold})`,
+                border:'none',color:'#fff',fontSize:20,cursor:'pointer',
+                boxShadow:'0 6px 18px rgba(139,26,26,0.4), 0 2px 6px rgba(0,0,0,0.2)',
+                display:'flex',alignItems:'center',justifyContent:'center',
+                touchAction:'manipulation',transition:'transform .15s ease',
+                flexShrink:0,
+              }}
+              onMouseDown={e=>e.currentTarget.style.transform='scale(0.92)'}
+              onMouseUp={e=>e.currentTarget.style.transform='scale(1)'}
+              onMouseLeave={e=>e.currentTarget.style.transform='scale(1)'}
+            >↗</button>
+          )
           return (<>
             {showPrev && <button onClick={()=>{
               if(prevTab){setTab(prevTab.id);window.scrollTo(0,0)}
               else if(prevPass){openPassage(prevPass,selTheme)}
-            }} style={{...s,left:16}}>
+            }} style={pillFixed({left:16})}>
               <span>‹</span>
               <span style={{overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{prevTab?prevTab.label:prevPass?.title.split(' ').slice(0,3).join(' ')}</span>
             </button>}
-            {showNext && <button onClick={()=>{
-              if(nextTab){setTab(nextTab.id);window.scrollTo(0,0)}
-              else if(nextPass){openPassage(nextPass,selTheme)}
-            }} style={{...s,right:16}}>
-              <span style={{overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{nextTab?nextTab.label:nextPass?.title.split(' ').slice(0,3).join(' ')}</span>
-              <span>›</span>
-            </button>}
+            {/* Right-side column: FAB on top, next pill below, both centered horizontally */}
+            <div style={{position:'fixed',bottom:32,right:16,zIndex:250,display:'flex',flexDirection:'column',alignItems:'center',gap:12}}>
+              {fabBtn}
+              {showNext && <button onClick={()=>{
+                if(nextTab){setTab(nextTab.id);window.scrollTo(0,0)}
+                else if(nextPass){openPassage(nextPass,selTheme)}
+              }} style={pillStatic}>
+                <span style={{overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{nextTab?nextTab.label:nextPass?.title.split(' ').slice(0,3).join(' ')}</span>
+                <span>›</span>
+              </button>}
+            </div>
           </>)
         })()}
 
