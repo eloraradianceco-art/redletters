@@ -437,7 +437,7 @@ export default function RedLetters({ session, profile }) {
 
   // ── Compact header (same structure as AS1) ─────────────────────────────
   const Header = ({showBack=false}) => (
-    <div style={{position:'sticky',top:0,zIndex:200,background:'rgba(247,242,234,0.97)',backdropFilter:'blur(12px)',borderBottom:`1px solid ${C.border}`}}>
+    <div style={{position:'sticky',top:0,zIndex:200,background:darkMode?'rgba(15,10,6,0.97)':'rgba(247,242,234,0.97)',backdropFilter:'blur(12px)',borderBottom:`1px solid ${C.border}`}}>
       <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',padding:'10px 18px'}}>
         <div style={{display:'flex',alignItems:'center',gap:10}}>
           <img src="/icon.png" alt="" style={{width:36,height:36,borderRadius:9,boxShadow:'0 2px 8px rgba(0,0,0,0.2)'}}/>
