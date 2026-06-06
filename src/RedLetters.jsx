@@ -831,6 +831,18 @@ export default function RedLetters({ session, profile }) {
           </div>
         </div>
 
+        {/* Persistent passage actions — visible on every tab */}
+        <div style={{maxWidth:860,margin:'0 auto',padding:'10px 18px 0',display:'flex',justifyContent:'flex-end',gap:8}}>
+          <button onClick={()=>toggleSave(p.id)} aria-label={isSaved(p.id)?'Unsave passage':'Save passage'} style={{background:isSaved(p.id)?`linear-gradient(135deg,rgba(139,106,46,0.18),rgba(139,106,46,0.05))`:'transparent',border:`1px solid ${isSaved(p.id)?C.goldB:C.border}`,color:isSaved(p.id)?C.gold:C.muted,padding:'5px 12px',borderRadius:12,cursor:'pointer',fontSize:13,fontFamily:"'Cinzel',Georgia,serif",letterSpacing:'0.04em',touchAction:'manipulation',display:'flex',alignItems:'center',gap:5}}>
+            <span style={{fontSize:14,lineHeight:1}}>{isSaved(p.id)?'★':'☆'}</span>
+            <span style={{fontSize:10}}>{isSaved(p.id)?'Saved':'Save'}</span>
+          </button>
+          <button onClick={()=>setSharePassage(p)} aria-label="Share passage" style={{background:'transparent',border:`1px solid ${C.border}`,color:C.muted,padding:'5px 12px',borderRadius:12,cursor:'pointer',fontSize:12,fontFamily:"'Cinzel',Georgia,serif",letterSpacing:'0.04em',touchAction:'manipulation',display:'flex',alignItems:'center',gap:5}}>
+            <span style={{fontSize:13,lineHeight:1}}>↗</span>
+            <span style={{fontSize:10}}>Share</span>
+          </button>
+        </div>
+
         {/* Tab content */}
         <div style={{maxWidth:860,margin:'0 auto',padding:'20px 18px 140px'}}>
 
@@ -847,13 +859,7 @@ export default function RedLetters({ session, profile }) {
                   </div>
                 </div>
               </div>
-              {/* Action buttons */}
-              <div style={{display:'flex',justifyContent:'flex-end',gap:8,marginBottom:6}}>
-                <button onClick={()=>toggleSave(p.id)} style={{background:'transparent',border:`1px solid ${isSaved(p.id)?C.goldB:C.border}`,color:isSaved(p.id)?C.gold:C.muted,padding:'4px 10px',borderRadius:12,cursor:'pointer',fontSize:13}}>
-                  {isSaved(p.id)?'★':'☆'}
-                </button>
-                <button onClick={()=>setSharePassage(p)} style={{background:'transparent',border:`1px solid ${C.border}`,color:C.muted,padding:'4px 10px',borderRadius:12,cursor:'pointer',fontSize:12}}>↗</button>
-              </div>
+
             </div>
           )}
 
@@ -901,6 +907,35 @@ export default function RedLetters({ session, profile }) {
             </div>
           )}
         </div>
+
+        {/* Floating share button — always visible */}
+        <button
+          onClick={()=>setSharePassage(p)}
+          aria-label="Share this passage"
+          style={{
+            position:'fixed',
+            bottom:`calc(${88}px + env(safe-area-inset-bottom))`,
+            right:18,
+            width:48,
+            height:48,
+            borderRadius:'50%',
+            background:`linear-gradient(135deg, ${C.red}, ${C.gold})`,
+            border:'none',
+            color:'#fff',
+            fontSize:20,
+            cursor:'pointer',
+            boxShadow:'0 6px 18px rgba(139,26,26,0.4), 0 2px 6px rgba(0,0,0,0.2)',
+            zIndex:240,
+            display:'flex',
+            alignItems:'center',
+            justifyContent:'center',
+            touchAction:'manipulation',
+            transition:'transform .15s ease',
+          }}
+          onMouseDown={e=>e.currentTarget.style.transform='scale(0.92)'}
+          onMouseUp={e=>e.currentTarget.style.transform='scale(1)'}
+          onMouseLeave={e=>e.currentTarget.style.transform='scale(1)'}
+        >↗</button>
 
         {sharePassage&&<ShareCard passage={sharePassage} theme={selTheme} onClose={()=>setSharePassage(null)} C={C}/>}
         {showSearch&&<SearchModal/>}
