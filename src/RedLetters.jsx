@@ -3,6 +3,102 @@ import { supabase } from './supabaseClient'
 import { THEMES, ALL_PASSAGES, GOSPEL_COLORS } from './data.js'
 import Settings from './components/Settings'
 
+
+
+// ── Premium section components for passage views (RL) ─────────────────────
+function SectionHeader({ label, C }) {
+  return (
+    <div style={{display:'flex',alignItems:'center',gap:14,marginBottom:20,marginTop:4}}>
+      <div style={{flex:1,height:1,background:`linear-gradient(90deg, transparent, ${C.goldB})`}}/>
+      <div style={{fontSize:10,letterSpacing:'0.26em',color:C.gold,fontFamily:"'Cinzel',Georgia,serif",textTransform:'uppercase',whiteSpace:'nowrap'}}>{label}</div>
+      <div style={{flex:1,height:1,background:`linear-gradient(90deg, ${C.goldB}, transparent)`}}/>
+    </div>
+  );
+}
+
+function ProseSection({ label, text, accent, C }) {
+  if (!text) return null;
+  const paras = text.split('\n\n');
+  const isRed = accent === 'red';
+  return (
+    <div>
+      <SectionHeader label={label} C={C} />
+      <div style={{
+        background: isRed
+          ? 'linear-gradient(145deg,rgba(139,26,26,0.055),rgba(139,26,26,0.012))'
+          : 'linear-gradient(145deg,rgba(139,106,46,0.07),rgba(139,106,46,0.018))',
+        border:`1px solid ${isRed ? C.redB : C.goldB}`,
+        borderRadius:18,
+        padding:'30px 28px 26px',
+        boxShadow:'0 6px 22px rgba(0,0,0,0.07)',
+        position:'relative',
+      }}>
+        <div style={{textAlign:'center',color:C.gold,fontSize:11,opacity:0.45,marginBottom:18,letterSpacing:'1.2em',paddingLeft:'1.2em',fontFamily:'Georgia,serif'}}>✦ ✦ ✦</div>
+        {paras.map((para, i) => {
+          const isFirst = i === 0 && para.length > 0;
+          const ch = isFirst ? para.charAt(0) : '';
+          const rest = isFirst ? para.slice(1) : para;
+          return (
+            <p key={i} style={{
+              fontSize:17.5,
+              color:C.text,
+              lineHeight:1.92,
+              marginBottom: i < paras.length - 1 ? 16 : 0,
+              fontFamily:"'EB Garamond',Georgia,serif",
+              textIndent:0,
+            }}>
+              {isFirst && (
+                <span style={{
+                  float:'left',
+                  fontFamily:"'Cinzel',Georgia,serif",
+                  fontSize:52,
+                  lineHeight:0.9,
+                  color: isRed ? C.red : C.gold,
+                  paddingRight:10,
+                  paddingTop:6,
+                  marginTop:-2,
+                  fontWeight:500,
+                }}>{ch}</span>
+              )}
+              {rest}
+            </p>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function PrayerSection({ text, C }) {
+  if (!text) return null;
+  return (
+    <div>
+      <SectionHeader label="Pray It" C={C} />
+      <div style={{
+        background:'linear-gradient(145deg,rgba(139,106,46,0.11),rgba(139,106,46,0.025))',
+        border:`1px solid ${C.goldB}`,
+        borderRadius:18,
+        padding:'34px 30px 30px',
+        boxShadow:'0 6px 22px rgba(0,0,0,0.08)',
+        textAlign:'center',
+      }}>
+        <div style={{color:C.gold,fontSize:18,opacity:0.55,marginBottom:20,fontFamily:'Georgia,serif',lineHeight:1}}>✦</div>
+        <p style={{
+          fontSize:18.5,
+          color:C.cream,
+          lineHeight:1.95,
+          margin:0,
+          fontStyle:'italic',
+          fontFamily:"'EB Garamond',Georgia,serif",
+          textAlign:'left',
+        }}>{text}</p>
+        <div style={{color:C.gold,fontSize:18,opacity:0.55,marginTop:22,fontFamily:'Georgia,serif',lineHeight:1}}>✦</div>
+      </div>
+      <p style={{fontSize:12,color:C.dim,textAlign:'center',fontStyle:'italic',marginTop:14,fontFamily:"'EB Garamond',Georgia,serif",letterSpacing:'0.02em'}}>Pray this aloud. The spoken prayer has weight.</p>
+    </div>
+  );
+}
+
 // ── Color tokens — warm parchment light theme ─────────────────────────────
 const LIGHT_C = {
   bg:'#F7F2EA', bgCard:'rgba(139,26,26,0.04)', bgMid:'#EDE8DC',
@@ -761,27 +857,9 @@ export default function RedLetters({ session, profile }) {
             </div>
           )}
 
-          {tab==='context'&&(
-            <div>
-              <label style={LBL}>Setting & Context</label>
-              <div style={{background:'linear-gradient(145deg,rgba(139,106,46,0.08),rgba(139,106,46,0.02))',border:`1px solid ${C.goldB}`,borderRadius:14,padding:'20px 22px',boxShadow:'0 4px 16px rgba(0,0,0,0.06)'}}>
-                {p.context.split('\n\n').map((para,i)=>(
-                  <p key={i} style={{fontSize:17,color:C.text,lineHeight:1.9,marginBottom:i<p.context.split('\n\n').length-1?14:0}}>{para}</p>
-                ))}
-              </div>
-            </div>
-          )}
+          {tab==='context'&&(<ProseSection label="Setting & Context" text={p.context} accent="gold" C={C} />)}
 
-          {tab==='meaning'&&(
-            <div>
-              <label style={LBL}>What Jesus Meant</label>
-              <div style={{background:'linear-gradient(145deg,rgba(139,106,46,0.08),rgba(139,106,46,0.02))',border:`1px solid ${C.goldB}`,borderRadius:14,padding:'20px 22px',boxShadow:'0 4px 16px rgba(0,0,0,0.06)'}}>
-                {p.meaning.split('\n\n').map((para,i)=>(
-                  <p key={i} style={{fontSize:17,color:C.text,lineHeight:1.9,marginBottom:i<p.meaning.split('\n\n').length-1?14:0}}>{para}</p>
-                ))}
-              </div>
-            </div>
-          )}
+          {tab==='meaning'&&(<ProseSection label="What Jesus Meant" text={p.meaning} accent="gold" C={C} />)}
 
           {tab==='lexicon'&&(
             <div>
@@ -806,26 +884,9 @@ export default function RedLetters({ session, profile }) {
             </div>
           )}
 
-          {tab==='apply'&&(
-            <div>
-              <label style={LBL}>Live It Out</label>
-              <div style={{background:'linear-gradient(145deg,rgba(139,26,26,0.08),rgba(139,26,26,0.02))',border:`1px solid ${C.redB}`,borderRadius:14,padding:'20px 22px'}}>
-                {p.apply.split('\n\n').map((para,i)=>(
-                  <p key={i} style={{fontSize:17,color:C.text,lineHeight:1.9,marginBottom:i<p.apply.split('\n\n').length-1?14:0}}>{para}</p>
-                ))}
-              </div>
-            </div>
-          )}
+          {tab==='apply'&&(<ProseSection label="Live It Out" text={p.apply} accent="red" C={C} />)}
 
-          {tab==='prayer'&&(
-            <div>
-              <label style={LBL}>Pray It</label>
-              <div style={{background:'linear-gradient(145deg,rgba(139,106,46,0.1),rgba(139,106,46,0.03))',border:`1px solid ${C.goldB}`,borderRadius:14,padding:'22px 24px'}}>
-                <p style={{fontSize:18,color:C.cream,lineHeight:1.95,margin:0,fontStyle:'italic'}}>{p.prayer}</p>
-              </div>
-              <p style={{fontSize:12,color:C.dim,textAlign:'center',fontStyle:'italic',marginTop:12}}>Pray this aloud. The spoken prayer has weight.</p>
-            </div>
-          )}
+          {tab==='prayer'&&(<PrayerSection text={p.prayer} C={C} />)}
 
           {tab==='journal'&&(
             <div>
