@@ -381,7 +381,7 @@ export const THEMES = [
         prayer:"Risen Jesus, You stood there while she wept, and You honored her grief before You revealed Yourself. You spoke her name. You speak mine too. I have been seeking You sometimes in the wrong places, in the wrong forms. Say my name to me today. Then send me where You want me to go. I will not cling to what was; I will trust that what You are doing now is better. Amen.",
       },
     ]
-  },,
+  },
   {
     id:11, icon:"\ud83d\udd13", title:"Forgiveness", subtitle:"How Jesus redefined release.",
     passages:[
