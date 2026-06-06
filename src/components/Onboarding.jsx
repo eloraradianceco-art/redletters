@@ -18,17 +18,24 @@ const SLIDES = [
   },
   {
     icon: '📖',
-    title: '10 Themes, 24 Complete Passages',
-    subtitle: 'Prayer. The Kingdom. Love. The Cross. Discipleship. Peace. Anxiety. Truth. The Holy Spirit. Resurrection.',
+    title: '14 Themes, 41 Complete Passages',
+    subtitle: 'Prayer. Love. The Kingdom. The Cross. Discipleship. Peace. Anxiety. Truth. The Holy Spirit. Resurrection. Forgiveness. Faith. I AM. The Beatitudes.',
     detail: 'Each theme contains the full red-letter passages — everything Jesus said on that subject.',
     color: C.gold,
   },
   {
     icon: '🧭',
-    title: 'Six Layers of Study',
-    subtitle: 'Every passage opens into six study tabs: The Passage · Context · Meaning · Live It · Pray It · Journal.',
+    title: 'Seven Layers of Study',
+    subtitle: 'Every passage opens into seven study tabs: The Passage · Context · Meaning · Word Study · Live It · Pray It · Journal.',
     detail: 'Context tells you when and why He said it. Meaning unpacks what He meant. Live It shows you how to apply it today.',
     color: C.redL,
+  },
+  {
+    icon: '📚',
+    title: 'Hear the Original Words',
+    subtitle: 'Every passage opens a Word Study — the Greek terms behind what Jesus actually said, with their original meaning.',
+    detail: 'Tap any word to hear the Greek pronunciation aloud. Translation often flattens; this restores the depth.',
+    color: C.gold,
   },
   {
     icon: '🙏',
