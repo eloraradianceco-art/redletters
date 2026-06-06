@@ -28,6 +28,7 @@ const TABS = [
   {id:'passage', label:'📖 The Passage'},
   {id:'context', label:'🧭 Context'},
   {id:'meaning', label:'💡 Meaning'},
+  {id:'lexicon', label:'📚 Lexicon'},
   {id:'apply',   label:'⚡ Live It'},
   {id:'prayer',  label:'🙏 Pray It'},
   {id:'journal', label:'📝 Journal'},
@@ -762,6 +763,26 @@ export default function RedLetters({ session, profile }) {
                   <p key={i} style={{fontSize:17,color:C.text,lineHeight:1.9,marginBottom:i<p.meaning.split('\n\n').length-1?14:0}}>{para}</p>
                 ))}
               </div>
+            </div>
+          )}
+
+          {tab==='lexicon'&&(
+            <div>
+              <label style={LBL}>Word Study — Original Language</label>
+              <p style={{fontSize:13,color:C.muted,fontStyle:'italic',marginBottom:14,lineHeight:1.7}}>Key Greek (or Aramaic) words from Jesus&apos; teaching. The original behind the English.</p>
+              {(p.lexicon || []).map((entry, i) => (
+                <div key={i} style={{background:'linear-gradient(145deg,rgba(139,106,46,0.08),rgba(139,106,46,0.02))',border:`1px solid ${C.goldB}`,borderRadius:14,padding:'20px 22px 18px',marginBottom:14}}>
+                  <div style={{fontSize:18,fontFamily:"'Cinzel',Georgia,serif",color:C.cream,letterSpacing:'0.04em',marginBottom:6}}>{entry.word}</div>
+                  <div style={{fontSize:15,color:C.gold,fontFamily:"'EB Garamond',Georgia,serif",fontStyle:'italic',marginBottom:2}}>{entry.original}</div>
+                  <div style={{fontSize:10,color:C.muted,fontFamily:"'Cinzel',Georgia,serif",letterSpacing:'0.12em',textTransform:'uppercase',marginBottom:12}}>{entry.language}</div>
+                  <div style={{height:1,background:'rgba(139,106,46,0.2)',marginBottom:12}} />
+                  <p style={{fontSize:15,color:C.text,lineHeight:1.85,marginBottom:12,fontFamily:"'EB Garamond',Georgia,serif"}}>{entry.meaning}</p>
+                  {entry.note && <p style={{fontSize:13,color:C.muted,lineHeight:1.85,fontStyle:'italic',fontFamily:"'EB Garamond',Georgia,serif"}}>{entry.note}</p>}
+                </div>
+              ))}
+              {(!p.lexicon || p.lexicon.length === 0) && (
+                <p style={{fontSize:14,color:C.muted,fontStyle:'italic',textAlign:'center',padding:'24px 0'}}>Lexicon entries coming soon for this passage.</p>
+              )}
             </div>
           )}
 
