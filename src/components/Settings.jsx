@@ -234,12 +234,14 @@ export default function Settings({ profile, userId, entries, passages, darkMode,
           </div>
           <div style={{ background: C.bgCard, border: `1px solid ${C.border}`, borderRadius: 14, padding: '12px 16px' }}>
             <p style={{ fontSize: 13, color: C.muted, fontStyle: 'italic', lineHeight: 1.7, marginBottom: 14 }}>
-              Scripture-based journaling and warfare training for those walking steadily with God.
+              The rest of the Elora Radiance ecosystem — Scripture-based tools for the whole Christian life.
             </p>
             {[
               { label: 'Armed & Anchored', desc: 'Spiritual warfare training journal', url: 'https://armedandanchored.vercel.app/', icon: '⚔️' },
-              { label: 'Anchored Steps · Year 1', desc: '52 weeks of faith in action', url: 'https://anchored-steps.vercel.app/', icon: '⚓' },
-              { label: 'Anchored Steps · Year 2', desc: 'Continuing the journey', url: 'https://anchored-steps-y2.vercel.app/', icon: '⚓' },
+              { label: 'Anchored Steps · Year 1', desc: 'Daily devotional · Year 1', url: 'https://anchored-steps.vercel.app/', icon: '⚓' },
+              { label: 'Anchored Steps · Year 2', desc: 'Daily devotional · Year 2', url: 'https://anchored-steps-year2.vercel.app/', icon: '⚓' },
+              { label: 'Anchored Verse', desc: 'Scripture for every emotion — free', url: 'https://anchoredverse.vercel.app/', icon: '📖' },
+              { label: 'The Living Planner', desc: 'Faith-centered life planner', url: 'https://the-living-planner.vercel.app/', icon: '📓' },
             ].map(app => (
               <a key={app.url} href={app.url} target="_blank" rel="noopener noreferrer" style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '13px 14px', borderRadius: 12, marginBottom: 8, background: C.goldF, border: `1px solid ${C.goldB}`, textDecoration: 'none', transition: 'all .2s' }}>
                 <span style={{ fontSize: 22, flexShrink: 0 }}>{app.icon}</span>
