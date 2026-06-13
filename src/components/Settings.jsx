@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { supabase } from '../supabaseClient'
+import Reviews from './Reviews'
 
 export default function Settings({ profile, userId, entries, passages, darkMode, onToggleDarkMode, onClose }) {
   const C = darkMode ? {
@@ -125,6 +126,8 @@ export default function Settings({ profile, userId, entries, passages, darkMode,
     await supabase.auth.signOut()
   }
 
+  const [showReviews, setShowReviews] = useState(false)
+
   const Row = ({ icon, label, children, border = true }) => (
     <div style={{
       display: 'flex', alignItems: 'center', justifyContent: 'space-between',
@@ -146,6 +149,7 @@ export default function Settings({ profile, userId, entries, passages, darkMode,
       fontFamily: "'EB Garamond',Georgia,serif",
       overflowY: 'auto',
     }}>
+      {showReviews && <Reviews app="rl" appName="The Red Letters" eyebrow="The Red Letters" userEmail={profile?.email} C={C} lightMode={!darkMode} onClose={() => setShowReviews(false)} />}
       <div style={{ maxWidth: 560, margin: '0 auto', padding: '0 0 80px' }}>
 
         {/* Header */}
@@ -201,6 +205,9 @@ export default function Settings({ profile, userId, entries, passages, darkMode,
           <div style={{ background: C.bgCard, border: `1px solid ${C.border}`, borderRadius: 14, padding: '0 16px' }}>
             <Row icon="✉️" label={profile?.email || 'Your account'}>
               <span style={{ fontSize: 11, color: C.green }}>✦ Free Access</span>
+            </Row>
+            <Row icon="⭐" label="Ratings & Reviews">
+              <button onClick={() => setShowReviews(true)} style={{ background: C.goldF, border: `1px solid ${C.goldB}`, color: C.gold, padding: '6px 16px', borderRadius: 10, fontSize: 12, fontFamily: "'Cinzel',Georgia,serif", cursor: 'pointer', letterSpacing: '0.06em' }}>Open</button>
             </Row>
             <Row icon="🛟" label="Email Support">
               <a href="mailto:eloraradiance.co@gmail.com" style={{ background: C.goldF, border: `1px solid ${C.goldB}`, color: C.gold, padding: '6px 16px', borderRadius: 10, fontSize: 12, fontFamily: "'Cinzel',Georgia,serif", textDecoration: 'none', display: 'inline-block', letterSpacing: '0.06em' }}>Contact</a>
