@@ -315,13 +315,16 @@ export default function Settings({ profile, userId, entries, passages, darkMode,
           <div style={{ marginTop: 24, marginBottom: 8 }}>
             <div style={{ fontSize: 9, color: C.muted, letterSpacing: '0.14em', textTransform: 'uppercase', fontFamily: "'Cinzel',Georgia,serif", marginBottom: 4 }}>About</div>
           </div>
+          <p style={{ fontSize: 13, color: C.muted, lineHeight: 1.65, margin: '0 0 10px', fontFamily: "'EB Garamond',Georgia,serif" }}>The words of Jesus, gathered by theme &mdash; a quiet space to read, reflect, journal, and memorize.</p>
           <div style={{ background: C.bgCard, border: `1px solid ${C.border}`, borderRadius: 14, padding: '0 16px' }}>
             <Row icon="✦" label="The Red Letters">
               <span style={{ fontSize: 11, color: C.dim }}>v1.0</span>
             </Row>
+            <a href="https://eloraradiance.com" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: 'inherit', display: 'block' }}>
             <Row icon="🌿" label="Elora Radiance Co." border={false}>
-              <span style={{ fontSize: 11, color: C.dim }}>eloraradiance.com</span>
+              <span style={{ fontSize: 11, color: C.gold }}>eloraradiance.com &rarr;</span>
             </Row>
+            </a>
           </div>
 
         </div>
