@@ -91,7 +91,6 @@ export default function Settings({ profile, userId, entries, passages, darkMode,
     if (!userId) return
     const { data } = await supabase.from('rl_entries').select('*').eq('user_id', userId)
     const get = (pid, key) => data?.find(e => e.saying_id === pid && e.field_key === key)?.field_value || ''
-    const win = window.open('', '_blank')
     let html = `<!DOCTYPE html><html><head><title>The Red Letters Journal</title>
     <style>
       body{font-family:Georgia,serif;max-width:700px;margin:0 auto;padding:40px;color:#2A1A0E;line-height:1.8;background:#F7F2EA}
@@ -116,9 +115,19 @@ export default function Settings({ profile, userId, entries, passages, darkMode,
       }
     }
     html += `<hr style="border-color:rgba(139,26,26,0.2);margin-top:32px"/><p style="text-align:center;font-size:12px;color:#7A6248;font-style:normal">The words of Jesus — redletters.vercel.app</p></body></html>`
-    win.document.write(html)
-    win.document.close()
-    setTimeout(() => win.print(), 500)
+    // Print via a hidden iframe so we never navigate away or trap the user (critical in standalone PWA mode)
+    const frame = document.createElement('iframe')
+    frame.setAttribute('aria-hidden', 'true')
+    frame.style.cssText = 'position:fixed;right:0;bottom:0;width:0;height:0;border:0;opacity:0'
+    document.body.appendChild(frame)
+    const cleanup = () => setTimeout(() => { try { frame.remove() } catch (e) {} }, 1500)
+    const fdoc = frame.contentWindow.document
+    fdoc.open(); fdoc.write(html); fdoc.close()
+    frame.contentWindow.onafterprint = cleanup
+    setTimeout(() => {
+      try { frame.contentWindow.focus(); frame.contentWindow.print() } catch (e) { console.error(e) }
+      cleanup()
+    }, 400)
   }
 
   const handleSignOut = async () => {
