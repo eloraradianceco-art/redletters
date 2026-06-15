@@ -452,7 +452,7 @@ function MemorizeModal({text, ref, onClose, isMemorized, onMark, C}) {
           !revealed?(<div style={{textAlign:'center'}}><p style={{fontSize:13,color:C.muted,marginBottom:16,fontStyle:'italic',lineHeight:1.7}}>Say the passage aloud from memory, then reveal to check.</p><button onClick={()=>setRevealed(true)} style={{background:C.goldF,border:`1px solid ${C.goldB}`,color:C.gold,padding:'10px 24px',borderRadius:50,cursor:'pointer',fontSize:12,fontFamily:"'Cinzel',Georgia,serif"}}>Reveal</button></div>)
           :(<div><p style={{fontSize:16,color:C.red,fontStyle:'italic',lineHeight:1.8,marginBottom:16}}>"{text}"</p><button onClick={onMark} style={{width:'100%',background:C.greenF,border:`1px solid ${C.greenB}`,color:C.green,padding:'12px',borderRadius:10,cursor:'pointer',fontSize:12,fontFamily:"'Cinzel',Georgia,serif",marginBottom:8}}>✓ Mark Memorized</button><button onClick={()=>setRevealed(false)} style={{width:'100%',background:'transparent',border:'none',color:C.muted,cursor:'pointer',fontSize:13}}>Try Again</button></div>)
         ):mode==='blanks'?(
-          <div><div style={{background:'rgba(0,0,0,0.04)',borderRadius:10,padding:14,marginBottom:12}}><p style={{fontSize:15,lineHeight:2,margin:0}}>{blanked.map((w,i)=><span key={i} style={{color:w==='___'?C.gold:C.text,borderBottom:w==='___'?`1px solid ${C.gold}`:undefined}}>{w}{i<blanked.length-1?' ':''}</span>)}</p></div>
+          <div><div style={{background:'rgba(0,0,0,0.04)',borderRadius:10,padding:14,marginBottom:12}}><p style={{fontSize:17,lineHeight:2,margin:0}}>{blanked.map((w,i)=><span key={i} style={{color:w==='___'?C.gold:C.text,borderBottom:w==='___'?`1px solid ${C.gold}`:undefined}}>{w}{i<blanked.length-1?' ':''}</span>)}</p></div>
           {!revealed?<button onClick={()=>setRevealed(true)} style={{width:'100%',background:C.goldF,border:`1px solid ${C.goldB}`,color:C.gold,padding:'11px',borderRadius:10,cursor:'pointer',fontSize:12,fontFamily:"'Cinzel',Georgia,serif",marginBottom:8}}>Reveal Missing Words</button>:<div style={{background:C.greenF,border:`1px solid ${C.greenB}`,borderRadius:10,padding:12,marginBottom:10}}><p style={{fontSize:13,lineHeight:1.8,margin:0}}>{words.map((w,i)=><span key={i} style={{color:(i+1)%3===0?C.green:C.text,fontWeight:(i+1)%3===0?600:400}}>{w}{i<words.length-1?' ':''}</span>)}</p></div>}
           <button onClick={onMark} style={{width:'100%',background:C.greenF,border:`1px solid ${C.greenB}`,color:C.green,padding:'11px',borderRadius:10,cursor:'pointer',fontSize:12,fontFamily:"'Cinzel',Georgia,serif"}}>✓ Mark Memorized</button></div>
         ):mode==='write'?(
@@ -732,7 +732,7 @@ export default function RedLetters({ session, profile }) {
                 <span style={{color:C.gold,fontSize:32,lineHeight:1,opacity:.25,flexShrink:0,fontFamily:'Georgia,serif'}}>"</span>
                 <div style={{flex:1}}>
                   <div style={{fontSize:13,fontWeight:600,color:C.cream,fontFamily:"'Cinzel',Georgia,serif",letterSpacing:'0.04em',marginBottom:8}}>{p.title}</div>
-                  <p style={{fontSize:16,lineHeight:1.85,color:C.red,fontStyle:'italic',marginBottom:12,letterSpacing:'0.01em'}}>{p.text.split('\n')[0].slice(0,180)}{p.text.length>180?'…':''}</p>
+                  <p style={{fontSize:18,lineHeight:1.85,color:C.red,fontStyle:'italic',marginBottom:12,letterSpacing:'0.01em'}}>{p.text.split('\n')[0].slice(0,180)}{p.text.length>180?'…':''}</p>
                   <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',flexWrap:'wrap',gap:8}}>
                     <div style={{display:'flex',alignItems:'center',gap:8}}>
                       <span style={{fontSize:11,color:C.gold,fontFamily:"'Cinzel',Georgia,serif",fontWeight:500,letterSpacing:'0.08em',textTransform:'uppercase'}}>{p.ref}</span>
@@ -904,7 +904,7 @@ export default function RedLetters({ session, profile }) {
                   </div>
                   <div style={{fontSize:10,color:C.muted,fontFamily:"'Cinzel',Georgia,serif",letterSpacing:'0.12em',textTransform:'uppercase',marginBottom:12}}>{entry.language}</div>
                   <div style={{height:1,background:'rgba(139,106,46,0.2)',marginBottom:12}} />
-                  <p style={{fontSize:15,color:C.text,lineHeight:1.85,marginBottom:12,fontFamily:"'EB Garamond',Georgia,serif"}}>{entry.meaning}</p>
+                  <p style={{fontSize:17,color:C.text,lineHeight:1.85,marginBottom:12,fontFamily:"'EB Garamond',Georgia,serif"}}>{entry.meaning}</p>
                   {entry.note && <p style={{fontSize:13,color:C.muted,lineHeight:1.85,fontStyle:'italic',fontFamily:"'EB Garamond',Georgia,serif"}}>{entry.note}</p>}
                 </div>
               ))}
