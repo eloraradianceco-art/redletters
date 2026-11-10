@@ -118,7 +118,7 @@ function AppInner() {
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session)
-      if (session) loadProfile(session.user.id)
+      if (session) loadProfile(session.user.id, session.user.email)
       else setLoading(false)
     })
 
@@ -130,17 +130,18 @@ function AppInner() {
         return
       }
       setSession(session)
-      if (session) loadProfile(session.user.id)
+      if (session) loadProfile(session.user.id, session.user.email)
       else { setProfile(null); setLoading(false) }
     })
 
     return () => subscription.unsubscribe()
   }, [])
 
-  const loadProfile = async (userId) => {
+  const loadProfile = async (userId, email) => {
     try {
       const { data } = await supabase.from('rl_profiles').select('*').eq('id', userId).maybeSingle()
-      setProfile(data || null)
+      // Accounts made in another Elora Radiance app have no Red Letters profile row yet
+      setProfile(data || { id: userId, email })
     } catch (e) {
       console.error('loadProfile error:', e)
     } finally {
@@ -152,7 +153,7 @@ function AppInner() {
     try {
       const { data: { session } } = await supabase.auth.getSession()
       if (session) {
-        await loadProfile(session.user.id)
+        await loadProfile(session.user.id, session.user.email)
         if (isNewUser) setShowOnboarding(true)
       }
     } catch (e) {

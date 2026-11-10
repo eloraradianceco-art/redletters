@@ -58,7 +58,18 @@ export default function Auth({ onComplete }) {
     setLoading(true)
 
     if (mode === 'signup') {
-      const { data, error } = await supabase.auth.signUp({ email, password })
+      const { data, error } = await supabase.auth.signUp({
+        email, password,
+        options: { data: { app: 'rl' }, emailRedirectTo: 'https://redletters.vercel.app' },
+      })
+      if (error && /already registered/i.test(error.message)) {
+        // One Elora Radiance account works across every app: try signing in with it.
+        const { error: signInErr } = await supabase.auth.signInWithPassword({ email, password })
+        if (!signInErr) { setLoading(false); onComplete?.(false); return }
+        setMode('signin')
+        setError('You already have an Elora Radiance account with this email (from Anchored Steps or Armed & Anchored). Sign in with that password, or use Forgot Password.')
+        setLoading(false); return
+      }
       if (error) { setError(error.message); setLoading(false); return }
       if (!data?.session) { setConfirmSent(true); setLoading(false); return }
       setJustCreated(true)
@@ -120,6 +131,11 @@ export default function Auth({ onComplete }) {
               fontFamily: "'Cinzel',Georgia,serif", letterSpacing: '0.1em',
               textTransform: 'uppercase' }}>
               ✦ Completely Free
+            </div>
+          )}
+          {mode !== 'forgot' && (
+            <div style={{ marginTop: 8, fontSize: 13, color: C.muted, fontStyle: 'italic' }}>
+              One Elora Radiance account works across all our apps.
             </div>
           )}
         </div>
