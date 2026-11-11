@@ -3,6 +3,7 @@ import { supabase } from '../supabaseClient'
 import Reviews from './Reviews'
 import ReminderSettings from './ReminderSettings'
 import AccountPrivacy from './AccountPrivacy'
+import ScriptureCredits from './ScriptureCredits'
 
 export default function Settings({ profile, userId, entries, passages, darkMode, onToggleDarkMode, onClose }) {
   const C = darkMode ? {
@@ -239,6 +240,8 @@ export default function Settings({ profile, userId, entries, passages, darkMode,
             text: C.text, muted: C.muted, card: C.bgCard, border: C.border,
             danger: darkMode ? C.redL : C.red, dangerF: C.redF, dangerB: C.redB, dark: darkMode,
           }} />
+
+          <ScriptureCredits notices={['ESV_ALL']} theme={{ text: C.text, muted: C.muted, card: C.bgCard, border: C.border }} />
 
           {/* Share */}
           <div style={{ marginTop: 24, marginBottom: 8 }}>
