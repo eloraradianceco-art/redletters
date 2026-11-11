@@ -167,7 +167,7 @@ export default function Settings({ profile, userId, entries, passages, darkMode,
         {/* Header */}
         <div style={{
           display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-          padding: '16px 20px', borderBottom: `1px solid ${C.border}`,
+          padding: 'calc(16px + var(--top-band, 0px)) 20px 16px', borderBottom: `1px solid ${C.border}`,
           position: 'sticky', top: 0, zIndex: 10,
           background: darkMode ? '#0F0A06' : '#F7F2EA',
         }}>
