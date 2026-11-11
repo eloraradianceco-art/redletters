@@ -227,7 +227,7 @@ export default function Settings({ profile, userId, entries, passages, darkMode,
               <button onClick={() => setShowReviews(true)} style={{ background: C.goldF, border: `1px solid ${C.goldB}`, color: C.gold, padding: '6px 16px', borderRadius: 10, fontSize: 12, fontFamily: "'Cinzel',Georgia,serif", cursor: 'pointer', letterSpacing: '0.06em' }}>Open</button>
             </Row>
             <Row icon="🛟" label="Email Support">
-              <a href="mailto:eloraradiance.co@gmail.com" style={{ background: C.goldF, border: `1px solid ${C.goldB}`, color: C.gold, padding: '6px 16px', borderRadius: 10, fontSize: 12, fontFamily: "'Cinzel',Georgia,serif", textDecoration: 'none', display: 'inline-block', letterSpacing: '0.06em' }}>Contact</a>
+              <a href="mailto:support@eloraradiance.com" style={{ background: C.goldF, border: `1px solid ${C.goldB}`, color: C.gold, padding: '6px 16px', borderRadius: 10, fontSize: 12, fontFamily: "'Cinzel',Georgia,serif", textDecoration: 'none', display: 'inline-block', letterSpacing: '0.06em' }}>Contact</a>
             </Row>
             <Row icon="🚪" label="Sign Out" border={false}>
               <button onClick={handleSignOut} disabled={signingOut} style={{ background: C.redF, border: `1px solid ${C.redB}`, color: C.redL, padding: '6px 16px', borderRadius: 10, cursor: 'pointer', fontSize: 12, fontFamily: "'Cinzel',Georgia,serif", letterSpacing: '0.07em' }}>
