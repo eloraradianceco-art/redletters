@@ -3,9 +3,9 @@ import { useState } from 'react'
 const C = {
   bg: '#F7F2EA', red: '#8B1A1A', redL: '#A52020',
   redF: 'rgba(139,26,26,0.08)', redB: 'rgba(139,26,26,0.22)',
-  gold: '#8B6A2E', goldF: 'rgba(139,106,46,0.1)', goldB: 'rgba(139,106,46,0.28)',
-  cream: '#2A1A0E', text: '#3D2E1A', muted: '#7A6248',
-  dim: '#B09A80', border: 'rgba(139,26,26,0.12)',
+  gold: '#6B4E18', goldF: 'rgba(139,106,46,0.1)', goldB: 'rgba(139,106,46,0.28)',
+  cream: '#2A1A0E', text: '#3D2E1A', muted: '#5E4E3C',
+  dim: '#6E6052', border: 'rgba(139,26,26,0.12)',
 }
 
 const SLIDES = [

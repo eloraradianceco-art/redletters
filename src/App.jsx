@@ -16,7 +16,7 @@ class ErrorBoundary extends Component {
         <div style={{ fontSize:14, color:'#8B1A1A', fontFamily:"'Cinzel',Georgia,serif", letterSpacing:'0.1em' }}>
           Something went wrong
         </div>
-        <div style={{ fontSize:12, color:'#7A6248', maxWidth:360, lineHeight:1.6 }}>
+        <div style={{ fontSize:12, color:'#5E4E3C', maxWidth:360, lineHeight:1.6 }}>
           {this.state.error.message}
         </div>
         <button onClick={() => window.location.reload()}
@@ -37,7 +37,7 @@ function LoadingScreen({ message }) {
     <div style={{ minHeight:'100vh', display:'flex', alignItems:'center', justifyContent:'center',
       background:'#F7F2EA', flexDirection:'column', gap:16 }}>
       <img src="/icon.png" style={{ width:56, height:56, borderRadius:14, boxShadow:'0 4px 16px rgba(139,26,26,0.15)' }} alt="" />
-      <div style={{ fontSize:10, color:'#7A6248', fontFamily:"'Cinzel',Georgia,serif", letterSpacing:'0.16em', textTransform:'uppercase' }}>
+      <div style={{ fontSize:10, color:'#5E4E3C', fontFamily:"'Cinzel',Georgia,serif", letterSpacing:'0.16em', textTransform:'uppercase' }}>
         {message || 'The Red Letters'}
       </div>
     </div>

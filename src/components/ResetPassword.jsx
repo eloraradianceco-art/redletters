@@ -6,7 +6,7 @@ const C = {
   bgMid: "#EFE7D8",
   cream: "#FAF5EC",
   text: "#2C1810",
-  gold: "#8B6A2E",
+  gold: "#6B4E18",
   goldB: "rgba(139,106,46,0.32)",
   goldF: "rgba(139,106,46,0.08)",
   red: "#8B1A1A",

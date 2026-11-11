@@ -16,8 +16,8 @@ export default function Settings({ profile, userId, entries, passages, darkMode,
   } : {
     bg:'#F7F2EA', bgCard:'rgba(139,26,26,0.04)', bgMid:'#EDE8DC',
     red:'#8B1A1A', redL:'#A52020', redF:'rgba(139,26,26,0.08)', redB:'rgba(139,26,26,0.22)',
-    gold:'#8B6A2E', goldF:'rgba(139,106,46,0.1)', goldB:'rgba(139,106,46,0.28)',
-    cream:'#2A1A0E', ink:'#1C150A', text:'#3D2E1A', muted:'#7A6248', dim:'#B09A80',
+    gold:'#6B4E18', goldF:'rgba(139,106,46,0.1)', goldB:'rgba(139,106,46,0.28)',
+    cream:'#2A1A0E', ink:'#1C150A', text:'#3D2E1A', muted:'#5E4E3C', dim:'#6E6052',
     border:'rgba(139,26,26,0.12)',
     green:'#2E6040', greenF:'rgba(46,96,64,0.1)', greenB:'rgba(46,96,64,0.3)',
   }
@@ -98,9 +98,9 @@ export default function Settings({ profile, userId, entries, passages, darkMode,
     <style>
       body{font-family:Georgia,serif;max-width:700px;margin:0 auto;padding:40px;color:#2A1A0E;line-height:1.8;background:#F7F2EA}
       h1{font-size:26px;color:#8B1A1A;text-align:center;margin-bottom:4px}
-      .sub{text-align:center;color:#8B6A2E;font-size:12px;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:36px}
+      .sub{text-align:center;color:#6B4E18;font-size:12px;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:36px}
       h2{font-size:17px;color:#2A1A0E;border-bottom:1px solid rgba(139,26,26,0.25);padding-bottom:6px;margin-top:32px}
-      h3{font-size:12px;color:#8B6A2E;letter-spacing:0.1em;text-transform:uppercase;margin:16px 0 6px}
+      h3{font-size:12px;color:#6B4E18;letter-spacing:0.1em;text-transform:uppercase;margin:16px 0 6px}
       p{line-height:1.85;margin:0 0 12px;font-style:italic;color:#3D2E1A}
       .badge{font-size:11px;color:#2E6040;margin:3px 0}
       @media print{body{padding:20px}}
@@ -112,12 +112,12 @@ export default function Settings({ profile, userId, entries, passages, darkMode,
         const journal = get(p.id, 'journal')
         const isMem   = get(p.id, 'mem') === 'true'
         if (!journal && !isMem) continue
-        html += `<h2>${p.themeIcon || ''} ${p.title} <span style="font-size:12px;color:#8B6A2E">${p.ref}</span></h2>`
+        html += `<h2>${p.themeIcon || ''} ${p.title} <span style="font-size:12px;color:#6B4E18">${p.ref}</span></h2>`
         if (isMem) html += `<p class="badge">✦ Memorized</p>`
         if (journal) html += `<h3>Journal Entry</h3><p>${journal.split('\n').join('<br/>')}</p>`
       }
     }
-    html += `<hr style="border-color:rgba(139,26,26,0.2);margin-top:32px"/><p style="text-align:center;font-size:12px;color:#7A6248;font-style:normal">The words of Jesus — redletters.vercel.app</p></body></html>`
+    html += `<hr style="border-color:rgba(139,26,26,0.2);margin-top:32px"/><p style="text-align:center;font-size:12px;color:#5E4E3C;font-style:normal">The words of Jesus — redletters.vercel.app</p></body></html>`
     // Print via a hidden iframe so we never navigate away or trap the user (critical in standalone PWA mode)
     const frame = document.createElement('iframe')
     frame.setAttribute('aria-hidden', 'true')

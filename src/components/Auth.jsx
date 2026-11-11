@@ -5,9 +5,9 @@ import { supabase } from '../supabaseClient'
 const C = {
   bg: '#F7F2EA', bg2: '#EDE8DC', red: '#8B1A1A', redL: '#A52020',
   redF: 'rgba(139,26,26,0.08)', redB: 'rgba(139,26,26,0.22)',
-  gold: '#8B6A2E', goldL: '#A8873C', goldF: 'rgba(139,106,46,0.1)',
+  gold: '#6B4E18', goldL: '#A8873C', goldF: 'rgba(139,106,46,0.1)',
   goldB: 'rgba(139,106,46,0.28)', ink: '#1C150A', text: '#3D2E1A',
-  muted: '#7A6248', dim: '#B09A80', border: 'rgba(139,26,26,0.1)',
+  muted: '#5E4E3C', dim: '#6E6052', border: 'rgba(139,26,26,0.1)',
   green: '#2E6040',
 }
 

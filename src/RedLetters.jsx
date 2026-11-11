@@ -104,8 +104,8 @@ const LIGHT_C = {
   bg:'#F7F2EA', bgCard:'rgba(139,26,26,0.04)', bgMid:'#EDE8DC',
   red:'#8B1A1A', redL:'#A52020',
   redF:'rgba(139,26,26,0.08)', redB:'rgba(139,26,26,0.22)',
-  gold:'#8B6A2E', goldF:'rgba(139,106,46,0.1)', goldB:'rgba(139,106,46,0.28)',
-  cream:'#2A1A0E', ink:'#1C150A', text:'#3D2E1A', muted:'#7A6248', dim:'#B09A80',
+  gold:'#6B4E18', goldF:'rgba(139,106,46,0.1)', goldB:'rgba(139,106,46,0.28)',
+  cream:'#2A1A0E', ink:'#1C150A', text:'#3D2E1A', muted:'#5E4E3C', dim:'#6E6052',
   border:'rgba(139,26,26,0.12)', borderGold:'rgba(139,106,46,0.2)',
   green:'#2E6040', greenF:'rgba(46,96,64,0.1)', greenB:'rgba(46,96,64,0.3)',
 }
@@ -201,7 +201,7 @@ function ShareCard({ passage, theme, onClose, C }) {
     divider: 'rgba(139,26,26,0.25)',
     label: 'rgba(139,26,26,0.6)',
     body: '#2A1A0E',
-    ref: '#8B6A2E',
+    ref: '#6B4E18',
     footer: 'rgba(139,26,26,0.8)',
     tagline: 'rgba(80,60,40,0.5)',
     quote: 'rgba(139,26,26,0.15)',
@@ -253,7 +253,7 @@ function ShareCard({ passage, theme, onClose, C }) {
   const UI = {
     bg: '#1A0C06', red: '#8B1A1A', redL: '#C04040',
     redF: 'rgba(139,26,26,0.1)', redB: 'rgba(139,26,26,0.3)',
-    gold: '#8B6A2E', goldF: 'rgba(139,106,46,0.1)', goldB: 'rgba(139,106,46,0.28)',
+    gold: '#6B4E18', goldF: 'rgba(139,106,46,0.1)', goldB: 'rgba(139,106,46,0.28)',
     cream: '#EDE6D6', muted: '#9A8268', border: 'rgba(255,255,255,0.1)',
   }
 
