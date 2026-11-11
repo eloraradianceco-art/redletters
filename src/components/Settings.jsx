@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { supabase } from '../supabaseClient'
 import Reviews from './Reviews'
+import ReminderSettings from './ReminderSettings'
 
 export default function Settings({ profile, userId, entries, passages, darkMode, onToggleDarkMode, onClose }) {
   const C = darkMode ? {
@@ -206,6 +207,11 @@ export default function Settings({ profile, userId, entries, passages, darkMode,
               {resetDone ? '✓ Progress Reset' : '↺ Reset Reading Progress'}
             </button>
           </div>
+
+          <ReminderSettings supabase={supabase} app="rl" theme={{
+            text: C.text, muted: C.muted, accent: darkMode ? C.redL : C.red, accentF: C.redF, accentB: C.redB,
+            card: C.bgCard, border: C.border, dark: darkMode,
+          }} />
 
           {/* Account */}
           <div style={{ marginTop: 24, marginBottom: 8 }}>
