@@ -99,6 +99,9 @@ function PrayerSection({ text, C }) {
   );
 }
 
+// Gospel badge colors that stay readable on the dark theme
+const GOSPEL_COLORS_DARK = { matthew:'#EE8A8A', mark:'#6CC9A0', luke:'#8DB4EA', john:'#C9A3E6' }
+
 // ── Color tokens — warm parchment light theme ─────────────────────────────
 const LIGHT_C = {
   bg:'#F7F2EA', bgCard:'rgba(139,26,26,0.04)', bgMid:'#EDE8DC',
@@ -112,10 +115,10 @@ const LIGHT_C = {
 
 const DARK_C = {
   bg:'#0F0A06', bgCard:'rgba(201,64,64,0.07)', bgMid:'#1A0E08',
-  red:'#C94040', redL:'#D96060',
+  red:'#E36464', redL:'#EE8A8A',
   redF:'rgba(201,64,64,0.12)', redB:'rgba(201,64,64,0.32)',
-  gold:'#B08A4E', goldF:'rgba(176,138,78,0.11)', goldB:'rgba(176,138,78,0.28)',
-  cream:'#EDE6D6', ink:'#EDE6D6', text:'rgba(220,210,195,0.9)', muted:'rgba(176,160,130,0.65)', dim:'rgba(150,130,100,0.4)',
+  gold:'#CFA968', goldF:'rgba(176,138,78,0.11)', goldB:'rgba(176,138,78,0.28)',
+  cream:'#EDE6D6', ink:'#EDE6D6', text:'rgba(220,210,195,0.9)', muted:'#B5A58A', dim:'#8F8068',
   border:'rgba(201,64,64,0.12)', borderGold:'rgba(176,138,78,0.28)',
   green:'#7C9284', greenF:'rgba(124,146,132,0.12)', greenB:'rgba(124,146,132,0.35)',
 }
@@ -687,7 +690,7 @@ export default function RedLetters({ session, profile }) {
       {(() => {
         const idx = THEMES.findIndex(t => t.id === selTheme.id)
         const prev = THEMES[idx-1], next = THEMES[idx+1]
-        const s = {position:'fixed',bottom:32,zIndex:250,background:'rgba(247,242,234,0.93)',backdropFilter:'blur(12px)',border:`1px solid ${C.redB}`,color:C.red,borderRadius:50,padding:'10px 14px',cursor:'pointer',fontSize:12,fontFamily:"'Cinzel',Georgia,serif",letterSpacing:'0.04em',boxShadow:'0 4px 16px rgba(139,26,26,0.15)',touchAction:'manipulation',transition:'all .2s',display:'flex',alignItems:'center',gap:6}
+        const s = {position:'fixed',bottom:32,zIndex:250,background:darkMode?'rgba(15,10,6,0.93)':'rgba(247,242,234,0.93)',backdropFilter:'blur(12px)',border:`1px solid ${C.redB}`,color:C.red,borderRadius:50,padding:'10px 14px',cursor:'pointer',fontSize:12,fontFamily:"'Cinzel',Georgia,serif",letterSpacing:'0.04em',boxShadow:'0 4px 16px rgba(139,26,26,0.15)',touchAction:'manipulation',transition:'all .2s',display:'flex',alignItems:'center',gap:6}
         return (<>
           {prev && <button onClick={()=>{setSelTheme(prev);window.scrollTo(0,0)}} style={{...s,left:16}}>‹ <span style={{maxWidth:80,overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap',fontSize:10}}>{prev.title}</span></button>}
           {next && <button onClick={()=>{setSelTheme(next);window.scrollTo(0,0)}} style={{...s,right:16}}><span style={{maxWidth:80,overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap',fontSize:10}}>{next.title}</span> ›</button>}
@@ -723,7 +726,7 @@ export default function RedLetters({ session, profile }) {
       <div style={{maxWidth:860,margin:'0 auto',padding:'0 18px 130px'}}>
         <label style={LBL}>Passages — {selTheme.title}</label>
         {selTheme.passages.map((p,i)=>{
-          const gc=GOSPEL_COLORS[p.gospel]||C.red
+          const gc=(darkMode?GOSPEL_COLORS_DARK:GOSPEL_COLORS)[p.gospel]||C.red
           const isRead=get(p.id,'read')==='true'
           const isMem=isMemorized(p.id)
           return (
@@ -758,7 +761,7 @@ export default function RedLetters({ session, profile }) {
   // ── PASSAGE VIEW ────────────────────────────────────────────────────────
   if (view==='passage'&&selPassage&&selTheme) {
     const p=selPassage, t=selTheme
-    const gc=GOSPEL_COLORS[p.gospel]||C.red
+    const gc=(darkMode?GOSPEL_COLORS_DARK:GOSPEL_COLORS)[p.gospel]||C.red
     const passageIdx=t.passages.findIndex(x=>x.id===p.id)
     const prevP=t.passages[passageIdx-1], nextP=t.passages[passageIdx+1]
     const journalVal=get(p.id,'journal')
@@ -779,7 +782,7 @@ export default function RedLetters({ session, profile }) {
           const nextTab = visibleTabs[tabIdx+1]
           const showPrev = prevTab || prevPass
           const showNext = nextTab || nextPass
-          const pillStatic = {background:'rgba(247,242,234,0.93)',backdropFilter:'blur(12px)',border:`1px solid ${C.redB}`,color:C.red,borderRadius:50,padding:'10px 14px',cursor:'pointer',fontSize:11,fontFamily:"'Cinzel',Georgia,serif",letterSpacing:'0.04em',boxShadow:'0 4px 16px rgba(139,26,26,0.15)',touchAction:'manipulation',transition:'all .2s',display:'flex',alignItems:'center',gap:5,maxWidth:160}
+          const pillStatic = {background:darkMode?'rgba(15,10,6,0.93)':'rgba(247,242,234,0.93)',backdropFilter:'blur(12px)',border:`1px solid ${C.redB}`,color:C.red,borderRadius:50,padding:'10px 14px',cursor:'pointer',fontSize:11,fontFamily:"'Cinzel',Georgia,serif",letterSpacing:'0.04em',boxShadow:'0 4px 16px rgba(139,26,26,0.15)',touchAction:'manipulation',transition:'all .2s',display:'flex',alignItems:'center',gap:5,maxWidth:160}
           const pillFixed = (extra) => ({...pillStatic,position:'fixed',bottom:32,zIndex:250,...extra})
           const fabBtn = (
             <button

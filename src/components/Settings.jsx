@@ -8,9 +8,9 @@ import ScriptureCredits from './ScriptureCredits'
 export default function Settings({ profile, userId, entries, passages, darkMode, onToggleDarkMode, onClose }) {
   const C = darkMode ? {
     bg:'#0F0A06', bgCard:'rgba(201,64,64,0.07)', bgMid:'#1A0E08',
-    red:'#C94040', redL:'#D96060', redF:'rgba(201,64,64,0.12)', redB:'rgba(201,64,64,0.32)',
-    gold:'#B08A4E', goldF:'rgba(176,138,78,0.11)', goldB:'rgba(176,138,78,0.28)',
-    cream:'#EDE6D6', ink:'#EDE6D6', text:'rgba(220,210,195,0.9)', muted:'rgba(176,160,130,0.65)', dim:'rgba(150,130,100,0.4)',
+    red:'#E36464', redL:'#EE8A8A', redF:'rgba(201,64,64,0.12)', redB:'rgba(201,64,64,0.32)',
+    gold:'#CFA968', goldF:'rgba(176,138,78,0.11)', goldB:'rgba(176,138,78,0.28)',
+    cream:'#EDE6D6', ink:'#EDE6D6', text:'rgba(220,210,195,0.9)', muted:'#B5A58A', dim:'#8F8068',
     border:'rgba(201,64,64,0.12)',
     green:'#7C9284', greenF:'rgba(124,146,132,0.12)', greenB:'rgba(124,146,132,0.35)',
   } : {
@@ -169,7 +169,7 @@ export default function Settings({ profile, userId, entries, passages, darkMode,
           display: 'flex', alignItems: 'center', justifyContent: 'space-between',
           padding: '16px 20px', borderBottom: `1px solid ${C.border}`,
           position: 'sticky', top: 0, zIndex: 10,
-          background: 'rgba(247,242,234,0.97)', backdropFilter: 'blur(12px)',
+          background: darkMode ? 'rgba(15,10,6,0.97)' : 'rgba(247,242,234,0.97)', backdropFilter: 'blur(12px)',
         }}>
           <div>
             <div style={{ fontSize: 9, color: C.redL, letterSpacing: '0.16em', textTransform: 'uppercase', fontFamily: "'Cinzel',Georgia,serif" }}>The Red Letters</div>
