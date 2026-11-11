@@ -99,6 +99,20 @@ function PrayerSection({ text, C }) {
   );
 }
 
+// Safari (iOS 26) colors the status-bar area and its bottom bar from the page background,
+// and the phone's Reduce Transparency setting decides whether that area is see-through
+// (blurred page) or solid. Keeping the page background, the header and theme-color one
+// solid color makes the top of the app look the same with the setting on or off.
+function paintChrome(color) {
+  try {
+    document.documentElement.style.backgroundColor = color;
+    document.body.style.backgroundColor = color;
+    let m = document.querySelector('meta[name="theme-color"]');
+    if (!m) { m = document.createElement("meta"); m.setAttribute("name", "theme-color"); document.head.appendChild(m); }
+    m.setAttribute("content", color);
+  } catch { /* no DOM */ }
+}
+
 // Gospel badge colors that stay readable on the dark theme
 const GOSPEL_COLORS_DARK = { matthew:'#EE8A8A', mark:'#6CC9A0', luke:'#8DB4EA', john:'#C9A3E6' }
 
@@ -473,6 +487,9 @@ export default function RedLetters({ session, profile }) {
   const isPremium = true // All content free
 
   const [darkMode,setDarkMode]=useState(()=>{try{return localStorage.getItem('rl_dark')==='1'}catch{return false}})
+  // Page background, header and theme-color share one solid color (see paintChrome).
+  // Sign-in and onboarding are light, so leaving the app puts it back to light.
+  useEffect(()=>{ paintChrome(darkMode?'#0F0A06':'#F7F2EA'); return ()=>paintChrome('#F7F2EA') },[darkMode])
   const C = darkMode ? DARK_C : LIGHT_C
   const LBL = {fontSize:9,color:C.gold,letterSpacing:'0.16em',textTransform:'uppercase',fontFamily:"'Cinzel',Georgia,serif",marginBottom:12,display:'block'}
   const [view,setView]=useState('home')     // 'home'|'theme'|'passage'
@@ -553,7 +570,7 @@ export default function RedLetters({ session, profile }) {
 
   // ── Compact header (same structure as AS1) ─────────────────────────────
   const Header = ({showBack=false}) => (
-    <div style={{position:'sticky',top:0,zIndex:200,background:darkMode?'rgba(15,10,6,0.97)':'rgba(247,242,234,0.97)',backdropFilter:'blur(12px)',borderBottom:`1px solid ${C.border}`}}>
+    <div style={{position:'sticky',top:0,zIndex:200,background:darkMode?'#0F0A06':'#F7F2EA',borderBottom:`1px solid ${C.border}`}}>
       <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',padding:'10px 18px'}}>
         <div style={{display:'flex',alignItems:'center',gap:10}}>
           <img src="/icon.png" alt="" style={{width:36,height:36,borderRadius:9,boxShadow:'0 2px 8px rgba(0,0,0,0.2)'}}/>

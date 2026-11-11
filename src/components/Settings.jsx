@@ -169,7 +169,7 @@ export default function Settings({ profile, userId, entries, passages, darkMode,
           display: 'flex', alignItems: 'center', justifyContent: 'space-between',
           padding: '16px 20px', borderBottom: `1px solid ${C.border}`,
           position: 'sticky', top: 0, zIndex: 10,
-          background: darkMode ? 'rgba(15,10,6,0.97)' : 'rgba(247,242,234,0.97)', backdropFilter: 'blur(12px)',
+          background: darkMode ? '#0F0A06' : '#F7F2EA',
         }}>
           <div>
             <div style={{ fontSize: 9, color: C.redL, letterSpacing: '0.16em', textTransform: 'uppercase', fontFamily: "'Cinzel',Georgia,serif" }}>The Red Letters</div>
