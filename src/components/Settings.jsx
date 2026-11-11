@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { supabase } from '../supabaseClient'
 import Reviews from './Reviews'
 import ReminderSettings from './ReminderSettings'
+import AccountPrivacy from './AccountPrivacy'
 
 export default function Settings({ profile, userId, entries, passages, darkMode, onToggleDarkMode, onClose }) {
   const C = darkMode ? {
@@ -233,6 +234,11 @@ export default function Settings({ profile, userId, entries, passages, darkMode,
               </button>
             </Row>
           </div>
+
+          <AccountPrivacy supabase={supabase} theme={{
+            text: C.text, muted: C.muted, card: C.bgCard, border: C.border,
+            danger: darkMode ? C.redL : C.red, dangerF: C.redF, dangerB: C.redB, dark: darkMode,
+          }} />
 
           {/* Share */}
           <div style={{ marginTop: 24, marginBottom: 8 }}>
