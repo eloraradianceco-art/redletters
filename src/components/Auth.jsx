@@ -45,7 +45,7 @@ export default function Auth({ onComplete }) {
       if (!email) { setError('Please enter your email address.'); return }
       setLoading(true)
       const { error } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: 'https://redletters.vercel.app',
+        redirectTo: 'https://redletters.eloraradiance.com',
       })
       setLoading(false)
       if (error) { setError(error.message); return }
@@ -60,7 +60,7 @@ export default function Auth({ onComplete }) {
     if (mode === 'signup') {
       const { data, error } = await supabase.auth.signUp({
         email, password,
-        options: { data: { app: 'rl' }, emailRedirectTo: 'https://redletters.vercel.app' },
+        options: { data: { app: 'rl' }, emailRedirectTo: 'https://redletters.eloraradiance.com' },
       })
       if (error && /already registered/i.test(error.message)) {
         // One Elora Radiance account works across every app: try signing in with it.

@@ -150,7 +150,7 @@ const TABS = [
 
 
 // ── Share Card ──────────────────────────────────────────────────────────────
-const TAGLINE = 'The complete words of Jesus — redletters.vercel.app'
+const TAGLINE = 'The complete words of Jesus — redletters.eloraradiance.com'
 
 function ShareCard({ passage, theme, onClose, C }) {
   const cardRef = useRef(null)
@@ -175,31 +175,31 @@ function ShareCard({ passage, theme, onClose, C }) {
       label: p.ref,
       sublabel: `${theme?.icon || ''} ${theme?.title || ''}`,
       main: p.text,
-      caption: `"${p.text}"\n\n— ${p.ref}\n\nThe Red Letters · ${theme?.title}\nredletters.vercel.app`,
+      caption: `"${p.text}"\n\n— ${p.ref}\n\nThe Red Letters · ${theme?.title}\nredletters.eloraradiance.com`,
     }
     if (type === 'context') return {
       label: 'Setting & Context',
       sublabel: p.ref,
       main: firstPara(p.context),
-      caption: `${p.title} — Context\n\n${firstPara(p.context)}\n\nThe Red Letters · redletters.vercel.app`,
+      caption: `${p.title} — Context\n\n${firstPara(p.context)}\n\nThe Red Letters · redletters.eloraradiance.com`,
     }
     if (type === 'meaning') return {
       label: 'What Jesus Meant',
       sublabel: p.ref,
       main: firstPara(p.meaning),
-      caption: `${p.title} — Meaning\n\n${firstPara(p.meaning)}\n\nThe Red Letters · redletters.vercel.app`,
+      caption: `${p.title} — Meaning\n\n${firstPara(p.meaning)}\n\nThe Red Letters · redletters.eloraradiance.com`,
     }
     if (type === 'apply') return {
       label: 'Live It Out',
       sublabel: p.ref,
       main: p.apply,
-      caption: `${p.title} — Live It Out\n\n${p.apply}\n\nThe Red Letters · redletters.vercel.app`,
+      caption: `${p.title} — Live It Out\n\n${p.apply}\n\nThe Red Letters · redletters.eloraradiance.com`,
     }
     if (type === 'prayer') return {
       label: 'Pray It',
       sublabel: p.ref,
       main: p.prayer,
-      caption: `${p.title} — Prayer\n\n${p.prayer}\n\nThe Red Letters · redletters.vercel.app`,
+      caption: `${p.title} — Prayer\n\n${p.prayer}\n\nThe Red Letters · redletters.eloraradiance.com`,
     }
     return { label: '', sublabel: '', main: '', caption: '' }
   }

@@ -31,11 +31,11 @@ export default function Settings({ profile, userId, entries, passages, darkMode,
   const mem  = passages ? passages.filter(p => entries?.find(e => e.saying_id === p.id && e.field_key === 'mem')?.field_value === 'true').length : 0
   const total = passages?.length || 0
 
-  const shareText = 'The Red Letters — study the complete words of Jesus by theme. Every passage, with context, meaning, and prayer. Free.\n\nhttps://redletters.vercel.app'
+  const shareText = 'The Red Letters — study the complete words of Jesus by theme. Every passage, with context, meaning, and prayer. Free.\n\nhttps://redletters.eloraradiance.com'
 
   const handleShare = async () => {
     if (navigator.share) {
-      try { await navigator.share({ title: 'The Red Letters', text: shareText, url: 'https://redletters.vercel.app' }) }
+      try { await navigator.share({ title: 'The Red Letters', text: shareText, url: 'https://redletters.eloraradiance.com' }) }
       catch {}
     } else {
       try {
@@ -54,7 +54,7 @@ export default function Settings({ profile, userId, entries, passages, darkMode,
       const get = (pid, key) => data?.find(e => e.saying_id === pid && e.field_key === key)?.field_value || ''
       const lines = []
       lines.push('THE RED LETTERS — STUDY JOURNAL')
-      lines.push('Elora Radiance Co. | redletters.vercel.app')
+      lines.push('Elora Radiance Co. | redletters.eloraradiance.com')
       lines.push(`Exported: ${new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}`)
       lines.push('='.repeat(50))
       if (passages) {
@@ -78,7 +78,7 @@ export default function Settings({ profile, userId, entries, passages, darkMode,
       }
       lines.push('')
       lines.push('='.repeat(50))
-      lines.push('The words of Jesus — redletters.vercel.app')
+      lines.push('The words of Jesus — redletters.eloraradiance.com')
       const blob = new Blob([lines.join('\n')], { type: 'text/plain' })
       const url  = URL.createObjectURL(blob)
       const a    = document.createElement('a')
@@ -117,7 +117,7 @@ export default function Settings({ profile, userId, entries, passages, darkMode,
         if (journal) html += `<h3>Journal Entry</h3><p>${journal.split('\n').join('<br/>')}</p>`
       }
     }
-    html += `<hr style="border-color:rgba(139,26,26,0.2);margin-top:32px"/><p style="text-align:center;font-size:12px;color:#5E4E3C;font-style:normal">The words of Jesus — redletters.vercel.app</p></body></html>`
+    html += `<hr style="border-color:rgba(139,26,26,0.2);margin-top:32px"/><p style="text-align:center;font-size:12px;color:#5E4E3C;font-style:normal">The words of Jesus — redletters.eloraradiance.com</p></body></html>`
     // Print via a hidden iframe so we never navigate away or trap the user (critical in standalone PWA mode)
     const frame = document.createElement('iframe')
     frame.setAttribute('aria-hidden', 'true')
@@ -268,11 +268,11 @@ export default function Settings({ profile, userId, entries, passages, darkMode,
               The rest of the Elora Radiance ecosystem — Scripture-based tools for the whole Christian life.
             </p>
             {[
-              { label: 'Armed & Anchored', desc: 'Spiritual warfare training — 26 weapons', url: 'https://armedandanchored.vercel.app/', icon: '⚔️' },
-              { label: 'Anchored Steps · Year 1', desc: '52 weeks of faith in action', url: 'https://anchored-steps.vercel.app/', icon: '⚓' },
-              { label: 'Anchored Steps · Year 2', desc: '52 weeks of deeper study', url: 'https://anchored-steps-year2.vercel.app/', icon: '⚓' },
-              { label: 'Anchored Verse', desc: 'Scripture for every emotion — free', url: 'https://anchoredverse.vercel.app/', icon: '📖' },
-              { label: 'The Living Planner', desc: 'Faith-centered life planner', url: 'https://the-living-planner.vercel.app/', icon: '📓' },
+              { label: 'Armed & Anchored', desc: 'Spiritual warfare training — 26 weapons', url: 'https://armed.eloraradiance.com/', icon: '⚔️' },
+              { label: 'Anchored Steps · Year 1', desc: '52 weeks of faith in action', url: 'https://steps.eloraradiance.com/', icon: '⚓' },
+              { label: 'Anchored Steps · Year 2', desc: '52 weeks of deeper study', url: 'https://steps2.eloraradiance.com/', icon: '⚓' },
+              { label: 'Anchored Verse', desc: 'Scripture for every emotion — free', url: 'https://verse.eloraradiance.com/', icon: '📖' },
+              { label: 'The Living Planner', desc: 'Faith-centered life planner', url: 'https://planner.eloraradiance.com/', icon: '📓' },
             ].map(app => (
               <a key={app.url} href={app.url} target="_blank" rel="noopener noreferrer" style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '13px 14px', borderRadius: 12, marginBottom: 8, background: C.goldF, border: `1px solid ${C.goldB}`, textDecoration: 'none', transition: 'all .2s' }}>
                 <span style={{ fontSize: 22, flexShrink: 0 }}>{app.icon}</span>
