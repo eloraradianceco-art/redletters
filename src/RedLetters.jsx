@@ -552,7 +552,7 @@ export default function RedLetters({ session, profile }) {
     if(!userId) return
     setEntries(prev=>{const i=prev.findIndex(e=>e.saying_id===pid&&e.field_key===key);if(i>=0){const u=[...prev];u[i]={...u[i],field_value:val};return u;}return[...prev,{user_id:userId,saying_id:pid,field_key:key,field_value:val}]})
     const tk=`${pid}__${key}`;clearTimeout(saveTimers.current[tk])
-    saveTimers.current[tk]=setTimeout(()=>{supabase.from('rl_entries').upsert({user_id:userId,saying_id:pid,field_key:key,field_value:val,updated_at:new Date().toISOString()},{onConflict:'user_id,saying_id,field_key'})},1000)
+    saveTimers.current[tk]=setTimeout(()=>{supabase.from('rl_entries').upsert({user_id:userId,saying_id:pid,field_key:key,field_value:val,updated_at:new Date().toISOString()},{onConflict:'user_id,saying_id,field_key'}).then(({error})=>{if(error)console.warn('save:',error.message)})},1000) // .then() sends it: an unawaited Supabase query never runs
   },[userId])
 
   const toggleSave=(pid)=>{const wasIn=savedIds.includes(pid);const next=wasIn?savedIds.filter(x=>x!==pid):[...savedIds,pid];setSavedIds(next);try{localStorage.setItem('rl_saved',JSON.stringify(next))}catch{};if(userId)set(pid,'saved',wasIn?'':'true')}
