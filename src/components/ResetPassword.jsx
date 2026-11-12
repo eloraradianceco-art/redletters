@@ -64,7 +64,7 @@ export default function ResetPassword() {
     if (error) {
       setError(error.message)
     } else {
-      setMessage("Password updated. Taking you back to the Red Letters...")
+      setMessage("Password updated. Taking you back to The Red Letters…")
       setTimeout(() => { window.location.href = "https://redletters.vercel.app" }, 2000)
     }
     setLoading(false)

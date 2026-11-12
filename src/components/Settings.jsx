@@ -268,9 +268,9 @@ export default function Settings({ profile, userId, entries, passages, darkMode,
               The rest of the Elora Radiance ecosystem — Scripture-based tools for the whole Christian life.
             </p>
             {[
-              { label: 'Armed & Anchored', desc: 'Spiritual warfare training journal', url: 'https://armedandanchored.vercel.app/', icon: '⚔️' },
-              { label: 'Anchored Steps · Year 1', desc: 'Daily devotional · Year 1', url: 'https://anchored-steps.vercel.app/', icon: '⚓' },
-              { label: 'Anchored Steps · Year 2', desc: 'Daily devotional · Year 2', url: 'https://anchored-steps-year2.vercel.app/', icon: '⚓' },
+              { label: 'Armed & Anchored', desc: 'Spiritual warfare training — 26 weapons', url: 'https://armedandanchored.vercel.app/', icon: '⚔️' },
+              { label: 'Anchored Steps · Year 1', desc: '52 weeks of faith in action', url: 'https://anchored-steps.vercel.app/', icon: '⚓' },
+              { label: 'Anchored Steps · Year 2', desc: '52 weeks of deeper study', url: 'https://anchored-steps-year2.vercel.app/', icon: '⚓' },
               { label: 'Anchored Verse', desc: 'Scripture for every emotion — free', url: 'https://anchoredverse.vercel.app/', icon: '📖' },
               { label: 'The Living Planner', desc: 'Faith-centered life planner', url: 'https://the-living-planner.vercel.app/', icon: '📓' },
             ].map(app => (
