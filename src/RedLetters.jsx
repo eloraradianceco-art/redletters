@@ -533,9 +533,19 @@ export default function RedLetters({ session, profile }) {
       setEntries(data)
       // Cross-device sync: hydrate savedIds from entries where field_key='saved' and field_value='true'
       const serverSaved = data.filter(e=>e.field_key==='saved'&&e.field_value==='true').map(e=>e.saying_id)
-      if (serverSaved.length > 0) {
-        setSavedIds(serverSaved)
-        try { localStorage.setItem('rl_saved', JSON.stringify(serverSaved)) } catch {}
+      const serverUnsaved = data.filter(e=>e.field_key==='saved'&&e.field_value!=='true').map(e=>e.saying_id)
+      // Stars saved only on this device (auto-save didn't reach the account before 2026-11-12): keep them and upload them.
+      let local=[]; try { local=JSON.parse(localStorage.getItem('rl_saved')||'[]') } catch {}
+      const localOnly = (Array.isArray(local)?local:[]).filter(id=>!serverSaved.includes(id)&&!serverUnsaved.includes(id))
+      const merged = [...serverSaved, ...localOnly]
+      if (merged.length > 0) {
+        setSavedIds(merged)
+        try { localStorage.setItem('rl_saved', JSON.stringify(merged)) } catch {}
+      }
+      if (localOnly.length > 0) {
+        const now = new Date().toISOString()
+        supabase.from('rl_entries').upsert(localOnly.map(pid=>({user_id:userId,saying_id:pid,field_key:'saved',field_value:'true',updated_at:now})),{onConflict:'user_id,saying_id,field_key'})
+          .then(({error})=>{ if(error) console.warn('saved upload:', error.message) })
       }
       // Cross-device sync: dark mode preference (stored as saying_id='__user_prefs__', field_key='dark_mode')
       const dm = data.find(e=>e.saying_id==='__user_prefs__'&&e.field_key==='dark_mode')
