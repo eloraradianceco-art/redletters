@@ -1,6 +1,8 @@
 import { useState, useEffect, Component } from 'react'
 import { supabase } from './supabaseClient'
 import Auth from './components/Auth'
+import { Welcome } from './components/EntryScreens.jsx'
+import { BRAND } from './entryBrand.js'
 import Onboarding from './components/Onboarding'
 import RedLetters from './RedLetters'
 
@@ -109,6 +111,7 @@ function PasswordReset({ onDone }) {
 // ── App Inner ─────────────────────────────────────────────────────────────
 function AppInner() {
   const [session, setSession] = useState(null)
+  const [entry, setEntry] = useState(null) // null = welcome page; 'signup' | 'signin' = the account card
   const [profile, setProfile] = useState(null)
   const [loading, setLoading] = useState(true)
   const [showOnboarding, setShowOnboarding] = useState(false)
@@ -171,8 +174,10 @@ function AppInner() {
   if (showPasswordReset) return <PasswordReset onDone={() => setShowPasswordReset(false)} />
   if (loading) return <LoadingScreen />
 
-  // Not signed in
-  if (!session) return <Auth onComplete={handleAuthComplete} />
+  // Not signed in: the welcome page first, then create account / sign in
+  if (!session) return entry
+    ? <Auth key={entry} initialMode={entry} onComplete={handleAuthComplete} onBack={() => setEntry(null)} />
+    : <Welcome brand={BRAND} onPrimary={() => setEntry('signup')} onSignIn={() => setEntry('signin')} />
 
   // Show onboarding for new users
   if (showOnboarding || !onboarded) {

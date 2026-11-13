@@ -1,0 +1,35 @@
+// Words and colors for this app's welcome and sign-in screens (components/EntryScreens.jsx).
+export const BRAND = {
+  name: 'The Red Letters',
+  shortName: 'The Red Letters',
+  icon: '/icon.png',
+  free: true,
+  tagline: 'The Complete Words of Jesus',
+  verse: {
+    text: 'Come to me, all who labor and are heavy laden, and I will give you rest.',
+    ref: 'Matthew 11:28 · ESV',
+  },
+  features: [
+    { icon: '✦', text: '41 complete passages in Jesus’ own words, across 14 themes' },
+    { icon: '🧭', text: 'Context, Greek word studies and pronunciation for each' },
+    { icon: '🙏', text: 'A written prayer and reflection for every passage' },
+    { icon: '✍️', text: 'Save, memorize and journal, synced to your account' },
+  ],
+  cta: '✦ Create Free Account',
+  fine: 'Completely free · No credit card · No subscription',
+  signInPrompt: 'Already have an account?',
+  signupSubtitle: 'Create your free account',
+  colors: {
+    bg: '#F7F2EA',
+    glow: 'radial-gradient(ellipse at 50% 0%, rgba(139,26,26,0.09) 0%, transparent 55%), radial-gradient(ellipse at 80% 100%, rgba(139,106,46,0.07) 0%, transparent 50%)',
+    eyebrow: '#8B1A1A', title: '#1C150A', text: '#3D2E1A', muted: '#5E4E3C', accent: '#8B1A1A', link: '#8B1A1A',
+    card: '#EFE8DB', cardBorder: 'rgba(139,26,26,0.16)', cardShadow: '0 4px 24px rgba(139,26,26,0.06)',
+    divider: 'rgba(139,26,26,0.12)',
+    ctaBg: 'linear-gradient(135deg, #8B1A1A, #A02424)', ctaBorder: '#7A1515', ctaText: '#FBF6EE',
+    panel: '#EFE8DB', panelBorder: 'rgba(139,26,26,0.16)', panelShadow: '0 4px 24px rgba(139,26,26,0.08)',
+    inputBg: '#FAF6EF', inputBorder: 'rgba(139,26,26,0.26)', inputText: '#1C150A',
+    tabBg: 'rgba(139,26,26,0.04)', tabActiveBg: 'rgba(139,26,26,0.12)', tabActiveText: '#7A1515',
+    errorBg: 'rgba(139,26,26,0.08)', errorBorder: 'rgba(139,26,26,0.32)', errorText: '#7A1515',
+    okBg: 'rgba(46,96,64,0.08)', okBorder: 'rgba(46,96,64,0.32)', okText: '#2E6040',
+  },
+}
