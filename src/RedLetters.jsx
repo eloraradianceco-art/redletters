@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { supabase } from './supabaseClient'
+import { speak as readAloud } from './speech.js'
 import { THEMES, ALL_PASSAGES, GOSPEL_COLORS } from './data.js'
 import Settings from './components/Settings'
 
@@ -508,21 +509,15 @@ export default function RedLetters({ session, profile }) {
   const [showProgress,setShowProgress]=useState(false)
   const [journalSaved,setJournalSaved]=useState(false)
   const [speaking,setSpeaking]=useState(false)
+  // Word Study pronunciation (read-aloud fixes live in speech.js)
   const speak = entry => {
-    if (!window.speechSynthesis) return;
-    window.speechSynthesis.cancel();
     let text = entry.transliteration || "";
     if (!text && entry.original) {
       const m = entry.original.match(/\(([^)]+)\)/);
       text = m ? m[1].trim() : entry.original;
     }
     if (!text) return;
-    const utt = new SpeechSynthesisUtterance(text);
-    utt.rate = 0.72;
-    utt.onstart = () => setSpeaking(true);
-    utt.onend = () => setSpeaking(false);
-    utt.onerror = () => setSpeaking(false);
-    window.speechSynthesis.speak(utt);
+    readAloud(text, { rate: 0.72, onStart: () => setSpeaking(true), onEnd: () => setSpeaking(false), onError: () => setSpeaking(false) });
   };
   const saveTimers=useRef({})
 
