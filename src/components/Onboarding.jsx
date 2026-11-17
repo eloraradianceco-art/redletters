@@ -26,7 +26,7 @@ const SLIDES = [
   {
     icon: '🧭',
     title: 'Seven Layers of Study',
-    subtitle: 'Every passage opens into seven study tabs: The Passage · Context · Meaning · Word Study · Live It · Pray It · Journal.',
+    subtitle: 'Every passage opens into seven study sections: The Passage · Context · Meaning · Word Study · Live It · Pray It · Journal.',
     detail: 'Context tells you when and why He said it. Meaning unpacks what He meant. Live It shows you how to apply it today.',
     color: C.redL,
   },
