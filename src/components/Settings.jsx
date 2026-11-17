@@ -162,7 +162,7 @@ export default function Settings({ profile, userId, entries, passages, darkMode,
       overflowY: 'auto',
     }}>
       {showReviews && <Reviews app="rl" appName="The Red Letters" eyebrow="The Red Letters" userEmail={profile?.email} C={C} lightMode={!darkMode} onClose={() => setShowReviews(false)} />}
-      <div style={{ maxWidth: 560, margin: '0 auto', padding: '0 0 80px' }}>
+      <div style={{ maxWidth: 560, margin: '0 auto', padding: '0 0 calc(130px + env(safe-area-inset-bottom, 0px))' }}>
 
         {/* Header */}
         <div style={{
