@@ -5,6 +5,24 @@ import ReminderSettings from './ReminderSettings'
 import AccountPrivacy from './AccountPrivacy'
 import ScriptureCredits from './ScriptureCredits'
 
+// A row that opens on tap: emoji, title, one line of detail. Defined outside Settings so a row stays open when the
+// page re-renders (a component defined inside would be rebuilt each time and snap shut).
+function FoldRow({ C, id, emoji, title, sub, first = false, children }) {
+  return (
+    <details id={id} className="as-fold" style={{ borderTop: first ? 'none' : `1px solid ${C.border}` }}>
+      <summary style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '14px 16px', cursor: 'pointer', listStyle: 'none', touchAction: 'manipulation' }}>
+        <span aria-hidden="true" style={{ fontSize: 20, width: 28, textAlign: 'center', flexShrink: 0 }}>{emoji}</span>
+        <span style={{ flex: 1, minWidth: 0 }}>
+          <span style={{ display: 'block', fontSize: 14, color: C.cream, fontFamily: "'Cinzel',Georgia,serif", letterSpacing: '0.04em' }}>{title}</span>
+          {sub && <span style={{ display: 'block', fontSize: 15, color: C.muted, fontStyle: 'italic', marginTop: 1 }}>{sub}</span>}
+        </span>
+        <span aria-hidden="true" className="as-fold-caret" style={{ color: C.muted, fontSize: 13, flexShrink: 0 }}>▾</span>
+      </summary>
+      <div style={{ padding: '2px 14px 16px' }}>{children}</div>
+    </details>
+  )
+}
+
 export default function Settings({ profile, userId, entries, passages, darkMode, onToggleDarkMode, onClose }) {
   const C = darkMode ? {
     bg:'#0F0A06', bgCard:'rgba(201,64,64,0.07)', bgMid:'#1A0E08',
@@ -180,10 +198,41 @@ export default function Settings({ profile, userId, entries, passages, darkMode,
 
         <div style={{ padding: '8px 20px' }}>
 
-          {/* Progress */}
-          <div style={{ marginTop: 24, marginBottom: 8 }}>
-            <div style={{ fontSize: 9, color: C.muted, letterSpacing: '0.14em', textTransform: 'uppercase', fontFamily: "'Cinzel',Georgia,serif", marginBottom: 4 }}>Your Progress</div>
+          {/* Settings 2026-11-19: your account and the light/dark switch stay open; everything else is a row that opens on tap */}
+          <style>{`.as-fold > summary::-webkit-details-marker{display:none}.as-fold-caret{display:inline-block;transition:transform .2s}.as-fold[open] > summary .as-fold-caret{transform:rotate(180deg)}`}</style>
+          <div style={{ background: C.bgCard, border: `1px solid ${C.border}`, borderRadius: 14, padding: '0 16px', marginTop: 18 }}>
+            <Row icon="✉️" label={profile?.email || 'Your account'}>
+              <span style={{ fontSize: 11, color: C.green }}>✦ Free Access</span>
+            </Row>
+        <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between',
+          padding:'16px 0', borderBottom:'none' }}>
+          <div style={{ display:'flex', alignItems:'center', gap:12 }}>
+            <span style={{ fontSize:18, width:26, textAlign:'center' }}>{darkMode ? '🌙' : '☀️'}</span>
+            <span style={{ fontSize:16, color:C.text, fontFamily:"'EB Garamond',Georgia,serif" }}>
+              {darkMode ? 'Dark Mode' : 'Light Mode'}
+            </span>
           </div>
+          <div onClick={onToggleDarkMode} style={{ width:48, height:28, borderRadius:14, cursor:'pointer',
+            background: darkMode ? C.red : C.bgCard,
+            border:`1px solid ${darkMode ? C.redB : C.border}`,
+            position:'relative', transition:'all .25s' }}>
+            <div style={{ position:'absolute', top:3, left: darkMode ? 22 : 3, width:20, height:20,
+              borderRadius:'50%', background: darkMode ? '#fff' : C.muted,
+              transition:'left .25s', boxShadow:'0 1px 4px rgba(0,0,0,0.3)' }}/>
+          </div>
+        </div>
+          </div>
+
+          <div style={{ border: `1px solid ${C.border}`, borderRadius: 14, overflow: 'hidden', marginTop: 14, background: C.bgCard }}>
+            <FoldRow C={C} id="set-reminders" emoji="🔔" title="Reminders" sub="A daily nudge to keep going" first>
+              <div style={{ marginTop: -22 }}>
+          <ReminderSettings supabase={supabase} app="rl" theme={{
+            text: C.text, muted: C.muted, accent: darkMode ? C.redL : C.red, accentF: C.redF, accentB: C.redB,
+            card: C.bgCard, border: C.border, dark: darkMode,
+          }} />
+              </div>
+            </FoldRow>
+            <FoldRow C={C} id="set-progress" emoji="📊" title="Progress" sub="Where you are so far">
           <div style={{ background: C.bgCard, border: `1px solid ${C.border}`, borderRadius: 14, padding: '16px' }}>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 10, marginBottom: 14 }}>
               {[[read, 'Passages Read'], [mem, 'Memorized'], [total, 'Total Passages']].map(([v, l]) => (
@@ -209,44 +258,21 @@ export default function Settings({ profile, userId, entries, passages, darkMode,
               {resetDone ? '✓ Progress Reset' : '↺ Reset Reading Progress'}
             </button>
           </div>
-
-          <ReminderSettings supabase={supabase} app="rl" theme={{
-            text: C.text, muted: C.muted, accent: darkMode ? C.redL : C.red, accentF: C.redF, accentB: C.redB,
-            card: C.bgCard, border: C.border, dark: darkMode,
-          }} />
-
-          {/* Account */}
-          <div style={{ marginTop: 24, marginBottom: 8 }}>
-            <div style={{ fontSize: 9, color: C.muted, letterSpacing: '0.14em', textTransform: 'uppercase', fontFamily: "'Cinzel',Georgia,serif", marginBottom: 4 }}>Account</div>
+            </FoldRow>
+            <FoldRow C={C} id="set-data" emoji="📥" title="Your Data" sub="Export or print your journal">
+          <div style={{ background: C.bgCard, border: `1px solid ${C.border}`, borderRadius: 14, padding: '16px' }}>
+            <p style={{ fontSize: 14, color: C.text, lineHeight: 1.7, marginBottom: 14 }}>
+              Download all your journal entries and memorized passages as a text file.
+            </p>
+            <button onClick={handleExport} disabled={exporting} style={{ width: '100%', background: exporting ? 'transparent' : C.goldF, border: `1px solid ${exporting ? C.border : C.goldB}`, color: exporting ? C.muted : C.gold, padding: '13px', borderRadius: 12, cursor: exporting ? 'default' : 'pointer', fontSize: 13, fontFamily: "'Cinzel',Georgia,serif", letterSpacing: '0.08em', transition: 'all .25s', marginBottom: 8 }}>
+              {exporting ? 'Preparing Export…' : '📥 Export Journal'}
+            </button>
+            <button onClick={handlePrintPDF} style={{ width: '100%', padding: '13px', borderRadius: 12, cursor: 'pointer', background: C.bgCard, border: `1px solid ${C.border}`, color: C.muted, fontSize: 12, fontFamily: "'Cinzel',Georgia,serif", letterSpacing: '0.08em' }}>
+              🖨️ Print as PDF
+            </button>
           </div>
-          <div style={{ background: C.bgCard, border: `1px solid ${C.border}`, borderRadius: 14, padding: '0 16px' }}>
-            <Row icon="✉️" label={profile?.email || 'Your account'}>
-              <span style={{ fontSize: 11, color: C.green }}>✦ Free Access</span>
-            </Row>
-            <Row icon="⭐" label="Ratings & Reviews">
-              <button onClick={() => setShowReviews(true)} style={{ background: C.goldF, border: `1px solid ${C.goldB}`, color: C.gold, padding: '6px 16px', borderRadius: 10, fontSize: 12, fontFamily: "'Cinzel',Georgia,serif", cursor: 'pointer', letterSpacing: '0.06em' }}>Open</button>
-            </Row>
-            <Row icon="🛟" label="Email Support">
-              <a href="mailto:support@eloraradiance.com" style={{ background: C.goldF, border: `1px solid ${C.goldB}`, color: C.gold, padding: '6px 16px', borderRadius: 10, fontSize: 12, fontFamily: "'Cinzel',Georgia,serif", textDecoration: 'none', display: 'inline-block', letterSpacing: '0.06em' }}>Contact</a>
-            </Row>
-            <Row icon="🚪" label="Sign Out" border={false}>
-              <button onClick={handleSignOut} disabled={signingOut} style={{ background: C.redF, border: `1px solid ${C.redB}`, color: C.redL, padding: '6px 16px', borderRadius: 10, cursor: 'pointer', fontSize: 12, fontFamily: "'Cinzel',Georgia,serif", letterSpacing: '0.07em' }}>
-                {signingOut ? 'Signing out...' : 'Sign Out'}
-              </button>
-            </Row>
-          </div>
-
-          <AccountPrivacy supabase={supabase} theme={{
-            text: C.text, muted: C.muted, card: C.bgCard, border: C.border,
-            danger: darkMode ? C.redL : C.red, dangerF: C.redF, dangerB: C.redB, dark: darkMode,
-          }} />
-
-          <ScriptureCredits notices={['ESV_ALL']} theme={{ text: C.text, muted: C.muted, card: C.bgCard, border: C.border }} />
-
-          {/* Share */}
-          <div style={{ marginTop: 24, marginBottom: 8 }}>
-            <div style={{ fontSize: 9, color: C.muted, letterSpacing: '0.14em', textTransform: 'uppercase', fontFamily: "'Cinzel',Georgia,serif", marginBottom: 4 }}>Share</div>
-          </div>
+            </FoldRow>
+            <FoldRow C={C} id="set-share" emoji="🔗" title="Share" sub="Send the app to someone who needs it">
           <div style={{ background: C.bgCard, border: `1px solid ${C.border}`, borderRadius: 14, padding: '16px' }}>
             <p style={{ fontSize: 15, color: C.text, lineHeight: 1.75, marginBottom: 14 }}>
               Know someone who wants to go deeper in the words of Jesus? Share The Red Letters with them — it's completely free.
@@ -258,11 +284,26 @@ export default function Settings({ profile, userId, entries, passages, darkMode,
               {copiedShare ? '✓ Copied — Send It to Someone' : '🔗 Share The Red Letters'}
             </button>
           </div>
-
-          {/* More from Elora Radiance */}
-          <div style={{ marginTop: 24, marginBottom: 8 }}>
-            <div style={{ fontSize: 9, color: C.muted, letterSpacing: '0.14em', textTransform: 'uppercase', fontFamily: "'Cinzel',Georgia,serif", marginBottom: 4 }}>More from Elora Radiance Co.</div>
-          </div>
+            </FoldRow>
+            <FoldRow C={C} id="set-support" emoji="🛟" title="Reviews & Support" sub="Leave a review or email us">
+              <div style={{ padding: '0 4px' }}>
+            <Row icon="⭐" label="Ratings & Reviews">
+              <button onClick={() => setShowReviews(true)} style={{ background: C.goldF, border: `1px solid ${C.goldB}`, color: C.gold, padding: '6px 16px', borderRadius: 10, fontSize: 12, fontFamily: "'Cinzel',Georgia,serif", cursor: 'pointer', letterSpacing: '0.06em' }}>Open</button>
+            </Row>
+            <Row icon="🛟" label="Email Support" border={false}>
+              <a href="mailto:support@eloraradiance.com" style={{ background: C.goldF, border: `1px solid ${C.goldB}`, color: C.gold, padding: '6px 16px', borderRadius: 10, fontSize: 12, fontFamily: "'Cinzel',Georgia,serif", textDecoration: 'none', display: 'inline-block', letterSpacing: '0.06em' }}>Contact</a>
+            </Row>
+              </div>
+            </FoldRow>
+            <FoldRow C={C} id="set-privacy" emoji="🔒" title="Privacy & Account" sub="Policies and deleting your account">
+              <div style={{ marginTop: -22 }}>
+          <AccountPrivacy supabase={supabase} theme={{
+            text: C.text, muted: C.muted, card: C.bgCard, border: C.border,
+            danger: darkMode ? C.redL : C.red, dangerF: C.redF, dangerB: C.redB, dark: darkMode,
+          }} />
+              </div>
+            </FoldRow>
+            <FoldRow C={C} id="set-more" emoji="🌿" title="More from Elora Radiance Co." sub="The other apps in the family">
           <div style={{ background: C.bgCard, border: `1px solid ${C.border}`, borderRadius: 14, padding: '12px 16px' }}>
             <p style={{ fontSize: 13, color: C.muted, fontStyle: 'italic', lineHeight: 1.7, marginBottom: 14 }}>
               The rest of the Elora Radiance ecosystem — Scripture-based tools for the whole Christian life.
@@ -284,52 +325,13 @@ export default function Settings({ profile, userId, entries, passages, darkMode,
               </a>
             ))}
           </div>
-
-          {/* Export */}
-          <div style={{ marginTop: 24, marginBottom: 8 }}>
-            <div style={{ fontSize: 9, color: C.muted, letterSpacing: '0.14em', textTransform: 'uppercase', fontFamily: "'Cinzel',Georgia,serif", marginBottom: 4 }}>Your Data</div>
-          </div>
-          <div style={{ background: C.bgCard, border: `1px solid ${C.border}`, borderRadius: 14, padding: '16px' }}>
-            <p style={{ fontSize: 14, color: C.text, lineHeight: 1.7, marginBottom: 14 }}>
-              Download all your journal entries and memorized passages as a text file.
-            </p>
-            <button onClick={handleExport} disabled={exporting} style={{ width: '100%', background: exporting ? 'transparent' : C.goldF, border: `1px solid ${exporting ? C.border : C.goldB}`, color: exporting ? C.muted : C.gold, padding: '13px', borderRadius: 12, cursor: exporting ? 'default' : 'pointer', fontSize: 13, fontFamily: "'Cinzel',Georgia,serif", letterSpacing: '0.08em', transition: 'all .25s', marginBottom: 8 }}>
-              {exporting ? 'Preparing Export…' : '📥 Export Journal'}
-            </button>
-            <button onClick={handlePrintPDF} style={{ width: '100%', padding: '13px', borderRadius: 12, cursor: 'pointer', background: C.bgCard, border: `1px solid ${C.border}`, color: C.muted, fontSize: 12, fontFamily: "'Cinzel',Georgia,serif", letterSpacing: '0.08em' }}>
-              🖨️ Print as PDF
-            </button>
-          </div>
-
-          {/* Appearance */}
-      <div style={{ marginTop:24, marginBottom:8 }}>
-        <div style={{ fontSize:9, color:C.muted, letterSpacing:'0.14em', textTransform:'uppercase',
-          fontFamily:"'Cinzel',Georgia,serif", marginBottom:4 }}>Appearance</div>
-      </div>
-      <div style={{ background:C.bgCard, border:`1px solid ${C.border}`, borderRadius:14, padding:'0 16px' }}>
-        <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between',
-          padding:'16px 0', borderBottom:'none' }}>
-          <div style={{ display:'flex', alignItems:'center', gap:12 }}>
-            <span style={{ fontSize:18, width:26, textAlign:'center' }}>{darkMode ? '🌙' : '☀️'}</span>
-            <span style={{ fontSize:16, color:C.text, fontFamily:"'EB Garamond',Georgia,serif" }}>
-              {darkMode ? 'Dark Mode' : 'Light Mode'}
-            </span>
-          </div>
-          <div onClick={onToggleDarkMode} style={{ width:48, height:28, borderRadius:14, cursor:'pointer',
-            background: darkMode ? C.red : C.bgCard,
-            border:`1px solid ${darkMode ? C.redB : C.border}`,
-            position:'relative', transition:'all .25s' }}>
-            <div style={{ position:'absolute', top:3, left: darkMode ? 22 : 3, width:20, height:20,
-              borderRadius:'50%', background: darkMode ? '#fff' : C.muted,
-              transition:'left .25s', boxShadow:'0 1px 4px rgba(0,0,0,0.3)' }}/>
-          </div>
-        </div>
-      </div>
-
-      {/* About */}
-          <div style={{ marginTop: 24, marginBottom: 8 }}>
-            <div style={{ fontSize: 9, color: C.muted, letterSpacing: '0.14em', textTransform: 'uppercase', fontFamily: "'Cinzel',Georgia,serif", marginBottom: 4 }}>About</div>
-          </div>
+            </FoldRow>
+            <FoldRow C={C} id="set-credits" emoji="📖" title="Scripture Credits" sub="Translations used in this app">
+              <div style={{ marginTop: -22 }}>
+          <ScriptureCredits notices={['ESV_ALL']} theme={{ text: C.text, muted: C.muted, card: C.bgCard, border: C.border }} />
+              </div>
+            </FoldRow>
+            <FoldRow C={C} id="set-about" emoji="ℹ️" title="About" sub="The Red Letters v1.0">
           <p style={{ fontSize: 13, color: C.muted, lineHeight: 1.65, margin: '0 0 10px', fontFamily: "'EB Garamond',Georgia,serif" }}>The words of Jesus, gathered by theme &mdash; a quiet space to read, reflect, journal, and memorize.</p>
           <div style={{ background: C.bgCard, border: `1px solid ${C.border}`, borderRadius: 14, padding: '0 16px' }}>
             <Row icon="✦" label="The Red Letters">
@@ -340,6 +342,14 @@ export default function Settings({ profile, userId, entries, passages, darkMode,
               <span style={{ fontSize: 11, color: C.gold }}>eloraradiance.com &rarr;</span>
             </Row>
             </a>
+          </div>
+            </FoldRow>
+          </div>
+
+          <div style={{ marginTop: 18, display: 'flex', justifyContent: 'center' }}>
+              <button onClick={handleSignOut} disabled={signingOut} style={{ background: C.redF, border: `1px solid ${C.redB}`, color: C.redL, padding: '6px 16px', borderRadius: 10, cursor: 'pointer', fontSize: 12, fontFamily: "'Cinzel',Georgia,serif", letterSpacing: '0.07em' }}>
+                {signingOut ? 'Signing out...' : 'Sign Out'}
+              </button>
           </div>
 
         </div>
