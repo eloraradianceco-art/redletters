@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { supabase } from './supabaseClient'
-import { speak as readAloud, stopSpeaking } from './speech.js'
+import { speak as readAloud, stopSpeaking, silentSwitchMayMute } from './speech.js'
 import { THEMES, ALL_PASSAGES, GOSPEL_COLORS } from './data.js'
 import Settings from './components/Settings'
 
@@ -525,6 +525,8 @@ export default function RedLetters({ session, profile }) {
   const [journalSaved,setJournalSaved]=useState(false)
   const [speaking,setSpeaking]=useState(false)       // Word Study pronunciation
   const [listening,setListening]=useState(null)      // id of the passage being read aloud
+  const [listenMsg,setListenMsg]=useState('')        // shown briefly when Listen can't play
+  useEffect(()=>{ if(!listenMsg) return; const t=setTimeout(()=>setListenMsg(''),4000); return ()=>clearTimeout(t) },[listenMsg])
   const [lastId,setLastId]=useState(()=>{try{return localStorage.getItem('rl_last')||''}catch{return ''}})
 
   // Word Study pronunciation (read-aloud fixes live in speech.js)
@@ -541,8 +543,12 @@ export default function RedLetters({ session, profile }) {
   const listen = (p) => {
     if (listening === p.id) { stopSpeaking(); setListening(null); return }
     stopSpeaking()
-    setListening(p.id)
-    readAloud(p.text, { rate: 0.9, onEnd: () => setListening(null), onError: () => setListening(null) })
+    setListening(p.id); setListenMsg('')
+    // If nothing can play, the button goes back to Listen and a short message says why (same wording as the other apps).
+    const ok = readAloud(p.text, { rate: 0.9, onEnd: () => setListening(null), onError: () => { setListening(null); setListenMsg('Couldn’t play the audio. Check that your volume is up, then tap Listen again.') } })
+    if (!ok) { setListening(null); setListenMsg('Listening isn’t supported in this browser.'); return }
+    // Older iPhones still mute read-aloud with the Silent switch: say so once.
+    try { if (silentSwitchMayMute() && !localStorage.getItem('listen_tip')) { localStorage.setItem('listen_tip','1'); setListenMsg('No sound? Turn off Silent Mode with the switch on the side of your iPhone, and turn the volume up.') } } catch (e) { /* ignore */ }
   }
   const quiet = () => { if (listening) { stopSpeaking(); setListening(null) } }
   const saveTimers=useRef({})
@@ -659,7 +665,8 @@ export default function RedLetters({ session, profile }) {
     </header>
   )
 
-  const tabBar=()=>(
+  const tabBar=()=>(<>
+    {listenMsg&&<div role="status" style={{position:'fixed',left:16,right:16,bottom:'calc(84px + env(safe-area-inset-bottom, 0px))',zIndex:460,maxWidth:520,margin:'0 auto',background:darkMode?'#2A1F14':'#2A1A0E',color:'#F7F2EA',border:`1px solid ${C.goldB}`,borderRadius:14,padding:'12px 16px',fontSize:16,lineHeight:1.5,textAlign:'center',boxShadow:'0 8px 24px rgba(0,0,0,0.35)'}}>{listenMsg}</div>}
     <nav aria-label="Main" style={{position:'fixed',left:0,right:0,bottom:0,zIndex:450,background:darkMode?'rgba(15,10,6,0.97)':'rgba(247,242,234,0.97)',backdropFilter:'blur(18px)',WebkitBackdropFilter:'blur(18px)',borderTop:`1px solid ${C.border}`,boxShadow:darkMode?'0 -8px 28px rgba(0,0,0,0.35)':'0 -8px 28px rgba(60,30,10,0.08)',paddingBottom:'env(safe-area-inset-bottom, 0px)'}}>
       <div style={{display:'flex',maxWidth:560,margin:'0 auto'}}>
         {[['read','📖','Read'],['search','🔍','Search'],['saved','⭐','Saved'],['progress','📊','Progress'],['settings','⚙️','Settings']].map(([id,icon,label])=>{
@@ -675,7 +682,7 @@ export default function RedLetters({ session, profile }) {
         })}
       </div>
     </nav>
-  )
+  </>)
 
   const page=(content)=>(
     <div style={{minHeight:'100vh',background:C.bg,fontFamily:GA,color:C.text}}>
@@ -909,11 +916,12 @@ export default function RedLetters({ session, profile }) {
   const journalVal=get(p.id,'journal')
   return page(
     <div style={{maxWidth:760,margin:'0 auto',padding:`6px 18px ${PAD_BOTTOM}`}}>
+      {/* Floating share button (2026-11-19): the one share button for the open passage */}
+      <button onClick={()=>setSharePassage(p)} aria-label="Share this passage" style={{position:'fixed',right:16,bottom:`calc(${TAB_BAR_H + 14}px + env(safe-area-inset-bottom, 0px))`,zIndex:440,width:48,height:48,borderRadius:'50%',background:`linear-gradient(135deg, ${C.red}, ${C.gold})`,border:'none',color:'#fff',fontSize:20,cursor:'pointer',boxShadow:'0 6px 18px rgba(139,26,26,0.4), 0 2px 6px rgba(0,0,0,0.3)',display:'flex',alignItems:'center',justifyContent:'center',touchAction:'manipulation'}}>↗</button>
       <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',gap:8}}>
         <button onClick={()=>{quiet();setView('theme');top()}} style={backLink}>‹ {t.icon} {t.title}</button>
         <div style={{display:'flex',gap:8}}>
           <button onClick={()=>toggleSave(p.id)} aria-label={isSaved(p.id)?'Remove from saved':'Save passage'} style={iconBtn(isSaved(p.id))}>{isSaved(p.id)?'★':'☆'}</button>
-          <button onClick={()=>setSharePassage(p)} aria-label="Share this passage" style={iconBtn(false)}>↗</button>
         </div>
       </div>
 
