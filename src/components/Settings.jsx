@@ -328,7 +328,7 @@ export default function Settings({ profile, userId, entries, passages, darkMode,
             </FoldRow>
             <FoldRow C={C} id="set-credits" emoji="📖" title="Scripture Credits" sub="Translations used in this app">
               <div style={{ marginTop: -22 }}>
-          <ScriptureCredits notices={['ESV_ALL']} theme={{ text: C.text, muted: C.muted, card: C.bgCard, border: C.border }} />
+          <ScriptureCredits notices={['BSB']} theme={{ text: C.text, muted: C.muted, card: C.bgCard, border: C.border }} />
               </div>
             </FoldRow>
             <FoldRow C={C} id="set-about" emoji="ℹ️" title="About" sub="The Red Letters v1.0">

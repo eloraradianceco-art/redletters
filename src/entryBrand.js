@@ -6,8 +6,8 @@ export const BRAND = {
   free: true,
   tagline: 'The Complete Words of Jesus',
   verse: {
-    text: 'Come to me, all who labor and are heavy laden, and I will give you rest.',
-    ref: 'Matthew 11:28 · ESV',
+    text: 'Come to Me, all you who are weary and burdened, and I will give you rest.',
+    ref: 'Matthew 11:28 · BSB',
   },
   features: [
     { icon: '✦', text: '41 complete passages in Jesus’ own words, across 14 themes' },

@@ -494,6 +494,8 @@ const dayNumber = (ymd = localDay()) => { const [y, m, d] = ymd.split('-').map(N
 const todaysPassage = () => ALL_PASSAGES[((dayNumber() % ALL_PASSAGES.length) + ALL_PASSAGES.length) % ALL_PASSAGES.length]
 const themeOf = (p) => THEMES.find(t => t.id === p?.themeId)
 const firstPara = (text = '') => text.split('\n\n')[0]
+// The same passage on Crossway's own site, for anyone who wants to read it in the ESV. Nothing is copied into the app.
+const esvUrl = (ref = '') => `https://www.esv.org/${encodeURIComponent(String(ref).replace(/\s*\(.*?\)/g, '').replace(/([,;])\s+/g, '$1').trim()).replace(/%20/g, '+').replace(/%3A/g, ':').replace(/%2C/g, ',').replace(/%3B/g, ';')}/`
 // The lines shown on a card: the passage's own highlight when its opening isn't Jesus speaking, else its first paragraph
 const excerpt = (p) => (p.highlight || firstPara(p.text)).replace(/\n/g, ' ')
 const clamp = (n) => ({ display: '-webkit-box', WebkitLineClamp: n, WebkitBoxOrient: 'vertical', overflow: 'hidden' })
@@ -969,6 +971,7 @@ export default function RedLetters({ session, profile }) {
                 <p key={i} style={{fontSize:20,lineHeight:1.9,color:C.red,fontStyle:'italic',margin:i<all.length-1?'0 0 18px':0,letterSpacing:'0.01em',whiteSpace:'pre-line'}}>{para}</p>
               ))}
               <div style={{marginTop:16,textAlign:'right'}}>{refText(p)}</div>
+              <div style={{marginTop:6,textAlign:'right'}}><a href={esvUrl(p.ref)} target="_blank" rel="noopener noreferrer" style={{display:'inline-block',padding:'6px 0',fontSize:14,color:C.muted,fontFamily:GA,textDecoration:'underline',textUnderlineOffset:3}}>Read this passage in the ESV <span aria-hidden="true">↗</span></a></div>
             </div>
             <div style={{display:'flex',gap:10,marginTop:14,flexWrap:'wrap'}}>
               <button onClick={()=>listen(p)} aria-pressed={listening===p.id} style={{...btnSecondary,flex:1}}>{listening===p.id?'■ Stop':'🔊 Listen'}</button>
